@@ -1,0 +1,19 @@
+// a) illegal
+// definitions cannot be written mid-expression like that.
+// correction
+// int input_value;
+// std::cin >> input_value;
+
+// b) illegal
+// using the braces notation will make the compiler complain
+// about data loss in conversion
+// correction
+// int i = { 3 };
+
+// c) legal if wage was defined previously. illegal otherwise.
+// assigns the value 9999.99 to wage, and then uses the
+// return value of the assignment operation (9999.99) to
+// initialize salary.
+
+// d) legal.
+// 3.14 will be truncated to 3 before initialization.
