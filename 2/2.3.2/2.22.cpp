@@ -1,0 +1,5 @@
+// the former one checks if p is a null pointer. if not, then the
+// statements are executed.
+
+// the latter one checks if the variable pointed to by p is 0. if not,
+// then the statements are executed.
