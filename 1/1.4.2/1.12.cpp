@@ -1,3 +1,0 @@
-// the loop stores the sum from -100 to 100 inclusive in
-// the int variable sum. The final value of sum is 0
-// since each -n is cancelled by the corresponding +n.
