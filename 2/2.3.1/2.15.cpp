@@ -1,4 +1,0 @@
-// a) valid.
-// b) invalid, reference to literals is illegal.
-// c) valid.
-// d) invalid. references must be initialized.
