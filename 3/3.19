@@ -1,0 +1,11 @@
+vector<int> v1(10, 42);
+
+vector<int> v2;
+for(unsigned i = 1; i != 10; ++i)
+        v3.push_back(42);
+
+vector<int> v3(10);
+for(auto &n : v3)
+        n = 42;
+
+the first method. less typing, most likely faster than the other two as well.

@@ -1,0 +1,8 @@
+with the string input operator, leading whitespace is ignored until the first
+non whitespace character. input is taken until the first whitespace character
+appears. in this way, the string input operator never stores a whitespace
+character in the string.
+
+with the getline function, string input is taken until the next newline
+character appears in the stream. all types of characters except the newline
+character itself is stored in the string. this includes whitespace characters.

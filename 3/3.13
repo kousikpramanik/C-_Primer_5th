@@ -1,0 +1,7 @@
+a) no elements.
+b) 10 elements, each has the value 0.
+c) 10 elements, each has the value 42.
+d) 1 element. has the value 10.
+e) 2 elements. the first one has the value 10, the second one has the value 42.
+f) 10 elements. all of them are the empty string.
+g) 10 elements. all of them contain the string "hi".
