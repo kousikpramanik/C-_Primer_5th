@@ -1,0 +1,3 @@
+it would make p1 point to where p2 is currently pointing to.
+since p1 and p2 point to elements in the same array to begin with,
+there is no case where the code may become illegal.

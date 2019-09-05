@@ -5,6 +5,7 @@ b) the type of the initializer is used to determine the type of
 c) top level consts are ignored unless explicitly specified, or
    unless the new variable is declared a reference type.
 d) to create a reference type, we have to use the & operator.
+e) auto i = arr; where arr is an array causes i to be a pointer type.
 
 decltype
 a) initialization is mandatory only if the type is deduced to
@@ -16,3 +17,4 @@ b) decltype deduces the type of the new variable using the expression
 c) decltype ignores neither top level consts nor references.
 d) references are created without the need of manually specifying the
    & operator.
+e) decltype(arr) i; where arr is an array causes i to be an array type.

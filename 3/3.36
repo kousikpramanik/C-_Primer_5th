@@ -1,0 +1,21 @@
+array comparison
+#include <iostream>
+#include <cstddef>
+
+std::cout << "The arrays are ";
+for(std::ptrdiff_t i = 0; i != arr_size; ++i) { // assume same size
+        if(arr1[i] != arr2[i]) {
+                std::cout << "not ";
+                break;
+        }
+}
+std::cout << "equal." << std::endl;
+
+vector comparison
+#include <iostream>
+#include <vector>
+
+std::cout << "The vectors are ";
+if(vect1 != vect2)
+        std::cout << "not ";
+std::cout << "equal." << std::endl;
