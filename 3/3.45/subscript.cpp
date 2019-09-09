@@ -9,7 +9,7 @@ int main()
                 { 8, 9, 10, 11 }
         };
 
-        for (auto i = (size_t) 0; i != 3; ++i) {
+        for (size_t i = 0; i != 3; ++i) {
                 for (decltype(i) j = 0; j != 4; ++j)
                         std::cout << ia[i][j] << ' ';
                 std::cout << std::endl;
