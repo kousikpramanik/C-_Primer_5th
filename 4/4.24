@@ -1,0 +1,5 @@
+grade would be compared to 90, the result would determine whether the string
+"high pass" is evaluated (check if the resulting pointer to const char is null)
+or (grade < 60) is evaluated. the result is in any case a boolean, and its truth
+would cause one of the remaining two statements to be evaluated without having
+any effect.

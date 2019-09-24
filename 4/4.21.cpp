@@ -17,7 +17,7 @@ int main()
 
         std::cout << "Now doubling odd values." << std::endl;
         for (auto &n : vect)
-                ((n % 2) == 0) ?: n *= 2;
+                n % 2 ? n *= 2 : n; // a ?: b; is a gcc special feature.
 
         std::cout << "Here is the vector again: ";
         for (const auto &n : vect)
