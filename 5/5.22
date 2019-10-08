@@ -1,0 +1,3 @@
+int sz;
+while ((sz = get_size()) <= 0)
+    continue;

@@ -1,0 +1,13 @@
+a) correction -
+   int ix;
+   for (ix = 0; ix != sz; ++ix) { /* ... */ }
+   if (ix != sz)
+       // ...
+
+b) correction -
+   int ix;
+   for (; ix != sz; ++ix) { /* ... */ }
+
+c) ix and sz would never be equal if we keep incrementing both.
+   correction -
+   for (int ix = 0; ix != sz; ++ix) { /* ... */ }
