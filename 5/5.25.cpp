@@ -10,7 +10,7 @@ int main() {
                 throw std::domain_error("Divisor cannot be zero.");
             std::cout << dividend << " / " << divisor << " = " << dividend / divisor << std::endl;
             break;
-        } catch (std::domain_error err) {
+        } catch (std::domain_error &err) {
             std::cout << err.what() << "\nWant to try again? (enter y or n): ";
             char c;
             std::cin >> c;
