@@ -1,0 +1,19 @@
+a) return type is int, but the function returns a string.
+   correction -
+   string f() {
+       string s;
+       // ...
+       return s;
+   }
+
+b) no return type mentioned.
+   correction -
+   void f2(int i) { /* ... */ }
+
+c) missing opening brace, same parameter name used twice.
+   correction -
+   int calc(int v1, int v2) { /* ... */ }
+
+d) missing braces.
+   correction -
+   double square(double x) { return x * x; }
