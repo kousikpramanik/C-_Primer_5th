@@ -1,0 +1,9 @@
+s is a reference because s is large. otherwise copying it could have a huge overhead.
+s is const because we do not need to modify s in the function, it is good practice to keep such variables const.
+
+occurs is a reference because we need to modify it.
+it is a plain reference because we need to modify it. if we made it const, it would be impossible to store the number
+in it.
+
+c is not a reference because it is small and copying it will likely have less overhead than dereferencing a char&.
+further, we have no need to modify it.
