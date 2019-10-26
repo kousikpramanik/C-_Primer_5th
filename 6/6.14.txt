@@ -4,8 +4,7 @@ void reset(int &n) {
     n = 0;
 }
 
-when only access is needed, references should be used if the object is large. copies should be used for smaller
-objects. this is because dereferencing smaller objects is likely going to have a higher overhead than just copying it.
+when only access is needed, references should be used if the object is large. copies should be used for smaller objects. this is because dereferencing smaller objects is likely going to have a higher overhead than just copying it.
 int startsWith(char c, const std::vector<std::string> &vect) {
     int ret = 0;
     for(const auto &s : vect) {

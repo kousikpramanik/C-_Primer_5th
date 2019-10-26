@@ -1,0 +1,2 @@
+void f(T). a new object of type T is created on each function call. it is initialised using the corresponding argument in the function call statement. the argument cannot be modified from inside the function.
+void f(T&). a reference to an existing object of type T is created on each function call. the argument is the name of the object to which this new reference binds to. the argument is modified from inside of the function.
