@@ -1,11 +1,10 @@
 a) char, wchar_t, char[2]. wchar_t[2]
-   the former two are single characters. the latter two are arrays
-   containing two characters ('a'/L'a' and the null character).
+   the former two are single characters. the latter two are arrays containing two characters each ('a'/L'a' and the null character).
    the first and the third use narrow characters, each 1 byte long.
-   the second and fourth use wide characters, these are typically longer.
+   the second and the fourth use wide characters, these are typically longer.
 
 b) int, unsigned int, long int, unsigned long int, int, int
-   the first is a normal integer.
+   the first one is a normal integer.
    the second one has the u suffix indicating unsigned int.
    the third one has the L suffix indicating long int.
    the fourth one has the uL suffix indicating unsigned long int.
