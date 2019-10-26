@@ -1,7 +1,0 @@
-the increment happens before dereferencing. if the vector is empty or if we are
-at the last element, this will cause the nonexistent one past last element to
-be dereferenced. this is undefined behaviour.
-
-if the vector is nonempty, we will skip the first element.
-if the vector has at least one negative element, we will print the first
-negative element.

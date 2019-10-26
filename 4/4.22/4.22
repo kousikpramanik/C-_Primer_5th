@@ -1,5 +1,0 @@
-i think both versions are similar in terms of clarity. however instead of
-putting both parts of the conditional on the same line, i put the conditional
-operator in such a way that it looks similar to the if-else statments. since
-if-else statements are supposed to have that look naturally, the if-else style
-is better.

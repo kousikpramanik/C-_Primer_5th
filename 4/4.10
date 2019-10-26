@@ -1,3 +1,0 @@
-int input;
-while(cin >> input && input != 42)
-        ...;

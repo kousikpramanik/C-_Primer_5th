@@ -1,2 +1,0 @@
-assuming j and i are ints, j / i is done using the rules of integer division.
-the result is cast to double and stored in slope.

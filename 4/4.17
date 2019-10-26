@@ -1,5 +1,0 @@
-in prefix increment, the lvalue operand is incremented and then returned as an
-lvalue.
-in postfix increment, the value of the lvalue operand is first copied into
-another place and then the operand is incremented. then the copy of the operand
-is returned as an rvalue.

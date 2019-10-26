@@ -1,0 +1,5 @@
+a) assuming p is a type to which a bool can be assigned. (the getPtr()indicates that p might be a pointer in which case the assignment would be illegal.) here the comparison (getPtr() != 0) is done first. the result of this comparison is assigned to p. then the new value of p is used to test the if statement.
+   change - if ((p = getPtr) != 0)
+
+b) here 1024 is assigned to i. then the new value of i is used to test the if statement.
+   change - if (i == 1024)

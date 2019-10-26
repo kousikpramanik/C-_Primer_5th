@@ -1,0 +1,6 @@
+prefix operators increment their operands and return them as lvalues. postfix operators create a copy of their current operand and return it as an rvalue while incrementing the original operand. this extra overhead is unnecessary since, in this case, we don't use the return value of the expression for anything.
+no changes would need to be made other than changing the operator positions.
+vector<int>::size_type cnt = ivec.size();
+// assign values size, size - 1, ..., 1 to the elements in ivec
+for (vector<int>::size_type ix = 0; ix != ivec.size(); ix++, cnt--)
+    ivec[ix] = cnt;

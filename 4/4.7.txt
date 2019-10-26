@@ -1,5 +1,4 @@
-overflow is when an attempt is made to change the value of an integer variable
-to a value outside the range the integer type is capable of storing.
+overflow is when an attempt is made to change the value of an integer variable to a value outside the range the integer type is capable of storing.
 
 #include <limits>
 int imax = std::numeric_limits<int>::max();

@@ -1,6 +1,0 @@
-expression is i != j < k
-           => (i != (j < k))
-the subexpression (j < k) compares j and k. the return value of this statement
-is appropriately promoted to 1 or 0 based on its truth or falsity respectively.
-this 1 or 0 is compared to i, the result of the comparison is the return value
-of the expression.

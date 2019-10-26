@@ -1,9 +1,0 @@
-a) if fval is 0, the test is false, otherwise true.
-
-b) ival is converted to float. fval and the converted ival is then added. the
-   result is converted to double and stored in dval.
-
-c)   dval + ival * cval;
-   = (dval + (ival * cval));
-   cval is promoted to int. ival and cval are multiplied. the result of the
-   multiplication is promoted to double. this result is added to dval.

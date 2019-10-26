@@ -1,3 +1,0 @@
-if (42 = i) is illegal. cannot assign to rvalue.
-if (i = 42), assuming i is a modifiable lvalue, is legal. it assigns 42 to i,
-and then returns true since if (i) is now true because i is nonzero.

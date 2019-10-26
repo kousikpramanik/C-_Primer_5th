@@ -1,0 +1,1 @@
+if we used an unsigned int, then the operation (1U << 27) would become undefined on implementations that use 16 bit int.

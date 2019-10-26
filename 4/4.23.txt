@@ -1,0 +1,4 @@
+this program tries to add an std::string and a character, then compare that string against the character 's', trying to store its result in p1. the result is then supposed to be used to produce one of two statements which have no effect. the comparison against the character 's' fails because comparison between an std::string and a character is invalid.
+possible fix
+string s = "word";
+string p1 = s + (s[s.size() - 1] == 's' ? "" : "s");

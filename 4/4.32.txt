@@ -1,0 +1,2 @@
+in the init-expression part, ptr is made to point to the first element of ia and ix is set to zero. the condition tests if ix is equal to size. if it is not equal, we test whether ptr is equal to one past the array ia. if this test fails as well (not equal), we proceed into the loop. ix and ptr are incremented after execution of the loop.
+the condition is somewhat unnecessary because of the fact that ix == size if, and only if ptr == ia + size (unless ptr or ix is modified in some other way).
