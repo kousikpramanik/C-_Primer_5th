@@ -8,12 +8,11 @@ using std::endl;
 using std::string;
 using std::getline;
 
-int main()
-{
-        string line;
+int main() {
+    string line;
 
-        while (getline(cin, line))
-                cout << line << endl;
+    while (getline(cin, line))
+        cout << line << endl;
 
-        return 0;
+    return 0;
 }

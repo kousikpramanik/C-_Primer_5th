@@ -1,4 +1,3 @@
 a) legal. initializes and empty vector of int vectors.
 b) illegal. ivec contains int vectors, svec contains strings.
-c) legal. svec initializes a vector containing 10 strings, each of which
-   contain the string "null"
+c) legal. svec initializes a vector containing 10 strings, each of which contain the string "null"

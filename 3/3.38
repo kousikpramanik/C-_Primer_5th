@@ -1,6 +1,0 @@
-pointers can be thought of as large integers. adding two pointers
-would be equivalent to adding two random large integers. the resulting
-integer could be the address of anything such as a variable, the code of an
-instruction, or it could be an address outside the boundary of the program.
-so the address the supposed pointer would point to would be meaningless,
-dangerous even. this is why adding pointers is dumb.

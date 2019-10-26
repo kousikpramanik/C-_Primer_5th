@@ -14,20 +14,19 @@ using std::vector;
 
 using std::toupper;
 
-int main()
-{
-        vector<string> text;
+int main() {
+    vector<string> text;
 
-        string temp;
-        while (getline(cin, temp))
-                text.push_back(temp);
+    string temp;
+    while (getline(cin, temp))
+        text.push_back(temp);
 
-        for (auto it = text.begin(); it != text.end() && !it->empty(); ++it)
-                for (auto str_it = it->begin(); str_it != it->end(); ++str_it)
-                        *str_it = toupper(*str_it);
+    for (auto it = text.begin(); it != text.end() && !it->empty(); ++it)
+        for (auto str_it = it->begin(); str_it != it->end(); ++str_it)
+            *str_it = toupper(*str_it);
 
-        for (auto it = text.cbegin(); it != text.cend(); ++it)
-                cout << *it << endl;
+    for (auto it = text.cbegin(); it != text.cend(); ++it)
+        cout << *it << endl;
 
-        return 0;
+    return 0;
 }

@@ -10,17 +10,16 @@ using std::string;
 
 using std::vector;
 
-int main()
-{
-        vector<string> vect;
+int main() {
+    vector<string> vect;
 
-        string temp;
-        while (cin >> temp)
-                vect.push_back(temp);
+    string temp;
+    while (cin >> temp)
+        vect.push_back(temp);
 
-        for (auto s : vect)
-                cout << s << ' ';
-        cout << endl;
+    for (auto s : vect)
+        cout << s << ' ';
+    cout << endl;
 
-        return 0;
+    return 0;
 }

@@ -3,13 +3,12 @@
 using std::cout;
 using std::endl;
 
-int main()
-{
-        int val = 10;
-        while (val >= 0) {
-                cout << val << endl;
-                --val;
-        }
+int main() {
+    int val = 10;
+    while (val >= 0) {
+        cout << val << endl;
+        --val;
+    }
 
-        return 0;
+    return 0;
 }

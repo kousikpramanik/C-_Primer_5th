@@ -10,20 +10,19 @@ using std::endl;
 using std::string;
 using std::getline;
 
-int main()
-{
-        cout << "Please enter a string: ";
+int main() {
+    cout << "Please enter a string: ";
 
-        string line;
-        getline(cin, line);
+    string line;
+    getline(cin, line);
 
-        decltype(line.size()) i = 0;
-        while (i != line.size()) {
-                line[i] = 'X';
-                ++i;
-        }
+    decltype(line.size()) i = 0;
+    while (i != line.size()) {
+        line[i] = 'X';
+        ++i;
+    }
 
-        cout << "Here is an improved version: \"" << line << "\"" << endl;
+    cout << "Here is an improved version: \"" << line << "\"" << endl;
 
-        return 0;
+    return 0;
 }

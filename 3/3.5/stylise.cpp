@@ -8,10 +8,14 @@ using std::endl;
 using std::string;
 
 int main() {
-    string word;
+    string big, temp;
 
-    while (cin >> word)
-        cout << word << endl;
+    while (cin >> temp) {
+        big += temp;
+        big += ' ';
+    }
+
+    cout << big << endl;
 
     return 0;
 }

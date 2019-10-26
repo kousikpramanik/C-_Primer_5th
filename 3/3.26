@@ -1,8 +1,0 @@
-(beg + end) / 2 is illegal. big and end are both of type
-std::vector<int>::iterator. two objects of this type cannot be added.
-
-beg + (end - beg) / 2 is legal. end - beg produces a difference type,
-which is an integer type. end - beg / 2 is also an integer type.
-further, (end - beg) / 2 would be "less than" the size of the vector.
-so we can add it to beg to produce a valid iterator.
-std::vector<int>::iterator + integer is valid.

@@ -1,8 +1,4 @@
 a) illegal. buf_size is not a constant.
-
 b) legal. 4 * 7 - 14 is considered a constant.
-
 c) illegal. txt_size() needs to be constexpr.
-
-d) illegal. needs 12 chars to store the 11 characters
-   and a null character.
+d) illegal. needs 12 chars to store the 11 characters and a null character.

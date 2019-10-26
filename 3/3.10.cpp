@@ -11,18 +11,17 @@ using std::getline;
 
 using std::ispunct;
 
-int main()
-{
-        cout << "Enter a string: ";
+int main() {
+    cout << "Enter a string: ";
 
-        string line;
-        getline(cin, line);
+    string line;
+    getline(cin, line);
 
-        cout << "Here is an improved version: ";
-        for (auto c : line)
-                if (!ispunct(c))
-                        cout << c;
-        cout << endl;
+    cout << "Here is an improved version: ";
+    for (auto c : line)
+        if (!ispunct(c))
+            cout << c;
+    cout << endl;
 
-        return 0;
+    return 0;
 }

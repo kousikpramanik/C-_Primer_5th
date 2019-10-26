@@ -1,2 +1,0 @@
-undefined behaviour. the char array is not null terminated,
-so the while loop can potentially run forever.

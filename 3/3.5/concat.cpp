@@ -7,14 +7,13 @@ using std::endl;
 
 using std::string;
 
-int main()
-{
-        string big, temp;
+int main() {
+    string big, temp;
 
-        while (cin >> temp)
-                big += temp;
+    while (cin >> temp)
+        big += temp;
 
-        cout << big << endl;
+    cout << big << endl;
 
-        return 0;
+    return 0;
 }

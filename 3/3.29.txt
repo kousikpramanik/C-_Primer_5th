@@ -1,0 +1,2 @@
+1) fixed size. cannot insert elements whenever we want.
+2) cannot be used for copy initialization of another array, or for assignment. need to use loops.

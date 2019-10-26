@@ -8,5 +8,4 @@ string sa2[10];
 all of them are the empty string.
 
 int ia2[10];
-all of them are uninitialized. trying to access the values
-is undefined.
+all of them are uninitialized. trying to access the values is undefined.
