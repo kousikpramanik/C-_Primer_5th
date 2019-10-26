@@ -1,0 +1,7 @@
+a) iter is initialised in the control statement of the while loop. it will be visible only inside the statement. it should not cause a problem.
+
+b) status is initialised in the control statement of the while loop. it will be visible only inside the statement. in this program, however, an attempt is made to check the variable after the statement ends. this is an error.
+   correction -
+   bool status;
+   while (status = find(word)) { /* ... */ }
+   if (!status) { /* ... */ }

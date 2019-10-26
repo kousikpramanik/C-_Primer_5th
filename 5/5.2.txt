@@ -1,0 +1,2 @@
+a block is a sequence of statements and declarations, possibly empty, surrounded by a pair of curly braces.
+blocks are used when the syntax requires a single statement but we need to do more than one task. the block turns a group of statements into a single compound statement.

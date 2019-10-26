@@ -1,0 +1,2 @@
+when there are more if branches than else branches in a program, we need to be able to determine which if branch goes with which else branch. this problem is referred to as a dangling else.
+C++ resolves the ambiguity by matching an else branch with the nearest unmatched if branch. to match with a different if statement, we can simply use braces. statements do not span block boundaries.
