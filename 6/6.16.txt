@@ -1,0 +1,2 @@
+bool is_empty(const string &s) { return s.empty(); }
+but really, we should call s.empty() directly.

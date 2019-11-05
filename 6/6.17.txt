@@ -1,0 +1,14 @@
+bool containsUcase(const std::string &s) {
+    for (const auto &c : s) {
+        if (std::isupper(c))
+            return true;
+    }
+    return false;
+}
+
+void toLcase(std::string &s) {
+    for (auto &c : s)
+        std::tolower(c);
+}
+
+no they were not the same. changing the contents was required in the latter case. in the former only checking was required, so I used a const.

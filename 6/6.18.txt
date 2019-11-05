@@ -1,0 +1,2 @@
+bool compare(matrix &first, matrix &second);
+vector<int>::iterator change_val(int n, vector<int>::iterator iter);

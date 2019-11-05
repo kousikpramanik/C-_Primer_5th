@@ -1,0 +1,4 @@
+when there is no need to modify the argument, the reference should be a const reference.
+a) any attempt to modify an object through a const reference is a compile-time error. this can help us write correct code without debugging.
+b) a parameter which is a reference to const can take non-const arguments, literals, and objects convertible to the parameter's type. this advantage is unavailable when using a non-const reference.
+c) const when necessary is something most developers follow. so making a function that doesn't modify its arguments have a non-const parameter will artificially limit its usage. calling such a function from another function, which has a const only access to some outside entity, would require extra work when using that entity as an argument.
