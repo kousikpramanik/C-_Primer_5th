@@ -1,0 +1,7 @@
+it prints 10 integers.
+the problem with this code is that the parameter const int ia[10] is really const int *. so someone could pass an array of size less than 10 and the function would accept it. the body of the function will then cause undefined behaviour while trying to access memory out of array boundary.
+fix
+void print(const int (&ia)[10]) {
+    for (size_t i = 0; i != 10; ++i)
+        cout << ia[i] << endl;
+}

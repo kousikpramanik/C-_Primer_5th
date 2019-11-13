@@ -1,0 +1,4 @@
+Yes, we should still use references when both
+1) there is no modification needed (since members of an initializer_list are guaranteed to be const)
+2) the size is large enough such that copying it could involve more overhead than dereferencing it
+are true.
