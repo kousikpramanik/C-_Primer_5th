@@ -3,6 +3,7 @@ project(C++_Primer_5th)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic -Werror")
 
 add_executable(1.1 1/1.1.cpp)
 add_executable(1.2 1/1.2.cpp)
@@ -137,3 +138,5 @@ add_executable(6.23 6/6.23.cpp)
 add_executable(6.25 6/6.25.cpp)
 add_executable(6.26 6/6.26.cpp)
 add_executable(6.27 6/6.27.cpp)
+add_executable(6.33 6/6.33.cpp)
+add_executable(6.38 6/6.38.cpp)

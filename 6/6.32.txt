@@ -1,0 +1,1 @@
+it is legal. it returns an lvalue reference to arry[index]. this reference is used by the main function to assign a value to the object. this main function will assign i to the ith element of ia, starting from ia[0] = 0 and ending at ia[9] = 9;

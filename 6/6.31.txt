@@ -1,0 +1,1 @@
+we should only return a reference when the object the reference refers to is not local to the function, not even a temporary object. same for references to const.

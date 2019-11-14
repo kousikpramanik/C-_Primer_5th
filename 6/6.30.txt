@@ -1,0 +1,2 @@
+only detects error 1: return-statement with no value, in function returning 'bool' [-fpermissive]
+if error 1 is eliminated, detects error 2 as warning: control reaches end of non-void function [-Werror=return-type]

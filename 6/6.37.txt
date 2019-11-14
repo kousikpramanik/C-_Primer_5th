@@ -1,0 +1,12 @@
+type alias
+using strarr = std::string[10];
+strarr &func();
+
+trailing return
+auto func() -> std::string (&)[10];
+
+decltype
+std::string arr[10];
+decltype(arr) &func();
+
+trailing return. because it looks nice and doesn't involve something permanent like an alias or declaring an object.

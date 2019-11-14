@@ -1,0 +1,1 @@
+std::string (&func())[10];
