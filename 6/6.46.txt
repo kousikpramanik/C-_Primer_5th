@@ -1,0 +1,1 @@
+no. the return type of std::string::size() needs to be constexpr for such a function.

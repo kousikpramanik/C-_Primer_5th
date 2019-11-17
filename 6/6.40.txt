@@ -1,0 +1,1 @@
+b) it as an error to provide default arguments to a parameter without providing default arguments to the parameters on its right.

@@ -1,0 +1,3 @@
+a) illegal. there is no default argument for ht. an argument must be provided in the function call.
+b) legal.
+c) legal. but initialises the int wd with '*' instead of initialising char bckgrnd as the programmer probably intended.

@@ -1,0 +1,3 @@
+a) illegal. top level consts don't matter when declaring function parameters.
+b) illegal. function overloading is not possible when only the return types differ.
+c) this is legal.
