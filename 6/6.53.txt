@@ -1,0 +1,3 @@
+a) declares two separate functions. the former is viable only when the argument is int&. the latter is viable for both int& and const int& arguments, however it is not the best match when the argument is int&.
+b) declares two separate functions. the former is viable only when the argument is char*. the latter is viable for both char* and const char* arguments, however it is not the best match when the argument is char*.
+c) illegal. top level consts don't matter when function matching.

@@ -1,2 +1,1 @@
 the loop takes string input until cin has an error, or until the sought string is found. this is a good use of asssert only in a controlled environment where it is known with absolute certainty that cin would never have an error. in any other case, a simple if(cin) check with normal exit/return clauses should be used.
-

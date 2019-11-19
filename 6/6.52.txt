@@ -1,0 +1,2 @@
+a) both conversions are rank 3, match through integer promotions.
+b) both conversions are rank 4, match through arithmetic conversions.
