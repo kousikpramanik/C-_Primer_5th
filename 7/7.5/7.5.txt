@@ -1,0 +1,1 @@
+These functions should be const since we do not need to modify anything.
