@@ -1,0 +1,1 @@
+A class may define members before the first access specifier. If we use the struct keyword, such members are public; if we use the class keyword, such members are private.

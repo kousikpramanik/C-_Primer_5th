@@ -1,0 +1,2 @@
+friend is a mechanism by which a class grants access to its nonpublic members. Friends have the same access rights as members. Both classes and functions may be named as friends.
+using friend is a necessity when a nonmember function needs access to the class implementation. however, nonmember functions should use the interface, not the implementation of the class. so we need to carefully decide about which functions should be members, which functions should access the interface only, and which functions should be friend.

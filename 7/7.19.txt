@@ -1,0 +1,3 @@
+The three constructors will be used in other parts of the program. They should be in the public part.
+The two std::string members constitute the data structures needed to create the class. They should be in the private part.
+The ret_name() and ret_address() functions also constitute the interface of the class. They should be in the public part.

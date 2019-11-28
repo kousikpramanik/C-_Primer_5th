@@ -1,0 +1,1 @@
+There are no constraints on where and how often an access specifier may appear inside a class definition. The pulic members define the interface of the class that should be available to other parts of the program. The private sections encapsulate the implementation of the class, which should not be available to other parts of the program.
