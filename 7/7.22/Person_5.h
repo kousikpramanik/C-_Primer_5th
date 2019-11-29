@@ -4,16 +4,11 @@
 #include <iostream>
 #include <string>
 
-class Person;
-
-std::istream &read(std::istream &is, Person &obj);
-
-std::ostream &print(std::ostream &os, const Person &obj);
-
 class Person {
-private:
-    std::string name;
-    std::string address;
+    friend std::istream &read(std::istream &is, Person &obj);
+
+    friend std::ostream &print(std::ostream &os, const Person &obj);
+
 public:
     Person(const std::string &inp_name) : name(inp_name) {}
 
@@ -23,6 +18,7 @@ public:
         read(is, *this);
     }
 
+public:
     const std::string &ret_name() const {
         return name;
     }
@@ -31,9 +27,13 @@ public:
         return address;
     }
 
-    friend std::istream &read(std::istream &is, Person &obj);
-
-    friend std::ostream &print(std::ostream &os, const Person &obj);
+private:
+    std::string name;
+    std::string address;
 };
+
+std::istream &read(std::istream &is, Person &obj);
+
+std::ostream &print(std::ostream &os, const Person &obj);
 
 #endif
