@@ -1,0 +1,5 @@
+move() returns *this. *this is an object of type Screen. this *this would be used to initialise a temporary. the set() function works on this temporary. the result of the set() function produces a new temporary. the display() function works on that.
+the overall statement would have the effect of moving the cursor of myScreen to 20 and running display() on a temporary object. in the next statement the display() function would print the original object.
+Expected output
+XXXXXXXXXXXXXXXXXXXX#XXXX
+XXXXXXXXXXXXXXXXXXXXXXXXX

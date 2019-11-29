@@ -1,0 +1,1 @@
+Yes it can. Members of screen have proper in-class initialisers that work well with the synthesised default constructor.

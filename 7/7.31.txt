@@ -1,0 +1,5 @@
+pros
+no ambiguity about what is being accessed.
+consistency with other parameters.
+cons
+requires typing. redundant ¯\_(ツ)_/¯
