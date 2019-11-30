@@ -1,0 +1,5 @@
+it would not compile since pos is not in scope.
+fix -
+Screen::pos Screen::size() const {
+    return height * width;
+}
