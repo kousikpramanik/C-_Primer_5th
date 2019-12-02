@@ -1,0 +1,1 @@
+then the program won't compile. pos is used in the parameter list of the function and in the private member types. types needs to be defined before they are used for the first time, even inside classes.

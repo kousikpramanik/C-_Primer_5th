@@ -1,0 +1,1 @@
+No. otherwise when a call to the default constructor is made (i.e. with no arguments), there would be two viable functions during function matching and none of the two would be a better match.

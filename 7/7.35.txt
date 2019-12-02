@@ -1,0 +1,22 @@
+typedef string Type;                // define Type as an alias for string
+Type initVal();                     // declare initVal() as a function taking no arguments and returning a Type (string)
+class Exercise {                    // define class Exercise
+public:                             // public members
+    typedef double Type;            // redefinition of Type as a double, fine because Type (string) has not been used in the class at this point
+    Type setVal(Type);              // declare setVal() as a function taking a Type (double) argument and returning a Type (double)
+    Type initVal();                 // declare initVal() as a function taking no arguments and returning a Type (double)
+private:                            // private members
+    int val;                        // int defined, default initialised
+};                                  // end definition class Exercise
+Type Exercise::setVal(Type parm) {  // define overload of member function setVal, this one takes a Type (double) argument and returns a Type (string).
+                                    // Error: wasn't declared while defining the class
+    val = parm + initVal();         // val is the private member of Exercise, parm is a Type (double), initVal() is the member function of the class Exercise
+    return val;                     // val is an int.
+                                    // Error: cannot convert int to string
+}                                   // end overload of member function setVal
+
+Fix -
+Exercise::Type Exercise::setVal(Type parm) {
+    val = parm + initVal();
+    return val;
+}
