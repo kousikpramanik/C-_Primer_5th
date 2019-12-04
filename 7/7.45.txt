@@ -1,0 +1,1 @@
+Legal. Objects of type C can be value initialised with 0 arguments because it has a default constructor.

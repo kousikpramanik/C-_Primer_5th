@@ -2,8 +2,6 @@ cmake_minimum_required(VERSION 3.15)
 project(C++_Primer_5th)
 
 set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic -Werror")
 
 add_executable(1.1 1/1.1.cpp)
 add_executable(1.2 1/1.2.cpp)
@@ -160,3 +158,4 @@ add_library(7.26 STATIC 7/7.26/Sales_data_8.cpp)
 add_executable(7.27 7/7.27/main.cpp)
 add_executable(7.29 7/7.29/main.cpp)
 add_library(7.32 STATIC 7/7.32/Window_mgr.cpp)
+add_library(7.41 STATIC 7/7.41/Sales_data_9.cpp)

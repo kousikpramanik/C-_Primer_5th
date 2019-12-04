@@ -1,0 +1,4 @@
+a) False. The compiler synthesises the synthesised default constructor in the absence of any other constructor. However, this synthesis might not always be possible.
+b) True.
+c) True.
+d) False. If in-class initialisers are provided, then the synthesised default constructor uses those.

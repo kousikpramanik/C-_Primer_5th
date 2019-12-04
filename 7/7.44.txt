@@ -1,0 +1,1 @@
+Illegal. Each element of the vector needs to be value initialised. But there is no way to value initialise NoDefault with 0 arguments since it doesn't have a default constructor.

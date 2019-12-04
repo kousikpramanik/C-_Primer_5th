@@ -18,18 +18,14 @@ public:
 
     Sales_data(const std::string &s, unsigned n, double p) : bookNo(s), units_sold(n), revenue(p * n) {}
 
-    Sales_data(std::istream &is) {
-        read(is, *this);
-    }
+    Sales_data(std::istream &is) { read(is, *this); }
 
 public:
     Sales_data &combine(const Sales_data &other);
 
     double avg_price() const;
 
-    std::string isbn() const {
-        return bookNo;
-    }
+    std::string isbn() const { return bookNo; }
 
 private:
     std::string bookNo;

@@ -14,18 +14,12 @@ public:
 
     Person(const std::string &inp_name, const std::string &inp_addr) : name(inp_name), address(inp_addr) {}
 
-    Person(std::istream &is) {
-        read(is, *this);
-    }
+    Person(std::istream &is) { read(is, *this); }
 
 public:
-    const std::string &ret_name() const {
-        return name;
-    }
+    const std::string &ret_name() const { return name; }
 
-    const std::string &ret_address() const {
-        return address;
-    }
+    const std::string &ret_address() const { return address; }
 
 private:
     std::string name;
