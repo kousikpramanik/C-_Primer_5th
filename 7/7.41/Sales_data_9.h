@@ -18,7 +18,6 @@ public:
 
     Sales_data(const std::string &s) : Sales_data(s, 0, 0.0) {}
 
-
     Sales_data(std::istream &is) : Sales_data() { read(is, *this); }
 
 public:

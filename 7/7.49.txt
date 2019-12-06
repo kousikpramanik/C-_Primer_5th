@@ -1,0 +1,8 @@
+Sales_data &combine(Sales_data);
+s is used to construct for a Sales_data object.
+
+Sales_data &combine(Sales_data&);
+The string s creates a temporary object of type Sales_data. references to literals only work when there is a const.
+
+Sales_data &combine(const Sales_data&) const;
+This is wrong since combine needs to modify the object it acts on.

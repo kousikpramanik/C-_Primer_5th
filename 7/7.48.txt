@@ -1,0 +1,11 @@
+string null_isbn("9-999-99999-9");
+implicit - this would create an std::string from the string literal.
+explicit - still works
+
+Sales_data item1(null_isbn);
+this would create a new Sales_data object with the bookNo member set to a copy of the string null_isbn.
+explicit - still works because direct initialisation.
+
+Sales_data item2("9-999-99999-9");
+this would implicitly convert the string literal to an std::string. then use it to construct a Sales_data object with the bookNo member set to the string.
+explicit - still same

@@ -1,0 +1,3 @@
+if the constructor was not marked explicit, we would be able to copy initialise a vector from integral types. this would also allow us to replace anywhere a vector is required with an int. but vectors and integers aren't the same thing at all. a vector is a container, with its own member functions and operators. it would make sense to not allow constructions like those to prevent bad code.
+
+the single element constructor of string allows us to copy initialise strings from c style string literals. this also allows us to replace anywhere a string is required with a c style string literal. this makes sense because the two objects are similar in nature and would be used in similar functions for similar purposes.

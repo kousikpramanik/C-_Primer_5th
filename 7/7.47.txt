@@ -1,0 +1,1 @@
+We could make the constructor explicit. Since string and Sales_data are two completely different types with different purposes, having an implicit conversion between them might make programs confusing and debugging hard.
