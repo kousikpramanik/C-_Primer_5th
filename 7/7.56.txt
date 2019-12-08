@@ -1,0 +1,3 @@
+static members are members of a class that are associated with the class rather than with individual objects of the class.
+the main advantage of static data members is that pieces of information can be shared between all objects of the class type.
+they differ from ordinary members in that their lifetime ends with the program, instead of at the end of scope of a class object. further, in the event that a static member is constexpr, it can be used wherever a similar constant expression can be used.

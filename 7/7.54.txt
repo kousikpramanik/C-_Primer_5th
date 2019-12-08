@@ -1,0 +1,1 @@
+No, because the function contains a statement that has a run-time effect.

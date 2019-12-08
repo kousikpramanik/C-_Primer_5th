@@ -1,0 +1,2 @@
+the third member of Sales_data was the total revenue of a sale, not the selling price per book. This conversion was done internally using the constructors. Here we need to remember to do it manually.
+Sales_data item = {"978-0590353403", 25, 15.99 * 25};

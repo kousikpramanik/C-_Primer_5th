@@ -1,0 +1,2 @@
+static double rate = 6.5; // either rate needs to be declared constexpr or the initialisation needs to be outside.
+static vector<double> vec(vecSize); // constructor needs to be outside.
