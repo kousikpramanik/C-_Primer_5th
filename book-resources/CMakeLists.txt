@@ -1,0 +1,2 @@
+add_library(Sales_item INTERFACE)
+target_include_directories(Sales_item INTERFACE Sales_item)

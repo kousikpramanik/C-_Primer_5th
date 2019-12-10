@@ -1,0 +1,6 @@
+add_executable(4.4 4.4.cpp)
+add_executable(4.21 4.21.cpp)
+add_executable(4.22_conditional 4.22/conditional.cpp)
+add_executable(4.22_if_else 4.22/if_else.cpp)
+add_executable(4.28 4.28.cpp)
+add_executable(4.29 4.29.cpp)

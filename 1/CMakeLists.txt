@@ -1,0 +1,30 @@
+add_executable(1.1 1.1.cpp)
+add_executable(1.2 1.2.cpp)
+add_executable(1.3 1.3.cpp)
+add_executable(1.4 1.4.cpp)
+add_executable(1.5 1.5.cpp)
+add_executable(1.7 1.7.cpp)
+add_executable(1.9 1.9.cpp)
+add_executable(1.10 1.10.cpp)
+add_executable(1.11 1.11.cpp)
+add_executable(1.13_1.9 1.13/1.9.cpp)
+add_executable(1.13_1.10 1.13/1.10.cpp)
+add_executable(1.13_1.11 1.13/1.11.cpp)
+add_executable(1.16 1.16.cpp)
+add_executable(1.18 1.18.cpp)
+add_executable(1.19_1.11 1.19/1.11.cpp)
+
+add_executable(1.20 1.20.cpp)
+target_link_libraries(1.20 PUBLIC Sales_item)
+
+add_executable(1.21 1.21.cpp)
+target_link_libraries(1.21 PUBLIC Sales_item)
+
+add_executable(1.22 1.22.cpp)
+target_link_libraries(1.22 PUBLIC Sales_item)
+
+add_executable(1.23 1.23.cpp)
+target_link_libraries(1.23 PUBLIC Sales_item)
+
+add_executable(1.25 1.25.cpp)
+target_link_libraries(1.25 PUBLIC Sales_item)
