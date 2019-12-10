@@ -7,8 +7,8 @@ int main() {
             {8, 9, 10, 11}
     };
 
-    for (const auto row = ia; row != ia + 3; ++row) {
-        for (const auto col = *row; col != *row + 4; ++col)
+    for (const auto *row = ia; row != ia + 3; ++row) {
+        for (const auto *col = *row; col != *row + 4; ++col)
             std::cout << *col << ' ';
         std::cout << std::endl;
     }
