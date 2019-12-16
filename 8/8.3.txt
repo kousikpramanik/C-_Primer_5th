@@ -1,0 +1,1 @@
+cin.fail() becoming true will cause the loop to terminate.
