@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
-project("C++ Primer 5th" VERSION 0.7
+project("C++ Primer 5th"
+        VERSION 0.8
         DESCRIPTION "Solutions to exercises of C++ Primer by Lippman et al., 5th edition"
         LANGUAGES CXX)
 
