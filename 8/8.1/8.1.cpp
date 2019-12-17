@@ -4,14 +4,8 @@
 
 std::istream &printIstream(std::istream &is) {
     char ch;
+    while (is.get(ch)) { std::cout << ch; } // unformatted input
 
-    while (true) {
-        is.get(ch); // unformatted input
-        if (!is) // if input failed, ch would have remained same
-            break;
-        std::cout << ch;
-    }
     is.clear();
-
     return is;
 }

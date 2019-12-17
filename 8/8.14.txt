@@ -1,0 +1,2 @@
+entry - because people is not modified, we don't need write access. this allows the program to work regardless of whether people is const or not.
+nums - required because entry is const. otherwise we would be creating a non-const reference to a const object.

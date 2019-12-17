@@ -15,3 +15,14 @@ target_link_libraries(8.6 PUBLIC Sales_data_8)
 
 add_executable(8.7 8.7.cpp)
 target_link_libraries(8.7 PUBLIC Sales_data_8)
+
+add_executable(8.9 8.9.cpp)
+target_link_libraries(8.9 PUBLIC 8.1)
+
+add_library(8.10 STATIC 8.10/8.10.cpp 8.10/8.10.h)
+target_link_libraries(8.10 PRIVATE 8.4)
+target_include_directories(8.10 PUBLIC 8.10)
+
+add_executable(8.11 8.11.cpp)
+
+add_executable(8.13 8.13.cpp)

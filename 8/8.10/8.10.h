@@ -1,9 +1,9 @@
-#ifndef C_PRIMER_5TH_8_5_H
-#define C_PRIMER_5TH_8_5_H
+#ifndef C_PRIMER_5TH_8_10_H
+#define C_PRIMER_5TH_8_10_H
 
+#include <fstream>
 #include <vector>
 #include <string>
-#include <fstream>
 
 std::ifstream &fileToVecWord(std::ifstream &ifs, std::vector<std::string> &ftvw);
 

@@ -1,0 +1,1 @@
+The elements of PersonInfo all have default constructors that can handle our requirements (in this case producing an empty name with 0 phone numbers) well.

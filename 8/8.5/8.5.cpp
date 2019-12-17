@@ -4,14 +4,9 @@
 #include <string>
 #include <fstream>
 
-std::ifstream &fileToVecWord(std::ifstream &ifs, std::vector<std::string> &ftv) {
+std::ifstream &fileToVecWord(std::ifstream &ifs, std::vector<std::string> &ftvw) {
     std::string str;
-    while (true) {
-        ifs >> str;
-        if (!ifs)
-            break;
-        ftv.push_back(str);
-    }
+    while (ifs >> str) { ftvw.push_back(str); }
 
     return ifs;
 }
