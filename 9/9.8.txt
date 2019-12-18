@@ -1,0 +1,2 @@
+read from: std::list<std::string>::const_reference
+write into: std::list<std::string>::reference

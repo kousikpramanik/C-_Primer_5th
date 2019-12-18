@@ -1,0 +1,6 @@
+std::vector<int> v1; // contains nothing
+std::vector<int> v2(10); // 10 default initialised ints
+std::vector<int> v3(10, 5); // 10 ints value initialised to 5
+std::vector<int> v4(v3); // 10 ints each of which has the value 5
+std::vector<int> v5(v3.cbegin(), v3.cbegin() + 2); // 2 ints each of which has the value 5
+std::vector<int> v6{1, 2, 3, 4}; // 4 ints with values 1, 2, 3, 4 in that order

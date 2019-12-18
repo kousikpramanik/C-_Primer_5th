@@ -1,0 +1,3 @@
+a) use list. allows adding elements anywhere in the container.
+b) deque. allows fast insert and remove access to the front and the back.
+c) vector. allows fast insert to the back.

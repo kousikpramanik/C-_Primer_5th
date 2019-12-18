@@ -1,0 +1,7 @@
+std::list<int> lst1;
+std::vector<double> vec1(lst1.cbegin(), lst1.cend());
+
+std::vector<int> vec2;
+std::vector<double> vec3(vec2.cbegin(), vec2.cend());
+
+meh @write code

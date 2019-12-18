@@ -1,0 +1,1 @@
+std::list<int>::iterator does not support relational operators. the while loop condition should be changed to iter1 != iter2

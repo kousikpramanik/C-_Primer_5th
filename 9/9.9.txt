@@ -1,0 +1,2 @@
+return type of begin is iterator unless the container itself is const, in which case it returns const_iterator.
+cbegin always returns const_iterator.

@@ -1,0 +1,1 @@
+Two iterators, begin and end, form an iterator range, if 1) they refer to elements of, or one past the end of, the same container, and 2) it is possible to reach end by repeatedly incrementing begin. In other words, end must not precede begin.

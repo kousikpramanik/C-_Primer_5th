@@ -1,0 +1,4 @@
+it1 is std::vector<int>::iterator
+it2 is std::vector<int>::const_iterator
+it3 is std::vector<int>::const_iterator
+it4 is std::vector<int>::const_iterator

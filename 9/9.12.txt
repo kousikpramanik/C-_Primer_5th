@@ -1,0 +1,2 @@
+for the constructor that takes an entire container to copy, we need an exact match of the container and element types.
+for the constructor that takes two iterators, we just need a left-inclusive iterator range. the type of the element must be convertible to the element type of the container we are constructing.
