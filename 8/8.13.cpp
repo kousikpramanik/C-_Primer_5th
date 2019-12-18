@@ -16,7 +16,7 @@ inline bool valid(const std::string &num) {
     return std::regex_match(num, GLOBAL_PHONE_NUMBER_PATTERN);
 }
 
-// TODO: rewrite this from Android's PhoneNumberUtils.java
+// done in chapter 17
 inline std::string format(const std::string &num) {
     return num;
 }
