@@ -6,7 +6,7 @@
 
 std::ifstream &fileToVec(std::ifstream &ifs, std::vector<std::string> &ftv) {
     std::string str;
-    while (getline(ifs, str)) { ftv.push_back(str); }
+    while (std::getline(ifs, str)) { ftv.push_back(str); }
 
     return ifs;
 }

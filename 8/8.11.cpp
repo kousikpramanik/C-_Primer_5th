@@ -20,7 +20,7 @@ int main() {
     std::string line, word;
     std::vector<PersonInfo> people;
     std::istringstream record;
-    while (getline(std::cin, line) && !line.empty()) {
+    while (std::getline(std::cin, line) && !line.empty()) {
         PersonInfo info;
         record.str(line);
         record.clear();

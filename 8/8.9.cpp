@@ -8,7 +8,7 @@ int main() {
     std::cout << "Enter a line: ";
 
     std::string str;
-    if (getline(std::cin, str)) {
+    if (std::getline(std::cin, str)) {
         std::istringstream strstream(str);
         printIstream(strstream);
         return 0;

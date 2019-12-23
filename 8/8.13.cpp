@@ -47,7 +47,7 @@ int main(int argc, char *argv[]) {
     std::string line, word;
     std::vector<PersonInfo> people;
     std::istringstream record;
-    while (getline(ifs, line) && !line.empty()) {
+    while (std::getline(ifs, line) && !line.empty()) {
         PersonInfo info;
         record.str(line);
         record.clear();
