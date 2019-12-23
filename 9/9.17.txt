@@ -1,0 +1,2 @@
+1) c1 and c2 need to be the same containers with same element types.
+2) the relational operator < needs to be defined for the element type.
