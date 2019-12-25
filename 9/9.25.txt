@@ -1,0 +1,3 @@
+if elem1 == elem2 then (elem1, elem2] is an empty range, no changes are made.
+if elem2 is the off-the-end iterator, all elements starting from elem1 are deleted. elem1 now points to the off-the-end iterator.
+if elem1 and elem2 are both off-the-end iterators, once again (elem1, elem2] is an empty range, no changes are made.

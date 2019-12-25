@@ -1,0 +1,4 @@
+default initialises an std::vector<std::string>
+makes capacity of vector at least 1024 (actual value is implementation defined)
+takes in strings from std::cin and pushes them to the back of svec. this will not require a reallocation for at least 1024 strings (depends on implementation defined value from before)
+resizes the vector to 1.5 times. if this value is greater than the capacity of the vector, this will cause a reallocation. the extra strings are constructed using the default constructor.

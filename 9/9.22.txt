@@ -1,0 +1,12 @@
+any insertion into the vector iv makes the iterators iter and mid invalid.
+
+std::vector<int>::iterator iter = iv.begin(), mid = iv.begin() + iv.size() / 2;
+
+for (std::vector<int>::difference_type midpos = mid - iter; iter != mid; ++iter) {
+    if (*iter == some_val) { // we are going to invalidate both iterators
+        iter = iv.insert(iter, 2 * some_val); // new iter points to where the item was inserted
+        ++iter; // iter now points to the "previous" position, can be incremented to get the next item
+        ++midpos; // mid shifted 1 position to the right
+        mid = iv.begin() + midpos; // new mid points to the "previous" position
+    }
+}

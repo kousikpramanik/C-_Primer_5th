@@ -1,0 +1,4 @@
+256 - at least 1024
+512 - at least 1024
+1000 - at least 1500
+1048 - at least 1572

@@ -1,0 +1,1 @@
+assuming the ++iter is part of the while loop, this results in an infinite loop. the loop keeps inserting elements before the first odd element found.

@@ -1,0 +1,1 @@
+illegal since the evaluation of iter and *iter++ (two arguments to function vi.insert()) are indeterminately sequenced and they access/modify the same object.

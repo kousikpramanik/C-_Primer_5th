@@ -1,0 +1,1 @@
+it will add 75 default initialised/default constructed elements to vec. vec.resize(10) after that would delete 90 elements from the end of vec.

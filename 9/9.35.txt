@@ -1,0 +1,1 @@
+a vector's capacity is the number of elements that can be stored in the vector before a reallocation is needed. a vector's size is the number of elements it currently has.

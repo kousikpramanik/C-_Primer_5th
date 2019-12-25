@@ -1,0 +1,1 @@
+array is a fixed size object. there is no need for any reallocation. the size() of an array is its capacity. list allocates new memory every time a node is added and deallocates them when nodes are deleted. there is no point of a capacity() for lists.
