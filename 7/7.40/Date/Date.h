@@ -9,7 +9,7 @@ class Date {
 public: // constructors
     Date() = default;
 
-    Date(unsigned a, unsigned b, unsigned c, unsigned style = 0) : yyyy(a), mm(b), dy(c) {
+    Date(unsigned a, unsigned b, unsigned c, unsigned style = 0) : yyyy(a), mm(b), dd(c) {
         switch (style) {
             case 1:
                 dd = a;
