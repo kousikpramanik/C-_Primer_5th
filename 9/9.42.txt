@@ -1,0 +1,4 @@
+we can reserve 100 characters at the beginning.
+
+std::string s; // don't use the single argument constructor because it involves value initialising each member, we just need the memory
+s.reserve(100);
