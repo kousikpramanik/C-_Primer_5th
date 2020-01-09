@@ -1,16 +1,9 @@
 #include "Date_2.h"
 
-#include <string>
 #include <exception>
-#include <cctype>
+#include <string>
 #include <array>
-
-static inline void erase_delim(std::string &str) {
-    auto delim = str.at(0);
-    if (delim == ' ' || delim == '/') { str.erase(0, 1); }
-    else if (delim == ',') { str.erase(0, 2); }
-    else { throw std::invalid_argument("Invalid delimiter."); }
-}
+#include <cctype>
 
 Date::Date(unsigned a, unsigned b, unsigned c, unsigned style) : yyyy(a), mm(b), dd(c) {
     switch (style) {
@@ -45,12 +38,13 @@ Date::Date(unsigned a, unsigned b, unsigned c, unsigned style) : yyyy(a), mm(b),
 // 5) <day><delim><month><delim><year>
 // 6) <year><delim><month><delim><day> only when year > 31, otherwise assumes (5)
 // delim must be one of " ", ", ", "/"
-Date::Date(std::string str) {
+Date::Date(const std::string &inp) {
+    std::string str(inp);
     for (auto &c : str) { c = std::tolower(c); }
-    static const std::array<std::string, 12> monName{"jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep",
-                                                     "oct", "nov", "dec"};
-    static const std::string alphabet{"qwertyuiopasdfghjklzxcvbnm"};
-    static const std::string digits{"1234567890"};
+
+    constexpr std::array<char[4], 12> monName{"jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct",
+                                              "nov", "dec"};
+    constexpr char alphabet[]("qwertyuiopasdfghjklzxcvbnm");
 
     decltype(str.size()) processed;
     if (str.find_first_of(alphabet) == str.npos) { // numeric input
@@ -91,7 +85,7 @@ Date::Date(std::string str) {
         }
     }
 
-    yyyy = std::stoul(str, &processed);
+    yyyy = std::stoul(str);
     if (dd > 31) {
         auto temp = dd;
         dd = yyyy;
@@ -102,10 +96,21 @@ Date::Date(std::string str) {
 }
 
 bool Date::valid() {
-    static constexpr std::array<int, 12> dInM{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    constexpr std::array<int, 12> dInM{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
     if (mm == 0 || mm > 12) { return false; }
     if (leap_year() && mm == 2 && dd != 0 && dd <= 29) { return true; }
 
     return (dd != 0 && dd <= dInM[mm - 1]);
+}
+
+void Date::erase_delim(std::string &str) {
+    auto delim = str.at(-1);
+    if (delim == ' ' || delim == '/') {
+        str.erase(-1, 1);
+    } else if (delim == ',') {
+        str.erase(-1, 2);
+    } else {
+        throw std::invalid_argument("Invalid delimiter.");
+    }
 }

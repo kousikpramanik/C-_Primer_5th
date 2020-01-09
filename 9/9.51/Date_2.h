@@ -15,7 +15,7 @@ public: // constructors
     Date(unsigned a, unsigned b, unsigned c, unsigned style = 0);
 
     // using string where date is required is fine, don't make explicit
-    Date(std::string str); // create copy because we will modify this
+    Date(const std::string &inp);
 
     explicit Date(std::istream &is) { read(is, *this); }
 
@@ -25,6 +25,8 @@ public: // member functions
 
 private: // member functions
     bool valid();
+
+    void erase_delim(std::string &str);
 
 private: // data members
     unsigned yyyy = 0;
