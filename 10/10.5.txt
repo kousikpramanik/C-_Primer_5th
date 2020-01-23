@@ -1,0 +1,1 @@
+a pointer comparison will take place. if the pointers don't point to the same object, the function will return false.

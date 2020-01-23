@@ -1,0 +1,1 @@
+the call will use integer addition. fractional parts of the elements will be truncated before the sum. if this was the intention, there is nothing wrong with the call.
