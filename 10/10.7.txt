@@ -1,0 +1,9 @@
+a) the copy algorithm doesn't create new elements. it expects the second container to already have the required number of elements. Correction -
+    #include <iterator> // for std::back_inserter
+    std::vector<int> vec;
+    while (std::cin >> i) { lst.push_back(i); }
+    copy(lst.cbegin(), lst.cend(), std::back_inserter(vec));
+
+b) the vec.reserve(10) call changes the capacity of the vector to 10 (or some other value as the implementation wants it to be). it doesn't actually change the size of the vector. Correction -
+    std::vector<int> vec(10); // creates and default initialises the elements
+    std::fill_n(vec.begin(), 10, 0);

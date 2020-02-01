@@ -1,0 +1,1 @@
+the implementation of the containers are abstracted away by the interface (iterators). the algorithms can only access the interface, they have no way to directly access the implementation.

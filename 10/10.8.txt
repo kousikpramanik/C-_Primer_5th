@@ -1,0 +1,1 @@
+the algorithms are not changing the size of the container. the insert iterators have internal operations that are used to change the size. these operations are abstracted away from the algorithms.
