@@ -31,3 +31,17 @@ target_include_directories(biggies_2 PUBLIC 10.18)
 add_library(biggies_3 STATIC 10.19/biggies.cpp 10.19/biggies.h)
 target_link_libraries(biggies_3 PRIVATE elimDups)
 target_include_directories(biggies_3 PUBLIC 10.18)
+
+add_library(biggies_4 STATIC 10.20/biggies/biggies.cpp 10.20/biggies/biggies.h)
+target_link_libraries(biggies_4 PRIVATE elimDups)
+target_include_directories(biggies_4 PUBLIC 10.20/biggies)
+
+add_executable(10.20 10.20/main.cpp)
+target_link_libraries(10.20 PUBLIC biggies_4)
+
+add_library(biggies_5 STATIC 10.22/biggies/biggies.cpp 10.22/biggies/biggies.h)
+target_link_libraries(biggies_5 PRIVATE elimDups)
+target_include_directories(biggies_5 PUBLIC 10.22/biggies)
+
+add_executable(10.22 10.22/main.cpp)
+target_link_libraries(10.22 PUBLIC biggies_5)

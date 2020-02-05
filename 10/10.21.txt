@@ -1,0 +1,2 @@
+int i = 5;
+auto f = [&i]() -> bool { if (!i) return !i; else return !(i--); };
