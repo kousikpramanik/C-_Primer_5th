@@ -45,3 +45,12 @@ target_include_directories(biggies_5 PUBLIC 10.22/biggies)
 
 add_executable(10.22 10.22/main.cpp)
 target_link_libraries(10.22 PUBLIC biggies_5)
+
+add_executable(10.24 10.24.cpp)
+
+add_library(biggies_6 STATIC 10.25/10.19/biggies.cpp 10.25/10.19/biggies.h)
+target_link_libraries(biggies_6 PRIVATE elimDups)
+target_include_directories(biggies_6 PUBLIC 10.25/10.19)
+
+add_executable(10.27 10.27.cpp)
+add_executable(10.28 10.28.cpp)
