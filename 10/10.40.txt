@@ -1,0 +1,3 @@
+copy - the first two must be input iterators. the third one should be an output iterator.
+reverse - both must be bidirectional iterators.
+unique - both must be forward iterators.

@@ -1,0 +1,11 @@
+replace(beg, end, old_val, new_val);
+in the forward iterator range (beg, end], if the value if old_val, change it to new_val.
+
+replace_if(beg, end, pred, new_val);
+in the forward iterator range (beg, end], if pred is true then replace the current value with new_val.
+
+replace_copy(beg, end, dest, old_val, new_val);
+in the input iterator range (beg, end], if the value in the underlying element is old_val, then write new_val to the element referenced by the output iterator dest and increment it.
+
+replace_copy_if(beg, end, dest, pred, new_val);
+in the input iterator range (beg, end], if pred is true then write new_val to the element referenced by the output iterator dest and increment it.

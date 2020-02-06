@@ -54,3 +54,20 @@ target_include_directories(biggies_6 PUBLIC 10.25/10.19)
 
 add_executable(10.27 10.27.cpp)
 add_executable(10.28 10.28.cpp)
+add_executable(10.29 10.29.cpp)
+add_executable(10.30 10.30.cpp)
+add_executable(10.31 10.31.cpp)
+
+add_executable(10.32 10.32.cpp)
+target_link_libraries(10.32 PUBLIC Sales_item)
+
+add_executable(10.33 10.33.cpp)
+add_executable(10.34 10.34.cpp)
+add_executable(10.35 10.35.cpp)
+add_executable(10.36 10.36.cpp)
+
+add_library(elimDups_list STATIC 10.42/elimDups_list/elimDups_list.cpp 10.42/elimDups_list/elimDups_list.h)
+target_include_directories(elimDups_list PUBLIC 10.42/elimDups_list)
+
+add_executable(10.42 10.42/main.cpp)
+target_link_libraries(10.42 PUBLIC elimDups_list)

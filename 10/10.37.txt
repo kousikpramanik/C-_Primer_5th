@@ -1,0 +1,2 @@
+std::vector<int> ivec2{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+std::list<int> ilst2(ivec2.crbegin() + 3, ivec2.crbegin() + 8); // from ivec2[9 - 3] to ivec2[9 - 7]

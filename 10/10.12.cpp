@@ -3,9 +3,7 @@
 #include "Sales_data_8.h"
 #include <algorithm>
 
-bool compareISBN(const Sales_data &lhs, const Sales_data &rhs) {
-    return lhs.isbn() < rhs.isbn();
-}
+inline bool compareISBN(const Sales_data &lhs, const Sales_data &rhs) { return lhs.isbn() < rhs.isbn(); }
 
 int main() {
     std::vector<Sales_data> sdvec;

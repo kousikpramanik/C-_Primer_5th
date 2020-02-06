@@ -1,0 +1,19 @@
+1) Input iterator - single-pass (incrementing can invalidate copies of previous value)
+    equality and inequality operators - compare two iterators
+    postfix and prefix increment operators - advances the iterator
+    dereference the iterator to read from it
+    arrow operator - synonym for (*it).member
+2) Output iterator - single-pass
+    prefix and postfix increment operators - advances the iterator
+    dereference to write to the underlying element.
+3) Forward iterator - multi-pass (can save previous values)
+    all features of input iterators and output iterators.
+4) Bidirectional iterators - multi-pass
+    all features of forward iterator
+    prefix and postfix decrement operators - retreats the iterator back by 1 position
+5) Random-access iterator
+    all features of bidirectional iterators.
+    relational operators to compare iterator positions
+    add, subtract, corresponding compound assignment operators with integers - advances or retreats the iterator by that many positions
+    difference between two iterators with the subtraction operator - produces the distance between two iterators
+    subscript operator - iter[n] is synonymous to *(iter + n)
