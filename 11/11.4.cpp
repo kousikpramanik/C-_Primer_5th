@@ -12,7 +12,7 @@ int main() {
     std::string word;
     while (std::cin >> word) {
         for (auto &c : word) { c = std::tolower(c); }
-        word.erase(std::remove_if(word.begin(), word.end(), [](char ch) { return !std::isalnum(ch); }), word.end());
+        word.erase(std::remove_if(word.begin(), word.end(), static_cast<int (*)(int)>(std::ispunct)), word.end());
         if (exclude.find(word) == exclude.end()) { ++word_count[word]; }
     }
     for (const auto &w : word_count) {
