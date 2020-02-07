@@ -1,0 +1,2 @@
+vectors are dynamically allocated arrays. their elements are contiguous. they are accessed through their position in the array.
+maps are associative arrays. their key-value pairs are ordered according to the keys. the values are accessed through the keys as subscripts.

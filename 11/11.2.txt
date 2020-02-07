@@ -1,0 +1,5 @@
+list - keeping track of free/allocated chunks of memory
+vector - storing a bunch of elements input from cin
+deque - schedulers
+map - contact lists
+set - blacklists
