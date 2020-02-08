@@ -1,4 +1,4 @@
-#include "Date_2.h"
+#include "Date.h"
 
 #include <exception>
 #include <string>
@@ -47,7 +47,7 @@ Date::Date(const std::string &inp) {
     constexpr char alphabet[]("qwertyuiopasdfghjklzxcvbnm");
 
     decltype(str.size()) processed;
-    if (str.find_first_of(alphabet) == str.npos) { // numeric input
+    if (str.find_first_of(alphabet) == std::string::npos) { // numeric input
         dd = std::stoul(str, &processed);
         str.erase(0, processed);
         erase_delim(str);
@@ -60,7 +60,7 @@ Date::Date(const std::string &inp) {
         bool mfirst = false;
         for (decltype(monName.size()) i = 0; i != 12; ++i) {
             decltype(str.size()) pos = str.find(monName[i], 0);
-            if (pos != str.npos) {
+            if (pos != std::string::npos) {
                 if (pos == 0) { mfirst = true; }
                 mm = i + 1;
                 break;
@@ -105,11 +105,11 @@ bool Date::valid() {
 }
 
 void Date::erase_delim(std::string &str) {
-    auto delim = str.at(-1);
+    auto delim = str.at(0);
     if (delim == ' ' || delim == '/') {
-        str.erase(-1, 1);
+        str.erase(0, 1);
     } else if (delim == ',') {
-        str.erase(-1, 2);
+        str.erase(0, 2);
     } else {
         throw std::invalid_argument("Invalid delimiter.");
     }

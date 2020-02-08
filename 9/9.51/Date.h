@@ -1,5 +1,5 @@
-#ifndef C_PRIMER_5TH_DATE_2_H
-#define C_PRIMER_5TH_DATE_2_H
+#ifndef C_PRIMER_5TH_DATE_H
+#define C_PRIMER_5TH_DATE_H
 
 #include <iostream>
 #include <string>
@@ -26,12 +26,13 @@ public: // member functions
 private: // member functions
     bool valid();
 
-    void erase_delim(std::string &str);
-
 private: // data members
     unsigned yyyy = 0;
     unsigned mm = 1;
     unsigned dd = 1;
+
+private: // static member function
+    static void erase_delim(std::string &str);
 };
 
 inline std::istream &read(std::istream &is, Date &dt) {
@@ -43,4 +44,4 @@ inline std::istream &read(std::istream &is, Date &dt) {
 
 inline std::ostream &print(std::ostream &os, const Date &dt) { return os << dt.yyyy << '/' << dt.mm << '/' << dt.dd; }
 
-#endif // C_PRIMER_5TH_DATE_2_H
+#endif // C_PRIMER_5TH_DATE_H
