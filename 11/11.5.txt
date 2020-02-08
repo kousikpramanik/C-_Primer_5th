@@ -1,0 +1,2 @@
+a map has key-value pairs. the values are accessed through the keys. use on contact lists.
+a set has only keys. we merely check if a key belongs in a set or not. use on blacklists.

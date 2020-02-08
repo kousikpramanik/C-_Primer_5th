@@ -1,0 +1,1 @@
+std::map<std::string, std::set<int>> wordAtLine; // sorted list of line numbers in which the word appears

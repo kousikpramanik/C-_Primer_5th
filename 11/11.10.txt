@@ -1,0 +1,2 @@
+std::vector<int>::iterator is a random access iterator supporting the relational operators including <, so yes.
+std::list<int>::iterator is a bidirectional iterator which does not support the relational operator <, so no. However, we may use the versions which allow us to specify a function to create some ordering.

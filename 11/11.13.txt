@@ -1,0 +1,5 @@
+strIntVec.emplace_back(first, second);
+strIntVec.push_back(std::make_pair(first, second));
+strIntVec.push_back(std::pair<std::string, int>(first, second));
+
+second version has good readability while not requiring me to manually specify the type.
