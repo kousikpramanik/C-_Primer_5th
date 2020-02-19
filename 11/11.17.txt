@@ -1,0 +1,11 @@
+std::copy(v.begin(), v.end(), std::inserter(c, c.end()));
+legal. copies elements from v and inserts them into c. typically this would cause an insertion of all elements of v, in the same order as v, before c.end() in c. however, a multiset is always sorted. so the order might change.
+
+std::copy(v.begin(), v.end(), std::back_inserter(c));
+illegal. std::back_inserter requires a container that supports push_back.
+
+std::copy(c.begin(), c.end(), std::inserter(v. v.end()));
+legal. copies all elements from c and puts them in v, before v.end(), in the same order as c.
+
+std::copy(c.begin(), c.end(), std::back_inserter(v));
+legal. copies all elements from c and puts them in v, inserting each new element at the back. same result as the last one.

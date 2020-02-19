@@ -1,0 +1,2 @@
+std::multiset<Sales_data, decltype(compareIsbn)*> bookstore(compareIsbn);
+std::multiset<Sales_data, bool (*)(const Sales_data &, const Sales_data &)>::iterator iter = bookstore.begin();

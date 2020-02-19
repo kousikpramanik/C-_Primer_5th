@@ -1,0 +1,2 @@
+argument - const std::pair<const std::string, std::vector<int>>&
+return value - std::pair<std::map<std::string, std::vector<int>>::iterator, bool>

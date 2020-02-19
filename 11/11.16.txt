@@ -1,0 +1,3 @@
+std::map<int, std::string> test{{1, "Hello"}};
+auto iter = test.begin();
+iter->second = "this is a string"; // replaces "Hello" with "this is a string"
