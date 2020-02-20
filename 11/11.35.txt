@@ -1,0 +1,2 @@
+if the same keys existed multiple times, subscripts would cause an assignment in each case. the final assignment would be the value of the rule.
+insert() on the other hand causes insertion only once. it returns a pair whose second element is a bool which would indicate the insertion failed. the first insertion would be the value of the rule.

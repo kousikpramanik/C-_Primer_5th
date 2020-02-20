@@ -1,0 +1,3 @@
+std::map<std::string, std::vector<int>> test;
+std::string input_key("testing");
+std::map<std::string, std::vector<int>>::iterator test_find = test.find(input_key); // const Key&

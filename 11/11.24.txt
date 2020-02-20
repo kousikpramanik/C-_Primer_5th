@@ -1,0 +1,1 @@
+adds a pair to the map with the const int 0 as its key. the corresponding value is value initialised (initialised to 0 in this case). an lvalue of the value is returned by the subscript operation. 1 is assigned to the value.

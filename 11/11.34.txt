@@ -1,0 +1,1 @@
+a new transform rule would have been created for each new word. the keys to those words would be empty strings. every word other than the ones in map_file would have been replaced by empty strings in the output.

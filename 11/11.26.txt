@@ -1,0 +1,5 @@
+its key type is used as input to the subscript operator.
+the operation returns its value type.
+example - std::map<std::string, int>
+          the subscript operator takes a const std::string
+          the operation returns an int

@@ -1,0 +1,1 @@
+they all return an iterator. it may be used as a hint to the location where an element with the given key can be inserted.

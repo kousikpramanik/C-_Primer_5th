@@ -1,0 +1,1 @@
+any problem where we need to count the number of elements with the same key. we should use find instead when the number of elements don't matter. if we were only concerned about the existence of an element, we should use find.

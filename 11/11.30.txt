@@ -1,0 +1,1 @@
+pos.first is an iterator to a pair (value_type) with author name (key_type) same as search_item. pos.first->second dereferences the iterator and obtains the second member of the pair, book name (mapped_type).
