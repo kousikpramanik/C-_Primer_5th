@@ -16,3 +16,13 @@ target_include_directories(word_transform PUBLIC 11.33/word_transform)
 
 add_executable(11.33 11.33/main.cpp)
 target_link_libraries(11.33 PUBLIC word_transform)
+
+add_executable(11.38_11.3 11.38/11.3.cpp)
+
+add_library(11.38_word_transform STATIC
+        11.38/11.33/word_transform/word_transform.cpp
+        11.38/11.33/word_transform/word_transform.h)
+target_include_directories(11.38_word_transform PUBLIC 11.38/11.33/word_transform)
+
+add_executable(11.38_11.33 11.38/11.33/main.cpp)
+target_link_libraries(11.38_11.33 PUBLIC 11.38_word_transform)

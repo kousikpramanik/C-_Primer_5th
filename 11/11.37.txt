@@ -1,0 +1,5 @@
+unordered container advantages
+1) hashing can be very fast if done properly.
+2) there are some types of data where the data is inherently unordered. unordered containers can work with these.
+ordered container advantages
+1) hashing is usually harder. ordered containers are easier to implement.
