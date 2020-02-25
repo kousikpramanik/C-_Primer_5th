@@ -1,0 +1,1 @@
+sp becomes a dangling pointer. it will call free on the memory again when destroyed.

@@ -1,0 +1,1 @@
+this will create a new independent std::shared_ptr<int> temporary from the existing std::shared_ptr<int>. when process() exits, the destructor of this temporary would cause the location pointed to by p.get() to be deleted. this will make p a dangling pointer.

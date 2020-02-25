@@ -1,0 +1,4 @@
+1: q and r are two int* types that point to different dynamically allocated objects. the one at location pointed to by q holds the value 42. the one at location pointed to by r holds the value 100.
+2: r and q both point to the object q alone was pointing to before. the object q was pointing to before is inaccessible now. this is a memory leak.
+3: q2 and r2 are type std::shared_ptr<int> each pointing to a dynamically allocated int. the one q2 is pointing to has 42 stored in it. the one pointed to by r2 has 100 stored in it.
+4: reference count of the object pointed to by r2 reduces to 0. the object is destroyed. r2 now points to the same object as the one q2 was pointing to. their reference count is now 2.

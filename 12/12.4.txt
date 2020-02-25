@@ -1,0 +1,1 @@
+size_type is unsigned, so i cannot be negative. if i is 0, then the function throws std::out_of_range if, and only if data is empty (data->size() will also be 0).

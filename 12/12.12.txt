@@ -1,0 +1,4 @@
+a) a copy of sp is assigned to the parameter corresponding to the argument sp. reference count of sp is incremented. this count is decremented back to what it was when execution finishes.
+b) the new int created is used in the function. then it is deleted.
+c) illegal. constructor that takes ordinary pointer is explicit.
+d) legal. the memory created by new will be deleted. the pointer p will become a dangling pointer after the execution of this function.

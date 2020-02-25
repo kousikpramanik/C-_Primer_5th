@@ -1,0 +1,1 @@
+4 elements. the object b1 originally contained was destroyed by the assignment operation. b2 was destroyed at the end-brace, but b1 had the shared objects originally in b2.

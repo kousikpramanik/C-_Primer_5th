@@ -1,0 +1,2 @@
+pro: looks like every other library function. why would anyone want to add std::initialiser_list<std::string> before the braces when creating an object.
+cons: nothing.

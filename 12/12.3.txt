@@ -1,0 +1,1 @@
+No. That would allow modification of a const object.

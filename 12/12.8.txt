@@ -1,0 +1,1 @@
+the return value of b() can only be used to test whether it is a null pointer. there is no way for us to access the memory that is created using the new. this is a memory leak.

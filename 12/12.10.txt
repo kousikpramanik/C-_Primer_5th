@@ -1,0 +1,1 @@
+yes. the temporary std::shared_ptr<int> created by this would be a copy of p. this would increase the reference count to 2. when the function is done processing, the reference count would be back to 1.
