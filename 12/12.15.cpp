@@ -8,13 +8,13 @@ extern "C" {
 #include "connect.h"
 }
 
-void end_connection(connectionptr conn) {
-    if (conn) { disconnect(conn); }
-}
-
 void f(const destination &dest) {
     std::array<char, 256> msg{};
-    std::shared_ptr<std::remove_pointer<connectionptr>::type> conn(connect(&dest), end_connection);
+    std::shared_ptr<std::remove_pointer<connectionptr>::type> conn(connect(&dest), [](connectionptr conn) {
+        if (conn) {
+            disconnect(conn);
+        }
+    });
     std::strcpy(msg.data(), "test 1");
     std::cout << R"(msg after calling strcpy() with "test 1": ")" << msg.data() << "\"\n";
     send(conn.get(), true, msg.data());

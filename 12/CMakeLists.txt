@@ -13,3 +13,6 @@ target_include_directories(connect PUBLIC 12.14/connect)
 
 add_executable(12.14 12.14/main.cpp)
 target_link_libraries(12.14 PUBLIC connect)
+
+add_executable(12.15 12.15.cpp)
+target_link_libraries(12.15 PUBLIC connect)

@@ -6,6 +6,8 @@ static bool commit(connectionptr conn, char operation);
 
 connectionptr connect(const struct destination *dest) {
     connectionptr ret = malloc(sizeof(*ret));
+    if (!ret) { return ret; }
+
     ret->dest = *dest;
     ret->connected = true;
     strcpy(ret->buff_recv, "");
@@ -30,7 +32,7 @@ bool disconnect(connectionptr conn) {
 
 bool send(connectionptr conn, bool connectivity, const char *msg) {
     if ((conn->connected = connectivity)) {
-        strncpy(conn->buff_send, msg, MSG_MAX - 1);
+        strncpy(conn->buff_send, msg, MSG_MAX);
         conn->buff_send[MSG_MAX - 1] = '\0';
         conn->send_utilised = false;
         return commit(conn, 's');
@@ -40,7 +42,7 @@ bool send(connectionptr conn, bool connectivity, const char *msg) {
 }
 
 bool receive(connectionptr conn, char *msg) {
-    strncpy(msg, conn->buff_recv, MSG_MAX - 1);
+    strncpy(msg, conn->buff_recv, MSG_MAX);
     msg[MSG_MAX - 1] = '\0';
     conn->recv_utilised = true;
 
@@ -51,17 +53,24 @@ static bool commit(connectionptr conn, char operation) {
     // make a connection with self
     switch (operation) {
         case 's':
-            strncpy(conn->buff_recv, conn->buff_send, MSG_MAX - 1);
-            conn->buff_recv[MSG_MAX - 1] = '\0';
-            conn->recv_utilised = false;
-            break;
+            if (conn->recv_utilised) {
+                strncpy(conn->buff_recv, conn->buff_send, MSG_MAX);
+                conn->buff_recv[MSG_MAX - 1] = '\0';
+                conn->recv_utilised = false;
+                return true;
+            } else {
+                return false;
+            }
         case 'r':
-            conn->send_utilised = true;
-            break;
+            if (conn->send_utilised) {
+                return false;
+            } else {
+                conn->send_utilised = true;
+                return true;
+            }
         case 'c':
         case 'd':
         default:
-            break;
+            return true;
     }
-    return true;
 }

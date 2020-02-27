@@ -1,0 +1,7 @@
+error: call to deleted constructor of 'std::unique_ptr<int>'
+std::unique_ptr<int> beta = alpha;
+^      ~~~~~
+/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/9.2.1/../../../../include/c++/9.2.1/bits/unique_ptr.h:406:7: note: 'unique_ptr' has been explicitly marked deleted here
+unique_ptr(const unique_ptr&) = delete;
+^
+1 error generated.
