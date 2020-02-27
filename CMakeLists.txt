@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.15)
 project("C++ Primer 5th"
         VERSION 0.11
         DESCRIPTION "Solutions to exercises of C++ Primer by Lippman et al., 5th edition"
-        LANGUAGES CXX)
+        LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 11)
 
