@@ -13,10 +13,7 @@ int main() {
     std::string word;
     while (std::cin >> word) {
         // problem 2: another algorithm instead of a simple member function, though performance might be same for this
-        if (std::lower_bound(exclude.cbegin(), exclude.cend(), word) == exclude.cend()) {
-            continue;
-        }
-        ++word_count[word];
+        if (!std::binary_search(exclude.cbegin(), exclude.cend(), word)) { ++word_count[word]; }
     }
     for (const auto &w : word_count) {
         std::cout << w.first << " occurs " << w.second << (w.second == 1 ? " time\n" : " times\n");
