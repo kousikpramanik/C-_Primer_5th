@@ -16,3 +16,16 @@ target_link_libraries(12.14 PUBLIC connect)
 
 add_executable(12.15 12.15.cpp)
 target_link_libraries(12.15 PUBLIC connect)
+
+add_library(StrBlob_2 STATIC 12.19/StrBlob.cpp 12.19/StrBlob.h)
+target_include_directories(StrBlob_2 PUBLIC 12.19)
+
+add_executable(12.20 12.20.cpp)
+target_link_libraries(12.20 PUBLIC StrBlob_2)
+
+add_library(StrBlob_3 STATIC 12.22/StrBlob.cpp 12.22/StrBlob.h)
+target_include_directories(StrBlob_3 PUBLIC 12.22)
+
+add_executable(12.23_literal 12.23/literal.cpp)
+add_executable(12.23_string 12.23/string.cpp)
+add_executable(12.24 12.24.cpp)

@@ -1,0 +1,6 @@
+a) error. can't initialise std::unique_ptr<int> from int
+b) pi points to ix, ix is initialised on the stack. this will cause an error when the unique_ptr goes out of scope and its destructor is called.
+c) legal
+d) same issue as b
+e) legal
+f) p5 will point to the same object as p2, so both their destructors will call free on the same pointer.

@@ -1,0 +1,1 @@
+shared_ptr objects don't own the objects they point to. the ownership is shared between multiple shared pointers.
