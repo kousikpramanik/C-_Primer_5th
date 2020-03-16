@@ -1,0 +1,1 @@
+The line numbers would be sorted at insertion time. We could use algorithms from <algorithm> like std::equal_range() and std::binary_search() for the tests instead of std::set::find(). The performance should be similar.

@@ -29,3 +29,17 @@ target_include_directories(StrBlob_3 PUBLIC 12.22)
 add_executable(12.23_literal 12.23/literal.cpp)
 add_executable(12.23_string 12.23/string.cpp)
 add_executable(12.24 12.24.cpp)
+add_executable(12.26 12.26.cpp)
+
+add_library(TextQuery STATIC 12.27/TextQuery.cpp 12.27/TextQuery.h)
+target_include_directories(TextQuery PUBLIC 12.27)
+
+add_executable(12.28 12.28.cpp)
+add_executable(12.29 12.29.cpp)
+
+add_library(TextQuery_2 STATIC 12.32/TextQuery.cpp 12.32/TextQuery.cpp)
+target_link_libraries(TextQuery_2 PUBLIC StrBlob_3)
+target_include_directories(TextQuery_2 PUBLIC 12.32)
+
+add_library(TextQuery_3 STATIC 12.33/TextQuery.cpp 12.33/TextQuery.h)
+target_include_directories(TextQuery_3 PUBLIC 12.33)
