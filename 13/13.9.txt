@@ -1,0 +1,3 @@
+A destructor is a member function of a class that is run when an object of the class is destroyed.
+The synthesised destructor does not do any operation.
+Whenever there is no destructor manually defined.

@@ -1,0 +1,1 @@
+Yes. Easier creation of employees with same name. Already done in 13.18

@@ -1,0 +1,1 @@
+A copy constructor manages what happens to the members of a class when an object of the class type is copied. It is called whenever an object is initialised from another object of the same type.

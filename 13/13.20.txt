@@ -1,0 +1,2 @@
+TextQuery - the file shared_ptr is copied and its reference count is incremented. the map is copied entirely.
+QueryResult - the string sought is copied, the other two shared_ptrs are copied and their reference count is incremented.

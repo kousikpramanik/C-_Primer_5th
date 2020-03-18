@@ -1,0 +1,2 @@
+StrBlob - reference count of the shared_ptr is decreased. if this reduces the count to 0, the associated object is deleted.
+StrBlobPtr - the weak_ptr and size_type objects are destroyed. these have no notable effects.

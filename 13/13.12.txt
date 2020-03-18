@@ -1,0 +1,6 @@
+bool fcn(const Sales_data *trans, Sales_data accum) {
+    Sales_data item1(*trans), item2(accum);
+    return item1.isbn() != item2.isbn();
+} // item2 destructor called
+  // item1 destructor called
+  // accum destructor called

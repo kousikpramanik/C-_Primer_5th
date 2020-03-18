@@ -1,0 +1,2 @@
+StrBlob - the std::shared_ptr<std::vector<std::string>> is copied using the copy assignment operator of the class. the new object will have a std::shared_ptr that points to the same std::vector<std::string> as the one being copied. the shared reference count of the std::shared_ptr<std::vector<std::string>> object will also be increased.
+StrBlobPtr - the std::weak_ptr<std::vector<std::string>> and StrBlob::size_type objects will be copied using their respective copy assignment operators.

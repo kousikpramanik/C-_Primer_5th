@@ -1,0 +1,3 @@
+Copy assignment operator - = (when not used for initialisation)
+it assigns each nonstatic member of the right-hand object to the corresponding member of the left-hand object using the copy-assignment operator for the type of that member.
+it is synthesised whenever the function is not manually provided and the members are all copy-assignable.

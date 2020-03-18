@@ -1,0 +1,1 @@
+It is illegal because the copy constructor must pass its argument as a reference. This is because nonreference parameters of a function are initialised with the copy constructor. Trying to use the copy constructor like this would cause an unending recursive call to the copy constructor.

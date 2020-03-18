@@ -1,0 +1,3 @@
+yes, the three function calls would print three unique serial numbers. however, these serial numbers won't match those actually inside a, b, or c.
+this is because the copy constructor is used to initialise nonreference parameters from arguments.
+can't tell output without running the function.

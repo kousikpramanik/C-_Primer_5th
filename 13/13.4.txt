@@ -1,0 +1,7 @@
+Point global;
+Point foo_bar(Point arg) { // argument will be copied to arg
+    Point local = arg, *heap = new Point(global); // copies arg to local. the new Point(global) uses direct-initialisation, so it also uses the copy constructor.
+    *heap = local; // copies local to *heap
+    Point pa[4] = { local, *heap }; // copies local to pa[0] and *heap to pa[1]
+    return *heap; // uses *heap and the copy constructor at function call site
+}
