@@ -1,0 +1,1 @@
+Sure. Both the copy constructor and the destructor of the pointerlike HasPtr has extra work to do that we can avoid by creating our own swap function.

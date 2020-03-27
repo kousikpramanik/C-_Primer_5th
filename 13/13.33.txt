@@ -1,0 +1,1 @@
+Because we want to modify a specific Folder object. const Folder& won't let us modify. Just Folder would create a copy of the Folder instead.

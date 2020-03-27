@@ -1,0 +1,2 @@
+both the copy constructor and the copy assignment operator should dynamically allocate new memory and have a copy of the objects from the other StrBlob stored there. the new StrBlob will get a shared_ptr to this new memory instead of sharing the other StrBlob's shared_ptr.
+std::shared_ptr's destruction ensures the underlying object is deleted when appropriate. we don't have to do any work for that.

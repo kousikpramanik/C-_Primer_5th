@@ -1,0 +1,1 @@
+Message::save() and Message::remove() already do that.

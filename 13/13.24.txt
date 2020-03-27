@@ -1,0 +1,2 @@
+No destructor = would cause memory leak since a pointer to dynamically allocated object will go out of scope.
+No copy constructor = would cause use after free. multiple objects could refer to the same memory and some object might get destroyed while another object holds a pointer to that memory.

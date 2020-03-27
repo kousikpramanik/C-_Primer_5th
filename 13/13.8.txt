@@ -1,6 +1,7 @@
 HasPtr &HasPtr::operator=(const HasPtr &other) {
-    ps = new std::string(*other.ps);
-    i = other.i;
-
+    if (this != &other) {
+        *ps = *other.ps;
+        i = other.i;
+    }
     return *this;
 }

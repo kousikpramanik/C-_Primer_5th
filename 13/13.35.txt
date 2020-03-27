@@ -1,0 +1,3 @@
+copy constructor - wouldn't add the new message to the folders' sets of messages.
+copy assignment - similar, won't change the folders' sets of messages.
+destructor - same, won't delete from the folders' sets of messages.

@@ -1,0 +1,1 @@
+Because the ones called inside swap(HasPtr&, HasPtr&) are different functions, not swap(HasPtr&, HasPtr&).

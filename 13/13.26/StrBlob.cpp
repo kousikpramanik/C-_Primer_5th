@@ -3,6 +3,11 @@
 #include <vector>
 #include <exception>
 
+StrBlob &StrBlob::operator=(const StrBlob &other) {
+    if (this != &other) { data.reset(new std::vector<std::string>(*other.data)); }
+    return *this;
+}
+
 void StrBlob::check(StrBlob::size_type i, const std::string &msg) const {
     if (i >= data->size()) { throw std::out_of_range(msg); }
 }
