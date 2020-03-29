@@ -32,3 +32,16 @@ target_link_libraries(13.31 PUBLIC HasPtr_4)
 
 add_library(Message_Folder STATIC 13.36/Message_Folder.cpp 13.36/Message_Folder.h)
 target_include_directories(Message_Folder PUBLIC 13.36)
+
+add_library(StrVec STATIC 13.40/StrVec.cpp 13.40/StrVec.h)
+target_include_directories(StrVec PUBLIC 13.40)
+
+add_library(TextQuery_5 STATIC 13.42/TextQuery.cpp 13.42/TextQuery.h)
+target_link_libraries(TextQuery_5 PUBLIC StrVec)
+target_include_directories(TextQuery_5 PUBLIC 13.42)
+
+add_library(StrVec_2 STATIC 13.43/StrVec.cpp 13.43/StrVec.h)
+target_include_directories(StrVec_2 PUBLIC 13.43)
+
+add_library(String STATIC 13.44/String.cpp 13.44/String.h)
+target_include_directories(String PUBLIC 13.44)
