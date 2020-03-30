@@ -30,13 +30,11 @@ public: // member functions
 
     StrVec(const StrVec &other);
 
-    StrVec(std::initializer_list<T> init, const Allocator &alloc = Allocator());
+    StrVec(std::initializer_list<T> init);
 
     ~StrVec() { free(); };
 
     StrVec &operator=(const StrVec &other);
-
-    allocator_type get_allocator() const { return allocator; }
 
 public: // element access
     T *data() noexcept { return first_element; }
@@ -78,7 +76,7 @@ private: // internal usage
     void chk_n_realloc();
 
 private:
-    Allocator allocator; // = Allocator();
+    Allocator allocator;
     T *first_element = nullptr;
     T *first_free = nullptr;
     T *one_past_capacity = nullptr;
@@ -91,7 +89,7 @@ inline StrVec::StrVec(const StrVec &other) {
     first_free = one_past_capacity = newdata.second;
 }
 
-inline StrVec::StrVec(std::initializer_list<T> init, const Allocator &alloc) : allocator(alloc) {
+inline StrVec::StrVec(std::initializer_list<T> init) {
     // works because iterators and pointers are same thing at the moment
     auto data = alloc_n_copy(init.begin(), init.end());
     first_element = data.first;

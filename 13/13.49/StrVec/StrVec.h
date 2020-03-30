@@ -29,11 +29,15 @@ public: // member functions
 
     StrVec(const StrVec &other);
 
+    StrVec(StrVec &&other) noexcept;
+
     StrVec(std::initializer_list<T> init);
 
     ~StrVec() { free(); }
 
     StrVec &operator=(const StrVec &other);
+
+    StrVec &operator=(StrVec &&other) noexcept;
 
 public: // element access
     T *data() noexcept { return first_element; }
@@ -86,6 +90,12 @@ inline StrVec::StrVec(const StrVec &other) {
     auto newdata = alloc_n_copy(other.begin(), other.end());
     first_element = newdata.first;
     first_free = one_past_capacity = newdata.second;
+}
+
+inline StrVec::StrVec(StrVec &&other) noexcept : first_element(other.first_element),
+                                                 first_free(other.first_free),
+                                                 one_past_capacity(other.one_past_capacity) {
+    other.first_element = other.first_free = other.one_past_capacity = nullptr;
 }
 
 inline StrVec::StrVec(std::initializer_list<T> init) {

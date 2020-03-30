@@ -45,3 +45,18 @@ target_include_directories(StrVec_2 PUBLIC 13.43)
 
 add_library(String STATIC 13.44/String.cpp 13.44/String.h)
 target_include_directories(String PUBLIC 13.44)
+
+add_library(String_2 STATIC 13.47/String.cpp 13.47/String.h)
+target_include_directories(String_2 PUBLIC 13.47)
+
+add_executable(13.48 13.48.cpp)
+target_link_libraries(13.48 PUBLIC String_2)
+
+add_library(Message_Folder_2 STATIC 13.49/Message_Folder/Message_Folder.cpp 13.49/Message_Folder/Message_Folder.h)
+target_include_directories(Message_Folder_2 PUBLIC 13.49/Message_Folder)
+
+add_library(StrVec_3 STATIC 13.49/StrVec/StrVec.cpp 13.49/StrVec/StrVec.h)
+target_include_directories(StrVec_3 PUBLIC 13.49/StrVec)
+
+add_library(String_3 STATIC 13.49/String/String.cpp 13.49/String/String.h)
+target_include_directories(String_3 PUBLIC 13.49/String)

@@ -38,11 +38,15 @@ public: // member functions
 
     String(const String &other);
 
+    String(String &&other) noexcept;
+
     String(std::initializer_list<CharT> ilist);
 
     ~String() { free(); };
 
     String &operator=(const String &other);
+
+    String &operator=(String &&other) noexcept;
 
 public: // element access
     const CharT *data() const noexcept { return first_element; }
@@ -150,6 +154,12 @@ inline String::String(std::initializer_list<CharT> ilist) {
     auto data = alloc_n_copy(ilist.begin(), ilist.end());
     first_element = data.first;
     first_free = one_past_capacity = data.second;
+}
+
+inline String::String(String &&other) noexcept : first_element(other.first_element),
+                                                 first_free(other.first_free),
+                                                 one_past_capacity(other.one_past_capacity) {
+    other.first_element = other.first_free = other.one_past_capacity = nullptr;
 }
 
 inline String &String::operator=(const String &other) {

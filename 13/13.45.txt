@@ -1,0 +1,5 @@
+lvalue references are used to alias existing objects
+lvalue references are used to implement pass-by-reference semantics
+
+rvalue references are used to extend the lifetimes of temporary objects
+rvalue references are used to implement move semantics
