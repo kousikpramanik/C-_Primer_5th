@@ -98,7 +98,7 @@ public: // operations
 
     void pop_back();
 
-    String &append(size_type count, CharT ch);;
+    String &append(size_type count, CharT ch);
 
     String &append(const String &str);
 
@@ -201,18 +201,6 @@ inline void String::pop_back() {
     *first_free = '\0';
 }
 
-inline String &String::append(String::size_type count, String::CharT ch) {
-    if (count == 1) {
-        push_back(ch);
-    } else {
-        chk_n_realloc(count);
-        for (size_type i = 0; i != count; ++i) {
-            std::allocator_traits<Allocator>::construct(allocator, first_free++, ch);
-        }
-    }
-    return *this;
-}
-
 inline String &String::append(const String &str) {
     chk_n_realloc(str.size());
     std::allocator_traits<Allocator>::destroy(allocator, first_free);
@@ -221,7 +209,7 @@ inline String &String::append(const String &str) {
     return *this;
 }
 
-inline String &String::append(const String::CharT *s, String::size_type count) {
+inline String &String::append(const CharT *s, size_type count) {
     chk_n_realloc(count);
     std::allocator_traits<Allocator>::destroy(allocator, first_free);
     first_free = std::uninitialized_copy(s, s + count, first_free);
