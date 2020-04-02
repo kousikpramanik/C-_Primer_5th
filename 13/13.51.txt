@@ -1,0 +1,1 @@
+since the return expression is a non-volatile object type and that variable was declared in the body of the function, the overload resolution is first performed as if the expression were an rvalue expression (thus it may select the move constructor).

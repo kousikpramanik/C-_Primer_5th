@@ -1,0 +1,1 @@
+Infinite recursive loop because return ret.sorted() refers to ret, which is an lvalue.

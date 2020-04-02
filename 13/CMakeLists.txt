@@ -60,3 +60,27 @@ target_include_directories(StrVec_3 PUBLIC 13.49/StrVec)
 
 add_library(String_3 STATIC 13.49/String/String.cpp 13.49/String/String.h)
 target_include_directories(String_3 PUBLIC 13.49/String)
+
+add_library(String_4 STATIC 13.50/String/String.cpp 13.50/String/String.h)
+target_include_directories(String_4 PUBLIC 13.50/String)
+
+add_executable(13.50_13.48 13.50/13.48.cpp)
+target_link_libraries(13.50_13.48 PUBLIC String_4)
+
+add_library(HasPtr_5 INTERFACE)
+target_include_directories(HasPtr_5 INTERFACE 13.53/HasPtr_operator_assign)
+
+add_library(HasPtr_6 INTERFACE)
+target_include_directories(HasPtr_6 INTERFACE 13.53/HasPtr_swap_assign)
+
+add_library(HasPtr_7 INTERFACE)
+target_include_directories(HasPtr_7 INTERFACE 13.54/HasPtr)
+
+add_executable(13.54 13.54/main.cpp)
+target_link_libraries(13.54 PUBLIC HasPtr_7)
+
+add_library(StrBlob_5 STATIC 13.55/StrBlob.cpp 13.55/StrBlob.h)
+target_include_directories(StrBlob_5 PUBLIC 13.55)
+
+add_executable(13.58_13.56 13.58/13.56.cpp)
+add_executable(13.58_13.57 13.58/13.57.cpp)

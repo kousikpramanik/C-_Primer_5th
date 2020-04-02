@@ -1,0 +1,4 @@
+hp = hp2;
+calls HasPtr& operator=(HasPtr rhs) with hp2 argument for rhs parameter. since hp2 is an lvalue, the copy constructor is called to copy the contents of hp2 to rhs. the contents of rhs and *this are swapped. the *this with the contents of rhs is returned, the rhs with the contents of the old *this is destroyed.
+hp = std::move(hp2);
+calls HasPtr& operator=(HasPtr rhs) with hp2 argument for rhs parameter. since std::move(hp2) produces hp2 as an rvalue, the move constructor is called to move the contents of hp2 to rhs. the contents of rhs and *this are swapped. the *this with the contents of rhs is returned, the rhs with the contents of the old *this is destroyed. hp2 is left in a condition where it can be safely destroyed, but it should not be used for purposes that depend on its contents.

@@ -1,0 +1,1 @@
+this will work fine. a temporary object will be created (rvalue). rvalue version of the sorted function will be run on that, and the resulting Foo will be returned.
