@@ -1,0 +1,4 @@
+a) compares two pointers
+b) uses string comparison operator
+c) uses vector comparison operator. this will involve using the string comparison operator since the vector holds strings
+d) uses string comparison operator

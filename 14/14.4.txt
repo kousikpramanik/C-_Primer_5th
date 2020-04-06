@@ -1,0 +1,8 @@
+a) non-member, isn't directly associated with an object. only produces a result that can be used later.
+b) member, associated with the object that is assigned to.
+c) member, associated with the object.
+d) member, must be a member.
+e) non-member, isn't directly associated with an object. only produces a result that can be used later.
+f) non-member, similar reason.
+g) non-member, similar reason.
+h) member, must be a member.

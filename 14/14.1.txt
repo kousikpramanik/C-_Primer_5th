@@ -1,0 +1,7 @@
+differ
+1) an overloaded operator is an alias of a function. built in operators aren't functions
+2) overloaded logical AND, logical OR operators don't show the short circuit property
+3) overloaded operators can't be defined if all of its operands are of built in type
+
+same
+1) the overloaded operators have the same precedence and associativity as the built in ones
