@@ -76,22 +76,7 @@ add_library(Window_mgr STATIC 7.32/Window_mgr.cpp 7.32/Window_mgr.h 7.32/Screen_
 target_include_directories(Window_mgr PUBLIC 7.32)
 
 add_library(Book INTERFACE)
-target_include_directories(Book INTERFACE 7.40/Book)
-
-add_library(Date INTERFACE)
-target_include_directories(Date INTERFACE 7.40/Date)
-
-add_library(Employee INTERFACE)
-target_include_directories(Employee INTERFACE 7.40/Employee)
-
-add_library(Object INTERFACE)
-target_include_directories(Object INTERFACE 7.40/Object)
-
-add_library(Tree INTERFACE)
-target_include_directories(Tree INTERFACE 7.40/Tree)
-
-add_library(Vehicle INTERFACE)
-target_include_directories(Vehicle INTERFACE 7.40/Vehicle)
+target_include_directories(Book INTERFACE 7.40)
 
 add_library(Sales_data_9 STATIC 7.41/Sales_data_9.cpp 7.41/Sales_data_9.h)
 target_include_directories(Sales_data_9 PUBLIC 7.41)

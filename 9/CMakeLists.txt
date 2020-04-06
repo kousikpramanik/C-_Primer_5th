@@ -24,7 +24,7 @@ add_executable(9.47 9.47.cpp)
 add_executable(9.49 9.49.cpp)
 add_executable(9.50 9.50.cpp)
 
-add_library(Date_2 STATIC 9.51/Date.cpp 9.51/Date.h)
-target_include_directories(Date_2 PUBLIC 9.51)
+add_library(Date STATIC 9.51/Date.cpp 9.51/Date.h)
+target_include_directories(Date PUBLIC 9.51)
 
 add_executable(9.52 9.52.cpp)
