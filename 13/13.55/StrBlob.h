@@ -31,11 +31,6 @@ public: // constructors
 
     StrBlob(std::initializer_list<std::string> il) : data(new std::vector<std::string>(il)) {}
 
-public: // copy control
-    StrBlob(const StrBlob &other) : data(new std::vector<std::string>(*other.data)) {}
-
-    StrBlob &operator=(const StrBlob &other);
-
 public: // functions - related to size
     size_type size() const { return data->size(); }
 
