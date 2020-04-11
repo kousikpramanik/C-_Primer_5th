@@ -1,0 +1,1 @@
+price might be left uninitialised if input fails.

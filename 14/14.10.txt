@@ -1,0 +1,2 @@
+a) 0-201-99999-9 is read into bookNo. 10 is read into units_sold. 24.95 is read into price. 249.50 is stored into revenue. the istream& is returned.
+b) 10 is read into bookNo. 24 is read into units_sold. sets failbit on the stream because '.' cannot be read into price.

@@ -10,7 +10,7 @@ class Sales_data {
 
     friend std::ostream &operator<<(std::ostream &os, const Sales_data &item);
 
-    friend Sales_data operator+(const Sales_data &lhs, const Sales_data &rhs);
+    friend bool operator==(const Sales_data &lhs, const Sales_data &rhs);
 
 public:
     Sales_data() = default;
@@ -60,9 +60,14 @@ inline std::ostream &operator<<(std::ostream &os, const Sales_data &item) {
 
 inline Sales_data operator+(const Sales_data &lhs, const Sales_data &rhs) {
     Sales_data temp = lhs;
-    temp.units_sold += rhs.units_sold;
-    temp.revenue += rhs.revenue;
+    temp += rhs;
     return temp;
 }
+
+inline bool operator==(const Sales_data &lhs, const Sales_data &rhs) {
+    return lhs.bookNo == rhs.bookNo && lhs.units_sold == rhs.units_sold && lhs.revenue == rhs.revenue;
+}
+
+inline bool operator!=(const Sales_data &lhs, const Sales_data &rhs) { return !(lhs == rhs); }
 
 #endif // C_PRIMER_5TH_SALES_DATA_H
