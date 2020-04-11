@@ -34,8 +34,9 @@ inline HasPtr &HasPtr::operator=(HasPtr other) {
 }
 
 inline void swap(HasPtr &left, HasPtr &right) {
-    std::swap(left.ps, right.ps);
-    std::swap(left.i, right.i);
+    using std::swap;
+    swap(left.ps, right.ps);
+    swap(left.i, right.i);
 }
 
 inline bool operator<(const HasPtr &lhs, const HasPtr &rhs) { return *lhs.ps < *rhs.ps; }

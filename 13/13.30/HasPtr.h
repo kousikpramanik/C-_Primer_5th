@@ -23,12 +23,13 @@ private:
 };
 
 inline void swap(HasPtr &left, HasPtr &right) {
+    using std::swap;
 #ifndef NDEBUG
     std::clog << "In file: " << __FILE__ << "\nIn function: " << __func__ << "\n";
     std::clog << "*left.ps: \"" << *left.ps << "\", *right.ps: \"" << *right.ps << "\"\n";
 #endif // NDEBUG
-    std::swap(left.ps, right.ps);
-    std::swap(left.i, right.i);
+    swap(left.ps, right.ps);
+    swap(left.i, right.i);
 }
 
 #endif //C_PRIMER_5TH_HASPTR_H

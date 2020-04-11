@@ -2,16 +2,16 @@ when copy-and-swap is used, copy assignment calls
 HasPtr(const HasPtr &other);
 HasPtr &operator=(HasPtr other);
 void swap(HasPtr &left, HasPtr &right);
-std::swap(std::string *&lhs, std::string *&rhs);
-std::swap(int &lhs, int &rhs);
+swap(std::string *&lhs, std::string *&rhs);
+swap(int &lhs, int &rhs);
 ~HasPtr();
 
 when copy-and-swap is used, move assignment calls
 HasPtr(HasPtr &&other) noexcept;
 HasPtr &operator=(HasPtr other);
 void swap(HasPtr &left, HasPtr &right);
-std::swap(std::string *&lhs, std::string *&rhs);
-std::swap(int &lhs, int &rhs);
+swap(std::string *&lhs, std::string *&rhs);
+swap(int &lhs, int &rhs);
 ~HasPtr();
 
 when copy-assignment operator is used, copy assignment calls
