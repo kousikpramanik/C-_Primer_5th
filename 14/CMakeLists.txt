@@ -15,3 +15,12 @@ target_include_directories(Sales_data_11 INTERFACE 14.13)
 
 add_library(Book_5 INTERFACE)
 target_include_directories(Book_5 INTERFACE 14.15)
+
+add_library(StrBlob_6 STATIC 14.16/StrBlob/StrBlob.cpp 14.16/StrBlob/StrBlob.h)
+target_include_directories(StrBlob_6 PUBLIC 14.16/StrBlob)
+
+add_library(StrVec_4 STATIC 14.16/StrVec/StrVec.cpp 14.16/StrVec/StrVec.h)
+target_include_directories(StrVec_4 PUBLIC 14.16/StrVec)
+
+add_library(String_6 STATIC 14.16/String/String.cpp 14.16/String/String.h)
+target_include_directories(String_6 PUBLIC 14.16/String)
