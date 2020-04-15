@@ -1,5 +1,5 @@
-#ifndef X_Y_H_
-#define X_Y_H_
+#ifndef C_PRIMER_5TH_X_Y_H
+#define C_PRIMER_5TH_X_Y_H
 
 class Y;
 
@@ -11,4 +11,4 @@ class Y {
     X xobj;
 };
 
-#endif
+#endif // C_PRIMER_5TH_X_Y_H

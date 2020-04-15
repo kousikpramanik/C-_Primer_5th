@@ -1,5 +1,5 @@
-#ifndef BOOK_2_H_
-#define BOOK_2_H_
+#ifndef C_PRIMER_5TH_BOOK_H
+#define C_PRIMER_5TH_BOOK_H
 
 #include <vector>
 #include <string>
@@ -7,11 +7,13 @@
 class Book {
 public: // type members
     using page = unsigned;
+
 private: // type members
     using note = struct {
         std::string text;
         page pgNum;
     };
+
 public: // constructors
     Book(std::string n, std::string a, std::string i, page r) : name(n), author(a), isbn(i), page(r) {}
 
@@ -33,4 +35,4 @@ private: // data members
     std::vector<note> bookmarks; // notes are inserted/deleted/viewed with member functions only
 };
 
-#endif
+#endif // C_PRIMER_5TH_BOOK_H

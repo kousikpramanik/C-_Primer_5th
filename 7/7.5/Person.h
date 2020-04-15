@@ -1,5 +1,5 @@
-#ifndef PERSON_2_H_
-#define PERSON_2_H_
+#ifndef C_PRIMER_5TH_PERSON_H
+#define C_PRIMER_5TH_PERSON_H
 
 #include <string>
 
@@ -12,4 +12,4 @@ struct Person {
     const std::string &ret_address() const { return address; }
 };
 
-#endif
+#endif // C_PRIMER_5TH_PERSON_H

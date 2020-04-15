@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Screen_3.h"
+#include "Screen.h"
 
 int main() {
     Screen myScreen(5, 5, 'X');

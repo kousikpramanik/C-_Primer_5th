@@ -1,5 +1,5 @@
-#ifndef SCREEN_2_H_
-#define SCREEN_2_H_
+#ifndef C_PRIMER_5TH_SCREEN_H
+#define C_PRIMER_5TH_SCREEN_H
 
 #include <string>
 
@@ -31,4 +31,4 @@ inline Screen &Screen::move(pos r, pos c) {
     return *this;
 }
 
-#endif
+#endif // C_PRIMER_5TH_SCREEN_H

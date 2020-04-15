@@ -9,8 +9,8 @@ add_executable(7.3 7.3/main.cpp 7.3/tnx_proc_2.cpp)
 target_link_libraries(7.3 PUBLIC Sales_data_2)
 target_include_directories(7.3 PUBLIC 7.3)
 
-add_library(Person_1 INTERFACE)
-target_include_directories(Person_1 INTERFACE 7.4)
+add_library(Person INTERFACE)
+target_include_directories(Person INTERFACE 7.4)
 
 add_library(Person_2 INTERFACE)
 target_include_directories(Person_2 INTERFACE 7.5)
@@ -58,13 +58,13 @@ add_library(Sales_data_8 STATIC 7.26/Sales_data_8.cpp 7.26/Sales_data_8.h)
 target_include_directories(Sales_data_8 PUBLIC 7.26)
 
 add_library(Screen_3 INTERFACE)
-target_include_directories(Screen_3 INTERFACE 7.27/Screen_3)
+target_include_directories(Screen_3 INTERFACE 7.27/Screen)
 
 add_executable(7.27 7.27/7.27.cpp)
 target_link_libraries(7.27 PUBLIC Screen_3)
 
 add_library(Screen_4 INTERFACE)
-target_include_directories(Screen_4 INTERFACE 7.29/Screen_4)
+target_include_directories(Screen_4 INTERFACE 7.29/Screen)
 
 add_executable(7.29 7.29/7.29.cpp)
 target_link_libraries(7.29 PUBLIC Screen_4)

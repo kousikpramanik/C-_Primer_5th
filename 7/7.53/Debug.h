@@ -1,5 +1,5 @@
-#ifndef DEBUG_H
-#define DEBUG_H
+#ifndef C_PRIMER_5TH_DEBUG_H
+#define C_PRIMER_5TH_DEBUG_H
 
 class Debug {
 public:
@@ -21,4 +21,4 @@ private:
     bool other; // other errors
 };
 
-#endif
+#endif // C_PRIMER_5TH_DEBUG_H

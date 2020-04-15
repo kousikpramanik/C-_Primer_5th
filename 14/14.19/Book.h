@@ -32,7 +32,7 @@ public: // constructors
                                                                 isbn(std::move(i)), reading(r) {}
 
 public: // operations related to page reading
-    inline Book &operator=(page i);
+    Book &operator=(page i);
 
     int compare(const Book &other) const;
 
