@@ -36,3 +36,27 @@ target_include_directories(String_7 PUBLIC 14.18/String)
 
 add_library(Book_6 STATIC 14.19/Book.cpp 14.19/Book.h)
 target_include_directories(Book_6 PUBLIC 14.19)
+
+add_library(Sales_data_12 INTERFACE)
+target_include_directories(Sales_data_12 INTERFACE 14.21/Sales_data)
+
+add_library(Sales_data_13 INTERFACE)
+target_include_directories(Sales_data_13 INTERFACE 14.22)
+
+add_library(StrVec_6 STATIC 14.23/StrVec.cpp 14.23/StrVec.h)
+target_include_directories(StrVec_6 PUBLIC 14.23)
+
+add_library(Book_7 STATIC 14.24/Book.cpp 14.24/Book.h)
+target_include_directories(Book_7 PUBLIC 14.24)
+
+add_library(StrVec_7 STATIC 14.25/StrVec/StrVec.cpp 14.25/StrVec/StrVec.h)
+target_include_directories(StrVec_7 PUBLIC 14.25/StrVec)
+
+add_library(String_8 STATIC 14.25/String/String.cpp 14.25/String/String.h)
+target_include_directories(String_8 PUBLIC 14.25/String)
+
+add_library(StrBlob_8 STATIC 14.25/StrBlob/StrBlob.cpp 14.25/StrBlob/StrBlob.h)
+target_include_directories(StrBlob_8 PUBLIC 14.25/StrBlob)
+
+add_library(StrBlob_9 STATIC 14.27/StrBlob.cpp 14.27/StrBlob.h)
+target_include_directories(StrBlob_9 PUBLIC 14.27)
