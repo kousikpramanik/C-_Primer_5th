@@ -5,7 +5,7 @@
 #include <sstream>
 #include <iostream>
 #include <unordered_map>
-#include <exception>
+#include <stdexcept>
 
 void word_transform(std::ifstream &map_file, std::ifstream &input) {
     auto trans_map = buildMap(map_file);

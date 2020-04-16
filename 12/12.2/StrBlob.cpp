@@ -1,6 +1,6 @@
 #include "StrBlob.h"
 #include <string>
-#include <exception>
+#include <stdexcept>
 
 void StrBlob::check(StrBlob::size_type i, const std::string &msg) const {
     if (i >= data->size())

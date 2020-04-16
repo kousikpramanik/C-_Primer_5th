@@ -5,7 +5,7 @@
 #include <memory>
 #include <initializer_list>
 #include <limits>
-#include <exception>
+#include <stdexcept>
 #include <utility>
 
 class StrVec {
@@ -97,9 +97,9 @@ inline StrVec::StrVec(const StrVec &other) {
     first_free = one_past_capacity = newdata.second;
 }
 
-inline StrVec::StrVec(StrVec &&other) noexcept : first_element(other.first_element),
-                                                 first_free(other.first_free),
-                                                 one_past_capacity(other.one_past_capacity) {
+inline StrVec::StrVec(StrVec &&other) noexcept: first_element(other.first_element),
+                                                first_free(other.first_free),
+                                                one_past_capacity(other.one_past_capacity) {
     other.first_element = other.first_free = other.one_past_capacity = nullptr;
 }
 

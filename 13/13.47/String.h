@@ -8,7 +8,7 @@
 #include <limits>
 #include <cstring>
 #include <iostream>
-#include <exception>
+#include <stdexcept>
 #include <utility>
 
 class String {

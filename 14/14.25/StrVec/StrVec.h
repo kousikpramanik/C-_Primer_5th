@@ -5,7 +5,7 @@
 #include <memory>
 #include <initializer_list>
 #include <limits>
-#include <exception>
+#include <stdexcept>
 #include <utility>
 
 class StrVec {

@@ -7,7 +7,7 @@
 #include <initializer_list>
 #include <limits>
 #include <cstring>
-#include <exception>
+#include <stdexcept>
 #include <utility>
 
 class String {

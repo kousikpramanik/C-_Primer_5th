@@ -1,6 +1,6 @@
 #include "String.h"
 
-#include <exception>
+#include <stdexcept>
 #include <memory>
 
 // member functions

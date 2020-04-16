@@ -1,7 +1,7 @@
 #include "StrBlob.h"
 #include <string>
 #include <vector>
-#include <exception>
+#include <stdexcept>
 
 void StrBlob::check(StrBlob::size_type i, const std::string &msg) const {
     if (i >= data->size()) { throw std::out_of_range(msg); }
@@ -38,7 +38,6 @@ StrBlob::reference StrBlobPtr::deref() const {
 }
 
 StrBlobPtr &StrBlobPtr::operator++() {
-    check(curr_position, "increment past end of StrBlobPtr");
     ++curr_position;
     return *this;
 }
@@ -51,7 +50,6 @@ StrBlobPtr StrBlobPtr::operator++(int) {
 
 StrBlobPtr &StrBlobPtr::operator--() {
     --curr_position;
-    check(curr_position, "decrement past begin of StrBlobPtr");
     return *this;
 }
 
@@ -74,7 +72,6 @@ StrBlob::const_reference ConstStrBlobPtr::deref() const {
 }
 
 ConstStrBlobPtr &ConstStrBlobPtr::operator++() {
-    check(curr_position, "increment past end of ConstStrBlobPtr");
     ++curr_position;
     return *this;
 }
@@ -87,7 +84,6 @@ ConstStrBlobPtr ConstStrBlobPtr::operator++(int) {
 
 ConstStrBlobPtr &ConstStrBlobPtr::operator--() {
     --curr_position;
-    check(curr_position, "decrement past begin of ConstStrBlobPtr");
     return *this;
 }
 

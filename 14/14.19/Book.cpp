@@ -1,6 +1,6 @@
 #include "Book.h"
 
-#include <exception>
+#include <stdexcept>
 
 int Book::compare(const Book &other) const {
     if (this->name == other.name && this->author == other.author && this->isbn == other.isbn &&

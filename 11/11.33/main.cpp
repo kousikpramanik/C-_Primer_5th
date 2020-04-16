@@ -1,7 +1,7 @@
-#include <fstream>
 #include <iostream>
+#include <fstream>
 #include <cstdlib>
-#include <exception>
+#include <stdexcept>
 #include "word_transform.h"
 
 int main(int argc, char *argv[]) {

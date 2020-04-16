@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 #include <memory>
-#include <exception>
+#include <stdexcept>
 
 void StrBlob::check(StrBlob::size_type i, const std::string &msg) const {
     if (i >= data->size()) { throw std::out_of_range(msg); }

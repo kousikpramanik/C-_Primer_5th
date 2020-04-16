@@ -7,7 +7,7 @@
 #include <map>
 #include <string>
 #include <string>
-#include <exception>
+#include <stdexcept>
 
 class Book {
     friend std::ostream &operator<<(std::ostream &os, const Book &b);

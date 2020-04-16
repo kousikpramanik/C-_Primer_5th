@@ -1,6 +1,6 @@
 #include <iostream>
 #include <stack>
-#include <exception>
+#include <stdexcept>
 
 using precedence = unsigned;
 

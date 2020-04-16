@@ -2,7 +2,7 @@
 
 #include <memory>
 #include <string>
-#include <exception>
+#include <stdexcept>
 
 // member functions
 String &String::operator=(const String &str) {
