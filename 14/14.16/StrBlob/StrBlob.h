@@ -41,7 +41,7 @@ public: // functions - related to size
 public: // functions - add and remove data
     void push_back(const std::string &s) { data->push_back(s); }
 
-    void push_back(std::string &&s) { data->push_back(s); }
+    void push_back(std::string &&s) { data->push_back(std::move(s)); }
 
     void pop_back();
 
