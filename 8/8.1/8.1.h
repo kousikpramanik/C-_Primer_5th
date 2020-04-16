@@ -5,4 +5,4 @@
 
 std::istream &printIstream(std::istream &is);
 
-#endif
+#endif // C_PRIMER_5TH_8_1_H

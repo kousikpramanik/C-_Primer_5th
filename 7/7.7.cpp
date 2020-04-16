@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Sales_data_3.h"
+#include "Sales_data.h"
 
 int main() {
     Sales_data total; // variable to hold the running sum

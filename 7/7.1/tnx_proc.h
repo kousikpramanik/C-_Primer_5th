@@ -1,5 +1,5 @@
-#ifndef TNX_PROC_H_
-#define TNX_PROC_H_
+#ifndef C_PRIMER_5TH_TNX_PROC_H
+#define C_PRIMER_5TH_TNX_PROC_H
 
 #include <iostream>
 #include <string>
@@ -17,4 +17,4 @@ inline const std::string &isbn(const Sales_data &obj) {
     return obj.ISBN;
 }
 
-#endif
+#endif // C_PRIMER_5TH_TNX_PROC_H

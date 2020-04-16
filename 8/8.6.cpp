@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
-#include "Sales_data_8.h"
+#include "Sales_data.h"
 
 int main(int argc, char *argv[]) {
     if (argc != 2) {

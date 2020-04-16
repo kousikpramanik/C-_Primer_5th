@@ -1,5 +1,5 @@
-#ifndef SALES_DATA_6_H_
-#define SALES_DATA_6_H_
+#ifndef C_PRIMER_5TH_SALES_DATA_H
+#define C_PRIMER_5TH_SALES_DATA_H
 
 #include <iostream>
 #include <string>
@@ -33,4 +33,4 @@ struct Sales_data {
     double revenue = 0.0;
 };
 
-#endif
+#endif // C_PRIMER_5TH_SALES_DATA_H

@@ -1,5 +1,5 @@
-#ifndef SALES_DATA_3_H_
-#define SALES_DATA_3_H_
+#ifndef C_PRIMER_5TH_SALES_DATA_H
+#define C_PRIMER_5TH_SALES_DATA_H
 
 #include <iostream>
 #include <string>
@@ -22,4 +22,4 @@ std::ostream &print(std::ostream &os, const Sales_data &item);
 
 Sales_data add(const Sales_data &lhs, const Sales_data &rhs);
 
-#endif
+#endif // C_PRIMER_5TH_SALES_DATA_H

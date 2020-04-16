@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Sales_data_4.h"
+#include "Sales_data.h"
 
 int main() {
     Sales_data data1;

@@ -1,5 +1,5 @@
-#ifndef WINDOW_MGR_H_
-#define WINDOW_MGR_H_
+#ifndef C_PRIMER_5TH_WINDOW_MGR_H
+#define C_PRIMER_5TH_WINDOW_MGR_H
 
 #include <vector>
 
@@ -18,4 +18,4 @@ private: // data members
     std::vector<Screen> screens;
 };
 
-#endif
+#endif // C_PRIMER_5TH_WINDOW_MGR_H

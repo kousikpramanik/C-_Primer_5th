@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include "Sales_data_8.h"
+#include "Sales_data.h"
 #include <algorithm>
 
 int main() {

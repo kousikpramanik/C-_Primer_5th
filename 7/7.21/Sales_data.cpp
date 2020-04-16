@@ -1,4 +1,4 @@
-#include "Sales_data_6.h"
+#include "Sales_data.h"
 
 #include <iostream>
 

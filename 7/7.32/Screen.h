@@ -1,5 +1,5 @@
-#ifndef SCREEN_5_H_
-#define SCREEN_5_H_
+#ifndef C_PRIMER_5TH_SCREEN_H
+#define C_PRIMER_5TH_SCREEN_H
 
 #include "Window_mgr.h"
 #include <string>
@@ -67,4 +67,4 @@ inline const Screen Screen::display(std::ostream &os) const {
 
 inline Window_mgr::Window_mgr() : screens{Screen(24, 80, ' ')} {}
 
-#endif
+#endif // C_PRIMER_5TH_SCREEN_H

@@ -1,7 +1,7 @@
-#include "tnx_proc_2.h"
+#include "tnx_proc.h"
 
 #include <iostream>
-#include "Sales_data_2.h"
+#include "Sales_data.h"
 
 std::istream &read(std::istream &stream, Sales_data &obj) {
     double price = 0;

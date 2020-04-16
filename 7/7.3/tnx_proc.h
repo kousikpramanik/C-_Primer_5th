@@ -1,8 +1,8 @@
-#ifndef TNX_PROC_2_H_
-#define TNX_PROC_2_H_
+#ifndef C_PRIMER_5TH_TNX_PROC_H
+#define C_PRIMER_5TH_TNX_PROC_H
 
 #include <iostream>
-#include "Sales_data_2.h"
+#include "Sales_data.h"
 
 std::istream &read(std::istream &stream, Sales_data &obj);
 
@@ -10,4 +10,4 @@ std::ostream &print(std::ostream &stream, const Sales_data &obj);
 
 double avg_price(const Sales_data &obj);
 
-#endif
+#endif // C_PRIMER_5TH_TNX_PROC_H

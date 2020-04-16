@@ -1,6 +1,6 @@
 #include <iostream>
-#include "Sales_data_2.h"
-#include "tnx_proc_2.h"
+#include "Sales_data.h"
+#include "tnx_proc.h"
 
 int main() {
     Sales_data total; // variable to hold the running sum

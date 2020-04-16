@@ -5,4 +5,4 @@
 
 bool search(std::vector<int>::const_iterator begin, std::vector<int>::const_iterator end, int toSearch);
 
-#endif
+#endif // C_PRIMER_5TH_9_4_H

@@ -7,4 +7,4 @@
 
 std::ifstream &fileToVecWord(std::ifstream &ifs, std::vector<std::string> &ftvw);
 
-#endif
+#endif // C_PRIMER_5TH_8_10_H

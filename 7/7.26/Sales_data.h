@@ -1,5 +1,5 @@
-#ifndef SALES_DATA_7_H_
-#define SALES_DATA_7_H_
+#ifndef C_PRIMER_5TH_SALES_DATA_H
+#define C_PRIMER_5TH_SALES_DATA_H
 
 #include <iostream>
 #include <string>
@@ -33,10 +33,17 @@ private:
     double revenue = 0.0;
 };
 
+inline double Sales_data::avg_price() const {
+    if (units_sold != 0)
+        return revenue / units_sold;
+    else
+        return 0;
+}
+
 std::istream &read(std::istream &is, Sales_data &item);
 
 std::ostream &print(std::ostream &os, const Sales_data &item);
 
 Sales_data add(const Sales_data &lhs, const Sales_data &rhs);
 
-#endif
+#endif // C_PRIMER_5TH_SALES_DATA_H

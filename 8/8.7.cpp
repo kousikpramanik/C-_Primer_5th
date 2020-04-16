@@ -2,7 +2,7 @@
 #include <fstream>
 #include <cstdlib>
 #include <cstring>
-#include "Sales_data_8.h"
+#include "Sales_data.h"
 
 int main(int argc, char *argv[]) {
     if (argc < 3) {
