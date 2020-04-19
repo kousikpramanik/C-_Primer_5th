@@ -1,0 +1,2 @@
+Less verbosity compared to writing a class. Doesn't take up a name from available names. I would say lambdas were added for convenience.
+Use lambda when the class has only one purpose, being used as a function object. Use normal class otherwise.

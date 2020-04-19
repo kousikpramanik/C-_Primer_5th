@@ -1,0 +1,1 @@
+The implicitly-defined copy constructor and copy assignment operator are good enough. There is no work to be done in the destructor body.

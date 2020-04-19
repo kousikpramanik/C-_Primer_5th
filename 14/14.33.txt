@@ -1,0 +1,1 @@
+The standard specifies a minimum of 256 maximum parameters to be allowed in one function definition (Annex B Paragraph 2.11).  However, this quantity is only a guideline and does not determine compliance.
