@@ -1,0 +1,18 @@
+Viable:
+SmallInt operator+(const SmallInt&, const SmallInt&) {
+RHS implicit conversion -
+    1) zero or one standard conversion sequence - double to int
+    2) zero or one user-defined conversion - constructor
+    3) zero or one standard conversion sequence
+}
+built in + operator {
+LHS implicit conversion -
+    1) zero or one standard conversion sequence
+    2) zero or one user-defined conversion - operator int() const;
+    3) zero or one standard conversion sequence - int to double
+}
+Overload resolution fails
+
+Fix:
+SmallInt s1;
+double d = static_cast<double>(s1) + 3.14;

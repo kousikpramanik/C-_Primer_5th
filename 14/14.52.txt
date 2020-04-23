@@ -1,0 +1,37 @@
+ld = si + ld;
+Candidate functions:
+    SmallInt operator+(const SmallInt&, const SmallInt&); // non-member candidate, found in surrounding scope
+    LongDouble operator+(LongDouble&, double) // non-member candidate, found in surrounding scope
+    built in + operator {
+    LHS implicit conversion
+        1) zero or one standard conversion sequence
+        2) zero or one user-defined conversion - operator int() const;
+        3) zero or one standard conversion sequence - int to double or int to float
+    RHS implicit conversion
+        1) zero or one standard conversion sequence
+        2) zero or one user-defined conversion - operator double() or operator float()
+        3) zero or one standard conversion sequence
+    }
+Viable functions:
+    SmallInt operator+(const SmallInt&, const SmallInt&); is discarded because no implicit conversion from LongDouble to SmallInt
+    LongDouble operator+(LongDouble&, double); is discarded because no implicit conversion from SmallInt to LongDouble
+    built in + operator. but multiple possible sequences - ambiguous
+
+ld = ld + si;
+Candidate functions:
+    LongDouble operator+(const SmallInt &rhs);
+    LongDouble operator+(LongDouble &lhs, double rhs) {
+    RHS implicit conversion -
+        1) zero or one standard conversion sequence
+        2) zero or one user-defined conversion - operator int()
+        3) zero or one standard conversion sequence - built in int to double conversion
+    }
+    built in + operator {
+    LHS implicit conversion -
+        2) zero or one user-defined conversion - operator double() or operator float()
+    RHS implicit conversion -
+        2) zero or one user-defined conversion - operator int()
+    in 3) we can use any standard conversion sequence to produce a match
+    }
+Viable functions:
+    All of them are viable. LongDouble operator+(const SmallInt &rhs); is an exact match. It is selected.

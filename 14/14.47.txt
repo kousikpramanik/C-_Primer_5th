@@ -1,0 +1,2 @@
+operator const int(); - the returned int has a top level const. the const will be ignored
+operator int() const; - the member function can be run on both const and non-const instances of the class.

@@ -1,0 +1,1 @@
+std::any_of(divisor.cbegin(), divisor.cend(), std::bind(std::equal_to<int>(), 0, std::bind(std::modulus<int>(), dividend, std::placeholders::_1)));

@@ -86,3 +86,11 @@ add_executable(14.39 14.39.cpp)
 add_library(biggies_7 STATIC 14.40/biggies.cpp 14.40/biggies.h)
 target_link_libraries(biggies_7 PRIVATE elimDups)
 target_include_directories(biggies_7 PUBLIC 14.40)
+
+add_executable(14.44 14.44.cpp)
+
+add_library(Sales_data_14 INTERFACE)
+target_include_directories(Sales_data_14 INTERFACE 14.45)
+
+add_library(Book_8 STATIC 14.49/Book.cpp 14.49/Book.h)
+target_include_directories(Book_8 PUBLIC 14.49)

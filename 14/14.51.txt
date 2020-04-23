@@ -1,0 +1,13 @@
+to call void calc(int)
+1) Zero or one standard conversion sequence - double to int (numeric conversion)
+2) Zero or one user defined conversion
+3) Zero or one standard conversion sequence
+viable. uses standard conversion sequence
+
+to call void calc(LongDouble)
+1) Zero or one standard conversion sequence
+2) Zero or one user defined conversion - double to LongDouble using constructor
+3) Zero or one standard conversion sequence
+viable. uses converting constructor, which is an user-defined conversion sequence
+
+standard conversion sequences are ranked higher than user-defined conversion sequences, so void calc(int) is chosen

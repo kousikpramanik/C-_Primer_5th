@@ -1,0 +1,2 @@
+No. The conversions don't make much sense. It's better to let normal functions return the necessary data.
+They should be marked explicit as the conversions don't make sense in the first place.

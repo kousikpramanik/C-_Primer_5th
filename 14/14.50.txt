@@ -1,0 +1,13 @@
+int ex1 = ldObj;
+Implicit conversion sequence
+1) Zero or one standard conversion sequence
+2) Zero or one user defined conversion - operator double() or operator float()
+3) Zero or one standard conversion sequence - double to int or float to int (both numeric conversions)
+ambiguous
+
+float ex2 = ldObj;
+Implicit conversion sequence
+1) Zero or one standard conversion sequence
+2) Zero or one user defined conversion - operator double() or operator float()
+3) Zero or one standard conversion sequence - double to float (numeric conversion) or not needed
+operator float() route is selected

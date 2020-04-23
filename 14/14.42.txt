@@ -1,0 +1,5 @@
+std::vector<int> ivec;
+std::vector<std::string> svec;
+a) std::count_if(ivec.cbegin(), ivec.cend(), std::bind(std::greater<int>(), std::placeholders::_1, 1024));
+b) std::find_if(svec.cbegin(), svec.cend(), std::bind(std::not_equal_to<std::string>(), std::placeholders::_1, "pooh"));
+c) std::transform(ivec.cbegin(), ivec.cend(), ivec.begin(), std::bind(std::multiplies<int>(), std::placeholders::_1, 2));
