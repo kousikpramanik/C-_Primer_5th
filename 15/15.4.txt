@@ -1,0 +1,3 @@
+a) cannot derive from self
+b) correct
+c) class-derivation list should be part of the definition, not the declaration

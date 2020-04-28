@@ -1,0 +1,1 @@
+A virtual member is a nonstatic member function of a class (other than the constructor) that can be redefined by a class that inherits it. A call to a virtual function through a pointer or reference is resolved at run-time through dynamic binding.
