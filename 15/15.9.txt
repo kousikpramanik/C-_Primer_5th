@@ -1,0 +1,14 @@
+dissimilar when the expression is a glvalue which refers to an object whose most derived type is different from the static type of the glvalue
+
+struct base {
+    int a;
+};
+struct derived : public base {
+    int b;
+};
+derived d;
+base *pb = &d;
+base *pb2 = static_cast<base *>(&d); // static type of the expression *(static_cast<base *>(&d)) is base, dynamic type is derived
+base &rb = d;
+(*pb).a = 5; // static type of the expression *pb is base, dynamic type is derived
+rb.a = 40;   // static type of the expression rb is base, dynamic type is derived

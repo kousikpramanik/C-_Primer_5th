@@ -1,0 +1,2 @@
+static type of an expression is the type of the expression found by direct analysis without considering what happens during execution.
+dynamic type of a prvalue expression is the same as its static type. dynamic type of a glvalue expression is the type of the most derived object to which the glvalue refers.

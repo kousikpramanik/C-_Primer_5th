@@ -1,0 +1,2 @@
+std::ifstream inherits from std::istream.
+read has a parameter of type std::istream&. we can bind an std::ifstream object to it. is.operator>>() is called inside read. here, the dynamic type of the expression (is) is std::ifstream. so is.operator>>() calls std::ifstream::operator>>() at run-time through dynamic binding
