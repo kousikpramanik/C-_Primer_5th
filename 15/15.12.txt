@@ -1,0 +1,1 @@
+Yes. a function declared as both override and final will be the last override of a virtual function in an inheritance hierarchy.

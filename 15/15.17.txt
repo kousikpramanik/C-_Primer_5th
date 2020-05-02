@@ -1,0 +1,2 @@
+error: variable type 'Disc_quote' is an abstract class
+note: unimplemented pure virtual method 'net_price' in 'Disc_quote'

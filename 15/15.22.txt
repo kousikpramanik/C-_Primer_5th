@@ -1,0 +1,21 @@
+digital image format
+public:
+author
+resolution
+date modified
+
+raster graphics format
+public:
+color depth
+
+GIF
+public:
+animated
+
+JPEG
+public:
+camera model
+
+others
+¯\_(ツ)_/¯
+

@@ -1,0 +1,6 @@
+a) base::print()
+b) derived::print()
+c) base::print()
+d) derived::print()
+e) base::print()
+f) derived::print()

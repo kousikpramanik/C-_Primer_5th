@@ -1,0 +1,6 @@
+Base *p = &d1;  //  legal
+p = &d2;        //  illegal
+p = &d3;        //  illegal
+p = &dd1;       //  legal
+p = &dd2;       //  illegal
+p = &dd3;       //  illegal

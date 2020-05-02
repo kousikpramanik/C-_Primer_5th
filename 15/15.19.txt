@@ -1,0 +1,7 @@
+Base - legal
+Pub_Derv - legal
+Priv_Derv - legal
+Prot_Derv - legal
+Derived_from_Public - legal
+Derived_from_Private - illegal
+Derived_from_Protected - legal

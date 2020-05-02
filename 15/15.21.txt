@@ -1,0 +1,7 @@
+digital image format
+raster graphics format : digital image format
+vector graphics format : digital image format
+GIF : raster graphics format
+TIFF : raster graphics format
+JPEG : raster graphics format
+BMP : raster graphics format

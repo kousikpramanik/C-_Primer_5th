@@ -1,0 +1,7 @@
+void base::print(ostream &os) // prints the private member basename to os
+void derived::print(ostream &os) // infinite recursion
+fix
+inline void derived::print(ostream &os)  {
+    base::print(os);
+    os << " " << i;
+}
