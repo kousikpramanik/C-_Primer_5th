@@ -10,8 +10,8 @@ class Bulk_quote : public Quote {
 public:
     Bulk_quote() = default;
 
-    Bulk_quote(std::string book, double p, std::size_t qty_min, double disc) : Quote(std::move(book), p),
-                                                                               min_qty(qty_min), discount(disc) {}
+    Bulk_quote(std::string book, double p, std::size_t qty, double disc) : Quote(std::move(book), p), min_qty(qty),
+                                                                           discount(disc) {}
 
     double net_price(std::size_t cnt) const override;
 
@@ -22,9 +22,9 @@ private:
 
 inline double Bulk_quote::net_price(std::size_t cnt) const {
     if (cnt >= min_qty) {
-        return Quote::net_price(cnt) * (1 - discount);
+        return cnt * price * (1 - discount);
     } else {
-        return Quote::net_price(cnt);
+        return cnt * price;
     }
 }
 

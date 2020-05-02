@@ -4,7 +4,6 @@
 #include <string>
 #include <utility>
 #include <cstdlib>
-#include <iostream>
 
 class Quote {
 public:
@@ -23,11 +22,5 @@ private:
 protected:
     double price = 0.0;
 };
-
-inline double print_total(std::ostream &os, const Quote &item, size_t n) {
-    double ret = item.net_price(n);
-    os << "ISBN: " << item.isbn() << " # sold: " << n << " total due: " << ret << '\n';
-    return ret;
-}
 
 #endif //C_PRIMER_5TH_QUOTE_H

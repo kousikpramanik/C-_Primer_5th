@@ -1,5 +1,6 @@
 #include "Quote.h"
 #include "Bulk_quote.h"
+#include "print_total.h"
 #include <iostream>
 
 int main() {
