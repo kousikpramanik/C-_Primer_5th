@@ -1,0 +1,1 @@
+No particular reason. effect - Bulk_quote's default constructor would be synthesised as deleted.

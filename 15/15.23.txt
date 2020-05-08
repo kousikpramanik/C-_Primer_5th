@@ -1,0 +1,16 @@
+class D1 : public Base {
+public:
+    int fcn(int);
+    using Base::fcn;
+    virtual void f2();
+};
+
+bp1->fcn(); // virtual call, will call Base::fcn at run time
+bp2->fcn(); // virtual call, will call D1::fcn at run time (which is just Base::fcn)
+bp3->fcn(); // virtual call, will call D2::fcn at run time
+bp2->f2(); // error: no f2 in Base
+d1p->f2(); // virtual call, will call D1::f2 at run time
+d2p->f2(); // virtual call, will call D2::f2 at run time
+p1->fcn(42); // error: no matching fcn in base
+p2->fcn(42); // statically linked to D1::fcn
+p3->fcn(42); // statically linked to D2::fcn

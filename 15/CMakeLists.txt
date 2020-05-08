@@ -41,3 +41,17 @@ target_include_directories(Limit_quote_3 INTERFACE 15.16)
 
 add_executable(15.20_15.18 15.20/15.18.cpp)
 add_executable(15.20_15.19 15.20/15.19.cpp)
+
+add_library(Quote_3 INTERFACE)
+target_include_directories(Quote_3 INTERFACE 15.26/Quote)
+
+add_library(Disc_quote_2 INTERFACE)
+target_link_libraries(Disc_quote_2 INTERFACE Quote_3)
+target_include_directories(Disc_quote_2 INTERFACE 15.26/Disc_quote)
+
+add_library(Bulk_quote_4 INTERFACE)
+target_link_libraries(Bulk_quote_4 INTERFACE Disc_quote_2)
+target_include_directories(Bulk_quote_4 INTERFACE 15.26/Bulk_quote)
+
+add_executable(15.26 15.26/main.cpp)
+target_link_libraries(15.26 PUBLIC Quote_3 PUBLIC Bulk_quote_4)

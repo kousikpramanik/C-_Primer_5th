@@ -1,0 +1,2 @@
+classes designed as base classes for other classes to inherit should always have a virtual destructor.
+it does not need to do anything beyond what a regular destructor does. it should be marked default if the regular destructor wouldn't have any work to do.
