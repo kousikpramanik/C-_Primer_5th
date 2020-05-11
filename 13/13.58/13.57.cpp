@@ -1,5 +1,6 @@
 #include <vector>
 #include <algorithm>
+#include <iostream>
 
 class Foo {
 public:
@@ -12,11 +13,19 @@ public:
 };
 
 Foo Foo::sorted() &&{
+#ifndef NDEBUG
+    std::clog << "In file: " << __FILE__ << "\nIn function: Foo::" << __func__ << "() &&\n";
+#endif // NDEBUG
     std::sort(data.begin(), data.end());
     return *this;
 }
 
-Foo Foo::sorted() const &{ return Foo(*this).sorted(); }
+Foo Foo::sorted() const &{
+#ifndef NDEBUG
+    std::clog << "In file: " << __FILE__ << "\nIn function: Foo::" << __func__ << "() const &\n";
+#endif // NDEBUG
+    return Foo(*this).sorted();
+}
 
 int main() {
     Foo bar;
