@@ -1,0 +1,23 @@
+a) (order may be different)
+   Query("fiery")
+        Query(const std::string &s), WordQuery(const std::string &s), Query_base()
+   Query("bird")
+        Query(const std::string &s), WordQuery(const std::string &s), Query_base()
+   Query("fiery") & Query("bird")
+        Query(std::shared_ptr<Query_base> query), AndQuery(const Query &lhs, const Query &rhs), BinaryQuery(const Query &lhs, const Query &rhs), Query_base()
+   Query("wind")
+        Query(const std::string &s), WordQuery(const std::string &s), Query_base()
+   Query("fiery") & Query("bird") | Query("wind")
+        Query(std::shared_ptr<Query_base> query), OrQuery(const Query &lhs, const Query &rhs), BinaryQuery(const Query &lhs, const Query &rhs), Query_base()
+b) Query::rep() const // os << query.rep()
+   BinaryQuery::rep() const // q->rep() dynamic type of *q is OrQuery
+   Query::rep() const // lhs.rep()
+   BinaryQuery::rep() const // q->rep() dynamic type of *q is AndQuery
+   Query::rep() const // lhs.rep()
+   WordQuery::rep() const // q->rep() dynamic type of *q is WordQuery
+   Query::rep() const // rhs.rep() inside AndQuery
+   WordQuery::rep() const // q->rep() dynamic type of *q is WordQuery
+   Query::rep() const // rhs.rep() inside OrQuery
+   WordQuery::rep() const // q->rep() dynamic type of *q is WordQuery
+c) OrQuery::eval(const TextQuery &t) const // q->eval(t) dynamic type of *q is OrQuery
+   unknown because eval not yet implemented

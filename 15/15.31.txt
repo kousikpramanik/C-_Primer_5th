@@ -1,0 +1,12 @@
+a) Query(s3) creates a Query bound to a WordQuery
+   ~ Query(s3) creates a Query bound to a NotQuery
+   Query(s2) creates a Query bound to a WordQuery
+   Query(s2) & ~ Query(s3) creates a Query bound to an AndQuery
+   Query(s1) creates a Query bound to a WordQuery
+   Query(s1) | Query(s2) & ~ Query(s3) creates a Query bound to an OrQuery
+b) Same as (a)
+c) Query(s1), Query(s2) create Query bound to WordQuery
+   Query(s1) & (Query(s2)) creates a Query bound to AndQuery
+   Query(s3), Query(s4) create Query bound to WordQuery
+   Query(s3) & Query(s4) creates a Query bound to an AndQuery
+   (Query(s1) & (Query(s2)) | (Query(s3) & Query(s4))) creates a Query bound to an OrQuery

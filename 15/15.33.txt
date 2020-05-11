@@ -1,0 +1,1 @@
+Query_base has a user-declared destructor. it won't have implicitly-defined move operations. Only the implicitly-defined copy constructor and copy assignment operators exist for Query_base, and they have no work since there is no data to copy.

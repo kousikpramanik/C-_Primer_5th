@@ -1,0 +1,1 @@
+Query doesn't define any of the copy-control members, so they are synthesised. the synthesised versions run the appropriate constructors/assignment operators of the shared_ptr member.

@@ -91,3 +91,14 @@ target_include_directories(Basket INTERFACE 15.30/Basket)
 
 add_executable(15.30 15.30/main.cpp)
 target_link_libraries(15.30 PUBLIC Basket PUBLIC Bulk_quote_6 PUBLIC Limit_quote_4)
+
+add_library(Query INTERFACE)
+target_link_libraries(Query INTERFACE TextQuery_3)
+target_include_directories(Query INTERFACE 15.35)
+
+add_library(Query_2 INTERFACE)
+target_link_libraries(Query_2 INTERFACE TextQuery_3)
+target_include_directories(Query_2 INTERFACE 15.36/Query)
+
+add_executable(15.36 15.36/main.cpp)
+target_link_libraries(15.36 PUBLIC Query_2)
