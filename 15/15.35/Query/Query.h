@@ -33,7 +33,7 @@ private:
 class WordQuery : public Query_base {
     friend class Query;
 
-public:
+private:
     WordQuery(std::string s) : query_word(std::move(s)) {}
 
     std::string what() const override { return query_word; }
@@ -50,7 +50,7 @@ class Query {
     friend Query operator&(Query lhs, Query rhs);
 
 public:
-    Query(std::string s) : q(std::make_shared<WordQuery>(std::move(s))) {}
+    Query(std::string s) : q(new WordQuery(std::move(s))) {}
 
     std::string what() const { return q->what(); }
 
@@ -65,7 +65,7 @@ inline std::ostream &operator<<(std::ostream &os, const Query &query) { return o
 class NotQuery : public Query_base {
     friend Query operator~(Query operand);
 
-public:
+private:
     NotQuery(Query q) : query(std::move(q)) {}
 
     std::string what() const override { return "~(" + query.what() + ')'; }
@@ -75,7 +75,7 @@ private:
 };
 
 inline Query operator~(Query operand) {
-    return std::shared_ptr<Query_base>(std::make_shared<NotQuery>(std::move(operand)));
+    return std::shared_ptr<Query_base>(new NotQuery(std::move(operand)));
 }
 
 class BinaryQuery : public Query_base {
@@ -91,23 +91,23 @@ protected:
 class AndQuery : public BinaryQuery {
     friend Query operator&(Query lhs, Query rhs);
 
-public:
+private:
     AndQuery(Query left, Query right) : BinaryQuery(std::move(left), std::move(right), '&') {}
 };
 
 inline Query operator&(Query lhs, Query rhs) {
-    return std::shared_ptr<Query_base>(std::make_shared<AndQuery>(std::move(lhs), std::move(rhs)));
+    return std::shared_ptr<Query_base>(new AndQuery(std::move(lhs), std::move(rhs)));
 }
 
 class OrQuery : public BinaryQuery {
     friend Query operator|(Query lhs, Query rhs);
 
-public:
+private:
     OrQuery(Query left, Query right) : BinaryQuery(std::move(left), std::move(right), '|') {}
 };
 
 inline Query operator|(Query lhs, Query rhs) {
-    return std::shared_ptr<Query_base>(std::make_shared<OrQuery>(std::move(lhs), std::move(rhs)));
+    return std::shared_ptr<Query_base>(new OrQuery(std::move(lhs), std::move(rhs)));
 }
 
 #endif //C_PRIMER_5TH_QUERY_H

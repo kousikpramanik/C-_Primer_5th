@@ -1,0 +1,6 @@
+BinaryQuery a = Query("fiery") & Query("bird");
+Illegal, BinaryQuery is an abstract class
+AndQuery b = Query("fiery") & Query("bird");
+Illegal, no conversion from Query to AndQuery
+OrQuery c = Query("fiery") & Query("bird");
+Illegal, no conversion from Query to OrQuery
