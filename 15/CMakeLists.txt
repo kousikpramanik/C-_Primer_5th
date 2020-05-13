@@ -116,3 +116,7 @@ target_include_directories(Query_4 PUBLIC 15.39/Query)
 
 add_executable(15.39 15.39/main.cpp)
 target_link_libraries(15.39 PUBLIC Query_4)
+
+add_library(Query_5 STATIC 15.41/Query.cpp 15.41/Query.h)
+target_link_libraries(Query_5 PUBLIC TextQuery_6)
+target_include_directories(Query_5 PUBLIC 15.41)
