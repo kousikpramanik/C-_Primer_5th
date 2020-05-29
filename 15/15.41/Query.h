@@ -127,7 +127,7 @@ private:
 
     QueryResult eval(const TextQuery &t) const override;
 
-    std::string what() const override { return "~(" + query.what() + ')'; }
+    std::string what() const override { return "~ ( " + query.what() + " )"; }
 
 private:
     Query query;
@@ -141,7 +141,7 @@ class BinaryQuery : public Query_base {
 protected:
     BinaryQuery(Query l, Query r, char s) : lhs(std::move(l)), rhs(std::move(r)), opSym(s) {}
 
-    std::string what() const override { return '(' + lhs.what() + ' ' + opSym + ' ' + rhs.what() + ')'; }
+    std::string what() const override { return "( " + lhs.what() + ' ' + opSym + ' ' + rhs.what() + " )"; }
 
     Query lhs, rhs;
     char opSym;

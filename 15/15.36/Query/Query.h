@@ -133,7 +133,7 @@ inline std::string NotQuery::what() const {
 #ifndef NDEBUG
     std::clog << "In function: NotQuery::" << __func__ << "()\n";
 #endif // NDEBUG
-    return "~(" + query.what() + ')';
+    return "~ ( " + query.what() + " )";
 }
 
 inline Query operator~(Query operand) {
@@ -160,7 +160,7 @@ inline std::string BinaryQuery::what() const {
 #ifndef NDEBUG
     std::clog << "In function: BinaryQuery::" << __func__ << "()\n";
 #endif // NDEBUG
-    return '(' + lhs.what() + ' ' + opSym + ' ' + rhs.what() + ')';
+    return "( " + lhs.what() + ' ' + opSym + ' ' + rhs.what() + " )";
 }
 
 class AndQuery : public BinaryQuery {

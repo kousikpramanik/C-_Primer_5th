@@ -71,7 +71,7 @@ class NotQuery : public Query_base {
 private:
     NotQuery(std::shared_ptr<Query_base> q) : query(std::move(q)) {}
 
-    std::string what() const override { return "~(" + Query(query).what() + ')'; }
+    std::string what() const override { return "~ ( " + Query(query).what() + " )"; }
 
 private:
     std::shared_ptr<Query_base> query;
@@ -86,7 +86,9 @@ protected:
     BinaryQuery(std::shared_ptr<Query_base> l, decltype(l) r, char s) : lhs(std::move(l)), rhs(std::move(r)),
                                                                         opSym(s) {}
 
-    std::string what() const override { return '(' + Query(lhs).what() + ' ' + opSym + ' ' + Query(rhs).what() + ')'; }
+    std::string what() const override {
+        return "( " + Query(lhs).what() + ' ' + opSym + ' ' + Query(rhs).what() + " )";
+    }
 
     std::shared_ptr<Query_base> lhs, rhs;
     char opSym;
