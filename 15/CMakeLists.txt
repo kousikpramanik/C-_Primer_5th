@@ -120,3 +120,10 @@ target_link_libraries(15.39 PUBLIC Query_4)
 add_library(Query_5 STATIC 15.41/Query.cpp 15.41/Query.h)
 target_link_libraries(Query_5 PUBLIC TextQuery_6)
 target_include_directories(Query_5 PUBLIC 15.41)
+
+add_library(Query_parser STATIC 15.42/Query_parser/Query_parser.cpp 15.42/Query_parser/Query_parser.h)
+target_link_libraries(Query_parser PUBLIC Query_4)
+target_include_directories(Query_parser PUBLIC 15.42/Query_parser)
+
+add_executable(15.42 15.42/main.cpp)
+target_link_libraries(15.42 PUBLIC Query_parser)
