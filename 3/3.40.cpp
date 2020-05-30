@@ -1,10 +1,11 @@
-#include <iostream>
 #include <cstring>
+#include <cstdlib>
+#include <iostream>
 
 int main() {
-    char st1[] = "I am";
-    char st2[] = "Batman!";
-    const std::size_t str_size = std::strlen(st1) + std::strlen(st2) + 2;
+    constexpr char st1[] = "I am";
+    constexpr char st2[] = "Batman!";
+    constexpr std::size_t str_size = sizeof(st1) + sizeof(st2);
     char str[str_size];
     std::strcpy(str, st1);
     std::strcat(str, " ");

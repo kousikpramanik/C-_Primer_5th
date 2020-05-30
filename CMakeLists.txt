@@ -5,6 +5,7 @@ project("C++ Primer 5th"
         LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 11)
+add_compile_options(-Wall -Wextra -pedantic -march=native)
 
 add_subdirectory(book-resources)
 
