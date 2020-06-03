@@ -1,0 +1,10 @@
+In instantiation of ‘bool std::less<_Tp>::operator()(const _Tp&, const _Tp&) const [with _Tp = Sales_data]’:
+required from ‘int compare(const T&, const T&) [with T = Sales_data]’
+error: no match for ‘operator<’ (operand types are ‘const Sales_data’ and ‘const Sales_data’)
+  386 |       { return __x < __y; }
+      |                ~~~~^~~~~
+  489 |     operator<(const pair<_T1, _T2>& __x, const pair<_T1, _T2>& __y)
+      |     ^~~~~~~~
+note:   template argument deduction/substitution failed:
+
+plus hundreds of lines of error and warning messages
