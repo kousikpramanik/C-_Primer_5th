@@ -85,7 +85,7 @@ Query strToQuery(const std::string &s, const std::vector<Query> &history) {
         if (nonStackable.find(current_word) == nonStackable.cend()) {
             if (current_word.length() > 1 && current_word[0] == '\\') {
                 if (std::isdigit(current_word[1])) {
-                    evaluationStack.push(std::move(history_expand(std::move(current_word), history)));
+                    evaluationStack.push(history_expand(std::move(current_word), history));
                 } else {
                     evaluationStack.emplace(std::string(current_word.begin() + 1, current_word.end()));
                 }
