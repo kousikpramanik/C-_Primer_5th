@@ -67,4 +67,4 @@ inline const Screen Screen::display(std::ostream &os) const {
 
 inline Window_mgr::Window_mgr() : screens{Screen(24, 80, ' ')} {}
 
-#endif // C_PRIMER_5TH_SCREEN_H
+#endif //C_PRIMER_5TH_SCREEN_H

@@ -11,4 +11,4 @@ class Y {
     X xobj;
 };
 
-#endif // C_PRIMER_5TH_X_Y_H
+#endif //C_PRIMER_5TH_X_Y_H

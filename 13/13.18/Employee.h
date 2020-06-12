@@ -28,4 +28,4 @@ private: // class data
     static std::size_t next_valid;
 };
 
-#endif // C_PRIMER_5TH_EMPLOYEE_H
+#endif //C_PRIMER_5TH_EMPLOYEE_H

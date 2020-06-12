@@ -32,19 +32,19 @@ private:
 inline Query_base::Query_base() {
 #ifndef NDEBUG
     std::clog << "In function: Query_base::" << __func__ << "()\n";
-#endif // NDEBUG
+#endif //NDEBUG
 }
 
 inline Query_base::Query_base(const Query_base &other) {
 #ifndef NDEBUG
     std::clog << "In function: Query_base::" << __func__ << "(const Query_base &other)\n";
-#endif // NDEBUG
+#endif //NDEBUG
 }
 
 inline Query_base::Query_base(Query_base &&other) noexcept {
 #ifndef NDEBUG
     std::clog << "In function: Query_base::" << __func__ << "(Query_base &&other) noexcept\n";
-#endif // NDEBUG
+#endif //NDEBUG
 }
 
 class WordQuery : public Query_base {
@@ -62,13 +62,13 @@ private:
 inline WordQuery::WordQuery(std::string s) : query_word(std::move(s)) {
 #ifndef NDEBUG
     std::clog << "In function: WordQuery::" << __func__ << "(std::string s)\n";
-#endif // NDEBUG
+#endif //NDEBUG
 }
 
 inline std::string WordQuery::what() const {
 #ifndef NDEBUG
     std::clog << "In function: WordQuery::" << __func__ << "() const\n";
-#endif // NDEBUG
+#endif //NDEBUG
     return query_word;
 }
 
@@ -93,20 +93,20 @@ private:
 inline Query::Query(std::string s) : q(new WordQuery(std::move(s))) {
 #ifndef NDEBUG
     std::clog << "In function: Query::" << __func__ << "(std::string s)\n";
-#endif // NDEBUG
+#endif //NDEBUG
 }
 
 inline std::string Query::what() const {
 #ifndef NDEBUG
     std::clog << "In function: Query::" << __func__ << "() const\n";
-#endif // NDEBUG
+#endif //NDEBUG
     return q->what();
 }
 
 inline Query::Query(std::shared_ptr<Query_base> query) : q(std::move(query)) {
 #ifndef NDEBUG
     std::clog << "In function: Query::" << __func__ << "(std::shared_ptr<Query_base> query)\n";
-#endif // NDEBUG
+#endif //NDEBUG
 }
 
 inline std::ostream &operator<<(std::ostream &os, const Query &query) { return os << query.what(); }
@@ -126,13 +126,13 @@ private:
 inline NotQuery::NotQuery(Query q) : query(std::move(q)) {
 #ifndef NDEBUG
     std::clog << "In function: NotQuery::" << __func__ << "(Query q)\n";
-#endif // NDEBUG
+#endif //NDEBUG
 }
 
 inline std::string NotQuery::what() const {
 #ifndef NDEBUG
     std::clog << "In function: NotQuery::" << __func__ << "()\n";
-#endif // NDEBUG
+#endif //NDEBUG
     return "~ ( " + query.what() + " )";
 }
 
@@ -153,13 +153,13 @@ protected:
 inline BinaryQuery::BinaryQuery(Query l, Query r, char s) : lhs(std::move(l)), rhs(std::move(r)), opSym(s) {
 #ifndef NDEBUG
     std::clog << "In function: BinaryQuery::" << __func__ << "(Query l, Query r, char s)\n";
-#endif // NDEBUG
+#endif //NDEBUG
 }
 
 inline std::string BinaryQuery::what() const {
 #ifndef NDEBUG
     std::clog << "In function: BinaryQuery::" << __func__ << "()\n";
-#endif // NDEBUG
+#endif //NDEBUG
     return "( " + lhs.what() + ' ' + opSym + ' ' + rhs.what() + " )";
 }
 
@@ -173,7 +173,7 @@ private:
 inline AndQuery::AndQuery(Query left, Query right) : BinaryQuery(std::move(left), std::move(right), '&') {
 #ifndef NDEBUG
     std::clog << "In function: AndQuery::" << __func__ << "(Query left, Query right)\n";
-#endif // NDEBUG
+#endif //NDEBUG
 }
 
 inline Query operator&(Query lhs, Query rhs) {
@@ -190,7 +190,7 @@ private:
 inline OrQuery::OrQuery(Query left, Query right) : BinaryQuery(std::move(left), std::move(right), '|') {
 #ifndef NDEBUG
     std::clog << "In function: OrQuery::" << __func__ << "(Query left, Query right)\n";
-#endif // NDEBUG
+#endif //NDEBUG
 }
 
 inline Query operator|(Query lhs, Query rhs) {

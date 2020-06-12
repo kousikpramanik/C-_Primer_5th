@@ -11,14 +11,14 @@ void elimDups(std::vector<std::string> &svec) {
     std::clog << "Before duplicate elimination: ";
     for (const auto &s : svec) { std::clog << s << ' '; }
     std::clog << '\n';
-#endif // NDEBUG
+#endif //NDEBUG
 
     std::sort(svec.begin(), svec.end());
 #ifndef NDEBUG
     std::clog << "After call to std::sort(): ";
     for (const auto &s : svec) { std::clog << s << ' '; }
     std::clog << '\n';
-#endif // NDEBUG
+#endif //NDEBUG
 
     auto erase_from = std::unique(svec.begin(), svec.end());
 #ifndef NDEBUG
@@ -26,12 +26,12 @@ void elimDups(std::vector<std::string> &svec) {
     std::clog << "After call to std::unique(): ";
     for (const auto &s : svec) { std::clog << s << ' '; }
     std::clog << '\n';
-#endif // NDEBUG
+#endif //NDEBUG
 
     svec.erase(erase_from, svec.end());
 #ifndef NDEBUG
     std::clog << "After duplicate elimination: ";
     for (const auto &s : svec) { std::clog << s << ' '; }
     std::clog << '\n';
-#endif // NDEBUG
+#endif //NDEBUG
 }

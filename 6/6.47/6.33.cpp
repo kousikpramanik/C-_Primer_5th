@@ -4,7 +4,7 @@
 void recursivePrint(std::vector<int>::const_iterator curr, std::vector<int>::const_iterator last) {
 #ifndef NDEBUG
     std::clog << "In " << __func__ << ". Current vector size: " << last - curr << '\n';
-#endif // NDEBUG
+#endif //NDEBUG
 
     if (curr == last)
         return;

@@ -8,4 +8,4 @@ struct Person {
     std::string address;
 };
 
-#endif // C_PRIMER_5TH_PERSON_H
+#endif //C_PRIMER_5TH_PERSON_H

@@ -10,4 +10,4 @@ std::ostream &print(std::ostream &stream, const Sales_data &obj);
 
 double avg_price(const Sales_data &obj);
 
-#endif // C_PRIMER_5TH_TNX_PROC_H
+#endif //C_PRIMER_5TH_TNX_PROC_H

@@ -44,4 +44,4 @@ inline std::istream &read(std::istream &is, Date &dt) {
 
 inline std::ostream &print(std::ostream &os, const Date &dt) { return os << dt.yyyy << '/' << dt.mm << '/' << dt.dd; }
 
-#endif // C_PRIMER_5TH_DATE_H
+#endif //C_PRIMER_5TH_DATE_H

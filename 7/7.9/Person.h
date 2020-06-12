@@ -17,4 +17,4 @@ std::istream &read(std::istream &is, Person &obj);
 
 std::ostream &print(std::ostream &os, const Person &obj);
 
-#endif // C_PRIMER_5TH_PERSON_H
+#endif //C_PRIMER_5TH_PERSON_H

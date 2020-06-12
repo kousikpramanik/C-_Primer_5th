@@ -7,4 +7,4 @@
 
 std::ifstream &fileToVec(std::ifstream &ifs, std::vector<std::string> &ftv);
 
-#endif // C_PRIMER_5TH_8_4_H
+#endif //C_PRIMER_5TH_8_4_H

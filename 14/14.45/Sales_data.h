@@ -85,4 +85,4 @@ inline bool operator==(const Sales_data &lhs, const Sales_data &rhs) {
 
 inline bool operator!=(const Sales_data &lhs, const Sales_data &rhs) { return !(lhs == rhs); }
 
-#endif // C_PRIMER_5TH_SALES_DATA_H
+#endif //C_PRIMER_5TH_SALES_DATA_H

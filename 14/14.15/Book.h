@@ -69,4 +69,4 @@ inline Book &Book::operator=(page i) {
     return *this;
 }
 
-#endif // C_PRIMER_5TH_BOOK_H
+#endif //C_PRIMER_5TH_BOOK_H

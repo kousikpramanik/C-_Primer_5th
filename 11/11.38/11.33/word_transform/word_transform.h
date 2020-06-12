@@ -11,4 +11,4 @@ std::unordered_map<std::string, std::string> buildMap(std::ifstream &map_file);
 
 const std::string &transform(const std::string &s, const std::unordered_map<std::string, std::string> &m);
 
-#endif // C_PRIMER_5TH_WORD_TRANSFORM_H
+#endif //C_PRIMER_5TH_WORD_TRANSFORM_H

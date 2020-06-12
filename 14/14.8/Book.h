@@ -39,4 +39,4 @@ inline std::ostream &operator<<(std::ostream &os, const Book &b) {
     return os << b.name << " by " << b.author << ": Currently reading page " << b.reading;
 }
 
-#endif // C_PRIMER_5TH_BOOK_H
+#endif //C_PRIMER_5TH_BOOK_H

@@ -22,4 +22,4 @@ bool send(connectionptr conn, bool connectivity, const char *msg);
 // responsibility of user to make sure msg can store 256 bytes
 bool receive(connectionptr conn, char *msg);
 
-#endif // C_PRIMER_5TH_CONNECT_H
+#endif //C_PRIMER_5TH_CONNECT_H

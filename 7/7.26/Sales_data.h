@@ -46,4 +46,4 @@ std::ostream &print(std::ostream &os, const Sales_data &item);
 
 Sales_data add(const Sales_data &lhs, const Sales_data &rhs);
 
-#endif // C_PRIMER_5TH_SALES_DATA_H
+#endif //C_PRIMER_5TH_SALES_DATA_H

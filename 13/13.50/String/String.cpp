@@ -7,7 +7,7 @@
 String &String::operator=(String &&other) noexcept {
 #ifndef NDEBUG
     std::clog << "In function: String &String::operator=(String &&other) noexcept" << "\n";
-#endif // NDEBUG
+#endif //NDEBUG
     if (this != &other) {
         free();
         first_element = other.first_element;

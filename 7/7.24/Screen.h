@@ -31,4 +31,4 @@ inline Screen &Screen::move(pos r, pos c) {
     return *this;
 }
 
-#endif // C_PRIMER_5TH_SCREEN_H
+#endif //C_PRIMER_5TH_SCREEN_H

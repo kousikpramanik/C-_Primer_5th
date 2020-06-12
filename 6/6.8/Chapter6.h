@@ -4,4 +4,4 @@
 unsigned fact(unsigned n); // 6.3, 6.4
 int mod(const int &n); // 6.5
 
-#endif // C_PRIMER_5TH_CHAPTER6_H
+#endif //C_PRIMER_5TH_CHAPTER6_H

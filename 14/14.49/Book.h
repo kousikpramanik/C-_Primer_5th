@@ -96,4 +96,4 @@ inline bool operator>(const Book &lhs, const Book &rhs) { return lhs.compare(rhs
 
 inline bool operator>=(const Book &lhs, const Book &rhs) { return lhs.compare(rhs) != -1; }
 
-#endif // C_PRIMER_5TH_BOOK_H
+#endif //C_PRIMER_5TH_BOOK_H

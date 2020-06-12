@@ -21,4 +21,4 @@ private:
     bool other; // other errors
 };
 
-#endif // C_PRIMER_5TH_DEBUG_H
+#endif //C_PRIMER_5TH_DEBUG_H

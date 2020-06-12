@@ -14,4 +14,4 @@ struct connection {
     bool recv_utilised;
 };
 
-#endif // C_PRIMER_5TH_CONNECT_PRIVATE_H
+#endif //C_PRIMER_5TH_CONNECT_PRIVATE_H

@@ -54,4 +54,4 @@ inline std::istream &read(std::istream &is, Account &obj) { return is >> obj.own
 
 inline std::ostream &print(std::ostream &os, const Account &obj) { return os << obj.owner << ' ' << obj.amount; }
 
-#endif // C_PRIMER_5TH_ACCOUNT_H
+#endif //C_PRIMER_5TH_ACCOUNT_H

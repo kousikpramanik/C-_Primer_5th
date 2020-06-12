@@ -10,19 +10,19 @@ void elimDups_list(std::list<std::string> &slst) {
     std::clog << "Before duplicate elimination: ";
     for (const auto &s : slst) { std::clog << s << ' '; }
     std::clog << '\n';
-#endif // NDEBUG
+#endif //NDEBUG
 
     slst.sort();
 #ifndef NDEBUG
     std::clog << "After call to sort(): ";
     for (const auto &s : slst) { std::clog << s << ' '; }
     std::clog << '\n';
-#endif // NDEBUG
+#endif //NDEBUG
 
     slst.unique();
 #ifndef NDEBUG
     std::clog << "After duplicate elimination: ";
     for (const auto &s : slst) { std::clog << s << ' '; }
     std::clog << '\n';
-#endif // NDEBUG
+#endif //NDEBUG
 }

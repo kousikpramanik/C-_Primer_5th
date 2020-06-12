@@ -25,4 +25,4 @@ struct Person {
     const std::string &ret_address() const { return address; }
 };
 
-#endif // C_PRIMER_5TH_PERSON_H
+#endif //C_PRIMER_5TH_PERSON_H

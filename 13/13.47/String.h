@@ -143,7 +143,7 @@ inline String::String(const CharT *s) {
 inline String::String(const String &other) {
 #ifndef NDEBUG
     std::clog << "In function: String::String(const String &other)" << "\n";
-#endif // NDEBUG
+#endif //NDEBUG
     auto newdata = alloc_n_copy(other.begin(), other.end());
     first_element = newdata.first;
     first_free = one_past_capacity = newdata.second;
@@ -159,7 +159,7 @@ inline String::String(std::initializer_list<CharT> ilist) {
 inline String &String::operator=(const String &other) {
 #ifndef NDEBUG
     std::clog << "In function: String &String::operator=(const String &other)" << "\n";
-#endif // NDEBUG
+#endif //NDEBUG
     if (this != &other) {
         auto data = alloc_n_copy(other.begin(), other.end());
         free();

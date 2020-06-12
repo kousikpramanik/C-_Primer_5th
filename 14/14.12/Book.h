@@ -52,4 +52,4 @@ inline std::istream &operator>>(std::istream &is, Book &b) {
     return is;
 }
 
-#endif // C_PRIMER_5TH_BOOK_H
+#endif //C_PRIMER_5TH_BOOK_H

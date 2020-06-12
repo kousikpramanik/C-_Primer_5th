@@ -33,4 +33,4 @@ struct Sales_data {
     double revenue = 0.0;
 };
 
-#endif // C_PRIMER_5TH_SALES_DATA_H
+#endif //C_PRIMER_5TH_SALES_DATA_H

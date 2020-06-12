@@ -18,4 +18,4 @@ private: // data members
     std::vector<Screen> screens;
 };
 
-#endif // C_PRIMER_5TH_WINDOW_MGR_H
+#endif //C_PRIMER_5TH_WINDOW_MGR_H

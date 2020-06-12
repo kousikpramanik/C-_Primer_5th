@@ -35,4 +35,4 @@ private: // data members
     std::vector<note> bookmarks; // notes are inserted/deleted/viewed with member functions only
 };
 
-#endif // C_PRIMER_5TH_BOOK_H
+#endif //C_PRIMER_5TH_BOOK_H

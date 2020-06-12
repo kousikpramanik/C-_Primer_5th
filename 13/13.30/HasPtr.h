@@ -27,7 +27,7 @@ inline void swap(HasPtr &left, HasPtr &right) {
 #ifndef NDEBUG
     std::clog << "In file: " << __FILE__ << "\nIn function: " << __func__ << "\n";
     std::clog << "*left.ps: \"" << *left.ps << "\", *right.ps: \"" << *right.ps << "\"\n";
-#endif // NDEBUG
+#endif //NDEBUG
     swap(left.ps, right.ps);
     swap(left.i, right.i);
 }

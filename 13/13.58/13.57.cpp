@@ -15,7 +15,7 @@ public:
 Foo Foo::sorted() &&{
 #ifndef NDEBUG
     std::clog << "In file: " << __FILE__ << "\nIn function: Foo::" << __func__ << "() &&\n";
-#endif // NDEBUG
+#endif //NDEBUG
     std::sort(data.begin(), data.end());
     return *this;
 }
@@ -23,7 +23,7 @@ Foo Foo::sorted() &&{
 Foo Foo::sorted() const &{
 #ifndef NDEBUG
     std::clog << "In file: " << __FILE__ << "\nIn function: Foo::" << __func__ << "() const &\n";
-#endif // NDEBUG
+#endif //NDEBUG
     return Foo(*this).sorted();
 }
 
