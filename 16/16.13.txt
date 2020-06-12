@@ -1,0 +1,1 @@
+a relational operator function with template argument T is a friend of BlobPtr<T>

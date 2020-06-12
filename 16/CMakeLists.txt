@@ -14,3 +14,12 @@ target_include_directories(begin_end INTERFACE 16.6)
 
 add_library(size INTERFACE)
 target_include_directories(size INTERFACE 16.7)
+
+add_library(Blob INTERFACE)
+target_include_directories(Blob INTERFACE 16.12)
+
+add_library(Screen_5 INTERFACE)
+target_include_directories(Screen_5 INTERFACE 16.14)
+
+add_library(Screen_6 INTERFACE)
+target_include_directories(Screen_6 INTERFACE 16.15)

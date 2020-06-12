@@ -1,1 +1,1 @@
-instatiation is the process through which an instance of a class template or a function template is generated from the template.
+when we provide template arguments or the arguments are deduced, they are substituted for the template parameters to obtain a specialization of the template. when a specialization is referenced where a complete object or a function definition is needed, the code for the object/function is actually compiled. this is called instantiation.

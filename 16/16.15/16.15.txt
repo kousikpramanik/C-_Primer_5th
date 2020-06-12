@@ -1,0 +1,1 @@
+each instantiation of the class template has operator<< and operator>> as friend definitions. those function become the friend of the corresponding instantiation of the class template.

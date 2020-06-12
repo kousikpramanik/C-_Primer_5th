@@ -1,0 +1,2 @@
+function templates are the building blocks for generic functions. templates have parameters that are substituted by arguments to instantiate different specialisations of the template.
+similar for class templates.
