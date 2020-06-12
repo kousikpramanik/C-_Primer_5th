@@ -152,12 +152,12 @@ private: // internal data members
 };
 
 // InputIterator + OutputIterator
-StrBlob::reference StrBlobPtr::deref() const {
+inline StrBlob::reference StrBlobPtr::deref() const {
     auto p = check(curr_position, "invalid dereference attempt");
     return (*p)[curr_position];
 }
 
-StrBlobPtr &StrBlobPtr::operator++() {
+inline StrBlobPtr &StrBlobPtr::operator++() {
     ++curr_position;
     return *this;
 }
@@ -169,47 +169,47 @@ inline bool operator==(const StrBlobPtr &lhs, const StrBlobPtr &rhs) {
 inline bool operator!=(const StrBlobPtr &lhs, const StrBlobPtr &rhs) { return !(lhs == rhs); }
 
 // ForwardIterator
-StrBlobPtr StrBlobPtr::operator++(int) {
+inline StrBlobPtr StrBlobPtr::operator++(int) {
     StrBlobPtr ret = *this;
     ++*this;
     return ret;
 }
 
 // BidirectionalIterator
-StrBlobPtr &StrBlobPtr::operator--() {
+inline StrBlobPtr &StrBlobPtr::operator--() {
     --curr_position;
     return *this;
 }
 
-StrBlobPtr StrBlobPtr::operator--(int) {
+inline StrBlobPtr StrBlobPtr::operator--(int) {
     StrBlobPtr ret = *this;
     --*this;
     return ret;
 }
 
 // RandomAccessIterator
-StrBlobPtr &StrBlobPtr::operator+=(StrBlob::difference_type n) {
+inline StrBlobPtr &StrBlobPtr::operator+=(StrBlob::difference_type n) {
     curr_position += n;
     return *this;
 }
 
-StrBlobPtr operator+(const StrBlobPtr &lhs, StrBlob::difference_type n) {
+inline StrBlobPtr operator+(const StrBlobPtr &lhs, StrBlob::difference_type n) {
     StrBlobPtr temp = lhs;
     temp += n;
     return temp;
 }
 
-StrBlobPtr operator+(StrBlob::difference_type n, const StrBlobPtr &rhs) { return rhs + n; }
+inline StrBlobPtr operator+(StrBlob::difference_type n, const StrBlobPtr &rhs) { return rhs + n; }
 
-StrBlobPtr &StrBlobPtr::operator-=(StrBlob::difference_type n) { return *this += -n; }
+inline StrBlobPtr &StrBlobPtr::operator-=(StrBlob::difference_type n) { return *this += -n; }
 
-StrBlobPtr operator-(const StrBlobPtr &lhs, StrBlob::difference_type n) {
+inline StrBlobPtr operator-(const StrBlobPtr &lhs, StrBlob::difference_type n) {
     StrBlobPtr temp = lhs;
     temp -= n;
     return temp;
 }
 
-StrBlob::difference_type operator-(const StrBlobPtr &lhs, const StrBlobPtr &rhs) {
+inline StrBlob::difference_type operator-(const StrBlobPtr &lhs, const StrBlobPtr &rhs) {
     if (!lhs.wptr.lock() != !rhs.wptr.lock()) {
         throw std::runtime_error("comparing iterators to different StrBlob objects");
     }
@@ -237,7 +237,7 @@ inline bool operator>=(const StrBlobPtr &lhs, const StrBlobPtr &rhs) {
 }
 
 // internal function - test if weak_ptr points to valid data
-std::shared_ptr<std::vector<std::string>> StrBlobPtr::check(StrBlob::size_type i, const std::string &msg) const {
+inline std::shared_ptr<std::vector<std::string>> StrBlobPtr::check(StrBlob::size_type i, const std::string &msg) const {
     auto ret = wptr.lock();
     if (!ret) { throw std::runtime_error("unbound StrBlobPtr"); }
     if (i >= ret->size()) { throw std::out_of_range(msg); }
@@ -311,12 +311,12 @@ private: // internal data members
 };
 
 // InputIterator
-StrBlob::const_reference ConstStrBlobPtr::deref() const {
+inline StrBlob::const_reference ConstStrBlobPtr::deref() const {
     auto p = check(curr_position, "invalid dereference attempt");
     return (*p)[curr_position];
 }
 
-ConstStrBlobPtr &ConstStrBlobPtr::operator++() {
+inline ConstStrBlobPtr &ConstStrBlobPtr::operator++() {
     ++curr_position;
     return *this;
 }
@@ -328,47 +328,47 @@ inline bool operator==(const ConstStrBlobPtr &lhs, const ConstStrBlobPtr &rhs) {
 inline bool operator!=(const ConstStrBlobPtr &lhs, const ConstStrBlobPtr &rhs) { return !(lhs == rhs); }
 
 // ForwardIterator
-ConstStrBlobPtr ConstStrBlobPtr::operator++(int) {
+inline ConstStrBlobPtr ConstStrBlobPtr::operator++(int) {
     ConstStrBlobPtr ret = *this;
     ++*this;
     return ret;
 }
 
 // BidirectionalIterator
-ConstStrBlobPtr &ConstStrBlobPtr::operator--() {
+inline ConstStrBlobPtr &ConstStrBlobPtr::operator--() {
     --curr_position;
     return *this;
 }
 
-ConstStrBlobPtr ConstStrBlobPtr::operator--(int) {
+inline ConstStrBlobPtr ConstStrBlobPtr::operator--(int) {
     ConstStrBlobPtr ret = *this;
     --*this;
     return ret;
 }
 
 // RandomAccessIterator
-ConstStrBlobPtr &ConstStrBlobPtr::operator+=(StrBlob::difference_type n) {
+inline ConstStrBlobPtr &ConstStrBlobPtr::operator+=(StrBlob::difference_type n) {
     curr_position += n;
     return *this;
 }
 
-ConstStrBlobPtr operator+(const ConstStrBlobPtr &lhs, StrBlob::difference_type n) {
+inline ConstStrBlobPtr operator+(const ConstStrBlobPtr &lhs, StrBlob::difference_type n) {
     ConstStrBlobPtr temp = lhs;
     temp += n;
     return temp;
 }
 
-ConstStrBlobPtr operator+(StrBlob::difference_type n, const ConstStrBlobPtr &rhs) { return rhs + n; }
+inline ConstStrBlobPtr operator+(StrBlob::difference_type n, const ConstStrBlobPtr &rhs) { return rhs + n; }
 
-ConstStrBlobPtr &ConstStrBlobPtr::operator-=(StrBlob::difference_type n) { return *this += -n; }
+inline ConstStrBlobPtr &ConstStrBlobPtr::operator-=(StrBlob::difference_type n) { return *this += -n; }
 
-ConstStrBlobPtr operator-(const ConstStrBlobPtr &lhs, StrBlob::difference_type n) {
+inline ConstStrBlobPtr operator-(const ConstStrBlobPtr &lhs, StrBlob::difference_type n) {
     ConstStrBlobPtr temp = lhs;
     temp -= n;
     return temp;
 }
 
-StrBlob::difference_type operator-(const ConstStrBlobPtr &lhs, const ConstStrBlobPtr &rhs) {
+inline StrBlob::difference_type operator-(const ConstStrBlobPtr &lhs, const ConstStrBlobPtr &rhs) {
     if (!lhs.wptr.lock() || !rhs.wptr.lock()) { throw std::runtime_error("unbound StrBlobPtr"); }
     if (lhs.curr_position >= rhs.curr_position) {
         return lhs.curr_position - rhs.curr_position;
@@ -394,7 +394,7 @@ inline bool operator>=(const ConstStrBlobPtr &lhs, const ConstStrBlobPtr &rhs) {
 }
 
 // internal function - test if weak_ptr points to valid data
-std::shared_ptr<const std::vector<std::string>>
+inline std::shared_ptr<const std::vector<std::string>>
 ConstStrBlobPtr::check(StrBlob::size_type i, const std::string &msg) const {
     auto ret = wptr.lock();
     if (!ret) { throw std::runtime_error("unbound ConstStrBlobPtr"); }
