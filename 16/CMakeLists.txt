@@ -23,3 +23,6 @@ target_include_directories(Screen_5 INTERFACE 16.14)
 
 add_library(Screen_6 INTERFACE)
 target_include_directories(Screen_6 INTERFACE 16.15)
+
+add_library(vector INTERFACE)
+target_include_directories(vector INTERFACE 16.16)
