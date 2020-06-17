@@ -13,7 +13,8 @@
 namespace primer {
     // should follow C++11 specs other than the explicit specialisation for bool
     // exception handling needs to be simplified. leaks memory in certain functions if destructor of T throws
-    // memory allocation needs to be simplified. duplicated code around copying/moving range of objects
+    // memory allocation needs to be simplified. _copy_to_vect, _reallocate, _make_space_middle need to depend
+    // more on each other rather than doing similar work
     template<typename T, typename Allocator = std::allocator<T>>
     class vector {
     public: // types
@@ -156,68 +157,18 @@ namespace primer {
         explicit vector(const Allocator &alloc) : __alloc(alloc) {}
 
         vector(size_type count, const T &value, const Allocator &alloc = Allocator()) :
-                __alloc(alloc),
-                __first_location(std::allocator_traits<allocator_type>::allocate(__alloc, count)),
-                __first_free(__first_location),
-                __one_past_capacity(__first_location + count) {
-            try {
-                for (; __first_free != __one_past_capacity; ++__first_free) {
-                    std::allocator_traits<allocator_type>::construct(__alloc, __first_free, value);
-                }
-            } catch (...) {
-                auto eptr = std::current_exception();
-                while (__first_location != __first_free--) {
-                    std::allocator_traits<allocator_type>::destroy(__alloc, __first_free);
-                }
-                std::allocator_traits<allocator_type>::deallocate(__alloc, __first_location, count);
-                std::rethrow_exception(eptr);
-            }
+                __alloc(alloc) {
+            insert(end(), count, value);
         }
 
         explicit vector(size_type count) : vector(count, value_type()) {}
 
         template<typename Iter, typename std::enable_if<std::is_base_of<std::input_iterator_tag,
                 typename std::iterator_traits<Iter>::iterator_category>::value, bool>::type = true>
-        vector(Iter first, Iter last, const Allocator &alloc = Allocator()) :
-                vector(first, last, alloc, typename std::iterator_traits<Iter>::iterator_category()) {}
-
-    private: // tag dispatch for previous function
-        template<typename InputIt>
-        vector(InputIt first, InputIt last, const Allocator &alloc, std::input_iterator_tag) : __alloc(alloc) {
-            for (; first != last; ++first) { push_back(*first); }
+        vector(Iter first, Iter last, const Allocator &alloc = Allocator()) {
+            insert(end(), first, last);
         }
 
-        template<typename ForwardIt>
-        vector(ForwardIt first, ForwardIt last, const Allocator &alloc, std::forward_iterator_tag)
-                : __alloc(alloc) {
-            size_type count = 0;
-            for (auto curr = first; curr != last; ++curr) { ++count; }
-            __first_location = std::allocator_traits<allocator_type>::allocate(__alloc, count);
-            try {
-                _copy_to_vect(first, last, __first_location, __alloc);
-            } catch (...) {
-                auto eptr = std::current_exception();
-                std::allocator_traits<allocator_type>::deallocate(__alloc, __first_location, count);
-                std::rethrow_exception(eptr);
-            }
-            __one_past_capacity = __first_free = __first_location + count;
-        }
-
-        template<typename RAIt>
-        vector(RAIt first, RAIt last, const Allocator &alloc, std::random_access_iterator_tag) :
-                __alloc(alloc),
-                __first_location(std::allocator_traits<allocator_type>::allocate(__alloc, last - first)),
-                __one_past_capacity(__first_free = __first_location + (last - first)) {
-            try {
-                _copy_to_vect(first, last, __first_location, __alloc);
-            } catch (...) {
-                auto eptr = std::current_exception();
-                std::allocator_traits<allocator_type>::deallocate(__alloc, __first_location, last - first);
-                std::rethrow_exception(eptr);
-            }
-        }
-
-    public: // member functions continued
         vector(const vector &other) :
                 vector(other, std::allocator_traits<allocator_type>::select_on_container_copy_construction(
                         other.get_allocator())) {}
@@ -438,15 +389,11 @@ namespace primer {
 
         size_type max_size() const noexcept { return std::numeric_limits<difference_type>::max(); }
 
-        void reserve(size_type new_cap) {
-            if (new_cap > capacity()) { _reallocate(new_cap); }
-        }
+        void reserve(size_type new_cap) { if (new_cap > capacity()) { _reallocate(new_cap); }}
 
         size_type capacity() const noexcept { return __one_past_capacity - __first_location; }
 
-        void shrink_to_fit() {
-            if (capacity() != size()) { _reallocate(size()); }
-        }
+        void shrink_to_fit() { if (capacity() != size()) { _reallocate(size()); }}
 
     public: // modifiers
         void clear() noexcept {
@@ -695,17 +642,15 @@ namespace primer {
         }
 
         template<typename InputIt, typename U = T,
-                typename std::enable_if<std::is_same<T, U>::value &&
-                                        (std::is_nothrow_move_constructible<U>::value ||
-                                         !std::is_nothrow_copy_constructible<U>::value),
+                typename std::enable_if<std::is_nothrow_move_constructible<U>::value ||
+                                        !std::is_nothrow_copy_constructible<U>::value,
                         bool>::type = true>
         void _move_to_vect(InputIt first, InputIt last, pointer where_to, allocator_type &alloc) {
             _copy_to_vect(std::make_move_iterator(first), std::make_move_iterator(last), where_to, alloc);
         }
 
         template<typename InputIt, typename U = T,
-                typename std::enable_if<std::is_same<T, U>::value &&
-                                        !(std::is_nothrow_move_constructible<U>::value ||
+                typename std::enable_if<!(std::is_nothrow_move_constructible<U>::value ||
                                           !std::is_nothrow_copy_constructible<U>::value),
                         bool>::type = true>
         void _move_to_vect(InputIt first, InputIt last, pointer where_to, allocator_type &alloc) {
