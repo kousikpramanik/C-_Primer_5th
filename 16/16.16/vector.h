@@ -12,7 +12,7 @@
 
 namespace primer {
     // should follow C++11 specs other than the explicit specialisation for bool
-    // exception handling needs to be simplified. leaks memory in certain functions if destructor of T throws
+    // exception handling needs to be simplified.
     // memory allocation needs to be simplified. _copy_to_vect, _reallocate, _make_space_middle need to depend
     // more on each other rather than doing similar work
     template<typename T, typename Allocator = std::allocator<T>>
@@ -398,8 +398,19 @@ namespace primer {
     public: // modifiers
         void clear() noexcept {
             if (__first_location != nullptr) {
-                for (auto location = __first_location; location != __first_free; ++location) {
-                    std::allocator_traits<allocator_type>::destroy(__alloc, location);
+                auto location = __first_location;
+                try {
+                    for (; location != __first_free; ++location) {
+                        std::allocator_traits<allocator_type>::destroy(__alloc, location);
+                    }
+                } catch (...) {
+                    auto eptr = std::current_exception();
+                    for (++location; location != __first_free; ++location) {
+                        try {
+                            std::allocator_traits<allocator_type>::destroy(__alloc, location);
+                        } catch (...) {}
+                    }
+                    std::rethrow_exception(eptr);
                 }
                 std::allocator_traits<allocator_type>::deallocate(__alloc, __first_location, capacity());
                 __first_location = __first_free = __one_past_capacity = nullptr;
@@ -415,7 +426,9 @@ namespace primer {
                 auto eptr = std::current_exception();
                 auto destroy_rest = location;
                 while (destroy_rest++ != __first_free) {
-                    std::allocator_traits<allocator_type>::destroy(__alloc, destroy_rest);
+                    try {
+                        std::allocator_traits<allocator_type>::destroy(__alloc, destroy_rest);
+                    } catch (...) {}
                 }
                 __first_free = location;
                 std::rethrow_exception(eptr);
@@ -423,35 +436,22 @@ namespace primer {
             return begin() + start_distance;
         }
 
-        template<typename U = T, typename std::enable_if<std::is_same<T, U>::value &&
-                                                         (std::is_nothrow_move_constructible<U>::value ||
-                                                          !std::is_nothrow_copy_constructible<U>::value),
-                bool>::type = true>
         iterator insert(const_iterator pos, T &&value) {
             auto start_distance = pos - begin();
             pointer location = _make_space_middle(const_cast<pointer>(pos.location), 1);
             try {
-                std::allocator_traits<allocator_type>::construct(__alloc, location, std::move(value));
+                std::allocator_traits<allocator_type>::construct(__alloc, location, std::move_if_noexcept(value));
             } catch (...) {
                 auto eptr = std::current_exception();
                 auto destroy_rest = location;
                 while (destroy_rest++ != __first_free) {
-                    std::allocator_traits<allocator_type>::destroy(__alloc, destroy_rest);
+                    try {
+                        std::allocator_traits<allocator_type>::destroy(__alloc, destroy_rest);
+                    } catch (...) {}
                 }
                 __first_free = location;
                 std::rethrow_exception(eptr);
             }
-            return begin() + start_distance;
-        }
-
-        template<typename U = T, typename std::enable_if<std::is_same<T, U>::value &&
-                                                         !(std::is_nothrow_move_constructible<U>::value ||
-                                                           !std::is_nothrow_copy_constructible<U>::value),
-                bool>::type = true>
-        iterator insert(const_iterator pos, T &&value) {
-            auto start_distance = pos - begin();
-            pointer location = _make_space_middle(const_cast<pointer>(pos.location), 1);
-            std::allocator_traits<allocator_type>::construct(__alloc, location, value);
             return begin() + start_distance;
         }
 
@@ -467,7 +467,9 @@ namespace primer {
                 auto destroy_rest = location;
                 destroy_rest += count;
                 while (destroy_rest++ != __first_free) {
-                    std::allocator_traits<allocator_type>::destroy(__alloc, destroy_rest);
+                    try {
+                        std::allocator_traits<allocator_type>::destroy(__alloc, destroy_rest);
+                    } catch (...) {}
                 }
                 __first_free = location;
                 std::rethrow_exception(eptr);
@@ -504,7 +506,9 @@ namespace primer {
                 auto destroy_rest = location;
                 destroy_rest += count;
                 while (destroy_rest++ != __first_free) {
-                    std::allocator_traits<allocator_type>::destroy(__alloc, destroy_rest);
+                    try {
+                        std::allocator_traits<allocator_type>::destroy(__alloc, destroy_rest);
+                    } catch (...) {}
                 }
                 __first_free = location;
                 std::rethrow_exception(eptr);
@@ -526,7 +530,9 @@ namespace primer {
                 auto destroy_rest = location;
                 destroy_rest += count;
                 while (destroy_rest++ != __first_free) {
-                    std::allocator_traits<allocator_type>::destroy(__alloc, destroy_rest);
+                    try {
+                        std::allocator_traits<allocator_type>::destroy(__alloc, destroy_rest);
+                    } catch (...) {}
                 }
                 __first_free = location;
                 std::rethrow_exception(eptr);
@@ -548,13 +554,34 @@ namespace primer {
 
         iterator erase(const_iterator first, const_iterator last) {
             auto count = last - first;
-            for (auto curr = static_cast<pointer>(first.location),
-                         last_cache = static_cast<pointer>(last.location); curr != last_cache; ++curr) {
-                std::allocator_traits<allocator_type>::destroy(__alloc, curr);
+            auto curr = static_cast<pointer>(first.location);
+            auto last_cache = static_cast<pointer>(last.location);
+            try {
+                for (; curr != last_cache; ++curr) {
+                    std::allocator_traits<allocator_type>::destroy(__alloc, curr);
+                }
+            } catch (...) {
+                auto eptr = std::current_exception();
+                for (++curr; curr != last_cache; ++curr) {
+                    try {
+                        std::allocator_traits<allocator_type>::destroy(__alloc, curr);
+                    } catch (...) {}
+                }
+                std::rethrow_exception(eptr);
             }
             _move_to_vect(static_cast<pointer>(last.location), __first_free, static_cast<pointer>(first.location));
-            while (count-- != 0) {
-                std::allocator_traits<allocator_type>::destroy(__alloc, --__first_free);
+            try {
+                while (count-- != 0) {
+                    std::allocator_traits<allocator_type>::destroy(__alloc, --__first_free);
+                }
+            } catch (...) {
+                auto eptr = std::current_exception();
+                while (count-- != 0) {
+                    try {
+                        std::allocator_traits<allocator_type>::destroy(__alloc, --__first_free);
+                    } catch (...) {}
+                }
+                std::rethrow_exception(eptr);
             }
         }
 
@@ -635,7 +662,9 @@ namespace primer {
             } catch (...) {
                 auto eptr = std::current_exception();
                 while (where_to_backup != where_to--) {
-                    std::allocator_traits<allocator_type>::destroy(alloc, where_to);
+                    try {
+                        std::allocator_traits<allocator_type>::destroy(alloc, where_to);
+                    } catch (...) {}
                 }
                 std::rethrow_exception(eptr);
             }
@@ -657,9 +686,6 @@ namespace primer {
             _copy_to_vect(first, last, where_to, alloc);
         }
 
-        template<typename U = T, typename std::enable_if<std::is_nothrow_move_constructible<U>::value ||
-                                                         !std::is_nothrow_copy_constructible<U>::value,
-                bool>::type = true>
         pointer _make_space_middle(pointer location, size_type count) {
             if (count != 0) {
                 if (capacity() < size() + count) {
@@ -672,16 +698,21 @@ namespace primer {
                 auto moving = __first_free;
                 try {
                     while (moving-- != location) {
-                        std::allocator_traits<allocator_type>::construct(__alloc, moving + count, std::move(*moving));
+                        std::allocator_traits<allocator_type>::construct(__alloc, moving + count,
+                                                                         std::move_if_noexcept(*moving));
                         std::allocator_traits<allocator_type>::destroy(__alloc, moving);
                     }
                 } catch (...) {
                     auto eptr = std::current_exception();
                     auto destroy_rest = moving + count;
                     while (destroy_rest++ != __first_free) {
-                        std::allocator_traits<allocator_type>::destroy(__alloc, destroy_rest);
+                        try {
+                            std::allocator_traits<allocator_type>::destroy(__alloc, destroy_rest);
+                        } catch (...) {}
                     }
-                    std::allocator_traits<allocator_type>::destroy(__alloc, moving);
+                    try {
+                        std::allocator_traits<allocator_type>::destroy(__alloc, moving);
+                    } catch (...) {}
                     __first_free = moving;
                     std::rethrow_exception(eptr);
                 }
@@ -689,30 +720,6 @@ namespace primer {
             return location;
         }
 
-        template<typename U = T, typename std::enable_if<!(std::is_nothrow_move_constructible<U>::value ||
-                                                           !std::is_nothrow_copy_constructible<U>::value),
-                bool>::type = true>
-        pointer _make_space_middle(pointer location, size_type count) {
-            if (count != 0) {
-                if (capacity() < size() + count) {
-                    auto start_distance = location - __first_location;
-                    auto new_cap = std::max(capacity(), static_cast<size_type>(1));
-                    for (auto size_cache = size(); new_cap < size_cache + count; new_cap *= 2);
-                    _reallocate(new_cap);
-                    location = __first_location + start_distance;
-                }
-                auto moving = __first_free;
-                while (moving-- != location) {
-                    std::allocator_traits<allocator_type>::construct(__alloc, moving + count, *moving);
-                    std::allocator_traits<allocator_type>::destroy(__alloc, moving);
-                }
-            }
-            return location;
-        }
-
-        template<typename U = T, typename std::enable_if<std::is_nothrow_move_constructible<U>::value ||
-                                                         !std::is_nothrow_copy_constructible<U>::value,
-                bool>::type = true>
         void _reallocate(size_type new_cap) {
             if (new_cap > max_size()) {
                 throw std::length_error("requested allocation of more than max_size() items.");
@@ -721,33 +728,18 @@ namespace primer {
             pointer new_first_free = new_first_location;
             try {
                 for (auto location = __first_location; location != __first_free; ++location, ++new_first_free) {
-                    std::allocator_traits<allocator_type>::construct(__alloc, new_first_free, std::move(*location));
+                    std::allocator_traits<allocator_type>::construct(__alloc, new_first_free,
+                                                                     std::move_if_noexcept(*location));
                 }
             } catch (...) {
                 auto eptr = std::current_exception();
                 while (new_first_location != new_first_free--) {
-                    std::allocator_traits<allocator_type>::destroy(__alloc, new_first_free);
+                    try {
+                        std::allocator_traits<allocator_type>::destroy(__alloc, new_first_free);
+                    } catch (...) {}
                 }
                 std::allocator_traits<allocator_type>::deallocate(__alloc, new_first_location, new_cap);
                 std::rethrow_exception(eptr);
-            }
-            clear();
-            __first_location = new_first_location;
-            __first_free = new_first_free;
-            __one_past_capacity = __first_location + new_cap;
-        }
-
-        template<typename U = T, typename std::enable_if<!(std::is_nothrow_move_constructible<U>::value ||
-                                                           !std::is_nothrow_copy_constructible<U>::value),
-                bool>::type = true>
-        void _reallocate(size_type new_cap) {
-            if (new_cap > max_size()) {
-                throw std::length_error("requested allocation of more than max_size() items.");
-            }
-            pointer new_first_location = std::allocator_traits<allocator_type>::allocate(__alloc, new_cap);
-            pointer new_first_free = new_first_location;
-            for (auto location = __first_location; location != __first_free; ++location, ++new_first_free) {
-                std::allocator_traits<allocator_type>::construct(__alloc, new_first_free, *location);
             }
             clear();
             __first_location = new_first_location;

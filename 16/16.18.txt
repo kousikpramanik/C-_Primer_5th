@@ -1,0 +1,13 @@
+a) correction -
+template<typename T, typename U, typename V>
+void f1(T, U, V);
+
+b) int &T redeclares template parameter as variable name
+
+c) correction -
+template<typename T>
+inline T foo(T, unsigned int *);
+
+d) missing return type
+
+e) declares Ctype an alias for char. then declares a template function with one parameter that returns the same type as the parameter.

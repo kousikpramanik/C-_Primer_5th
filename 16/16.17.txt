@@ -1,0 +1,2 @@
+There are no differences between a template type parameter declared as typename and one declared as class.
+typename must be used to indicate whether usages of members of a type parameter are types themselves or static members.
