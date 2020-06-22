@@ -165,7 +165,7 @@ namespace primer {
 
         template<typename Iter, typename std::enable_if<std::is_base_of<std::input_iterator_tag,
                 typename std::iterator_traits<Iter>::iterator_category>::value, bool>::type = true>
-        vector(Iter first, Iter last, const Allocator &alloc = Allocator()) {
+        vector(Iter first, Iter last, const Allocator &alloc = Allocator()) : __alloc(alloc) {
             insert(end(), first, last);
         }
 
@@ -370,17 +370,17 @@ namespace primer {
 
         const_iterator cend() const noexcept { return __first_free; }
 
-        reverse_iterator rbegin() noexcept { return end(); }
+        reverse_iterator rbegin() noexcept { return reverse_iterator(end()); }
 
-        const_reverse_iterator rbegin() const noexcept { return end(); }
+        const_reverse_iterator rbegin() const noexcept { return const_reverse_iterator(end()); }
 
-        const_reverse_iterator crbegin() const noexcept { return cend(); }
+        const_reverse_iterator crbegin() const noexcept { return const_reverse_iterator(cend()); }
 
-        reverse_iterator rend() noexcept { return begin(); }
+        reverse_iterator rend() noexcept { return reverse_iterator(begin()); }
 
-        const_reverse_iterator rend() const noexcept { return begin(); }
+        const_reverse_iterator rend() const noexcept { return const_reverse_iterator(begin()); }
 
-        const_reverse_iterator crend() const noexcept { return cbegin(); }
+        const_reverse_iterator crend() const noexcept { return const_reverse_iterator(cbegin()); }
 
     public: // capacity
         bool empty() const noexcept { return __first_location == nullptr; }
@@ -554,8 +554,8 @@ namespace primer {
 
         iterator erase(const_iterator first, const_iterator last) {
             auto count = last - first;
-            auto curr = static_cast<pointer>(first.location);
-            auto last_cache = static_cast<pointer>(last.location);
+            auto curr = const_cast<pointer>(first.location);
+            auto last_cache = const_cast<pointer>(last.location);
             try {
                 for (; curr != last_cache; ++curr) {
                     std::allocator_traits<allocator_type>::destroy(__alloc, curr);
@@ -569,7 +569,7 @@ namespace primer {
                 }
                 std::rethrow_exception(eptr);
             }
-            _move_to_vect(static_cast<pointer>(last.location), __first_free, static_cast<pointer>(first.location));
+            _move_to_vect(last_cache, __first_free, const_cast<pointer>(first.location), __alloc);
             try {
                 while (count-- != 0) {
                     std::allocator_traits<allocator_type>::destroy(__alloc, --__first_free);
@@ -583,6 +583,7 @@ namespace primer {
                 }
                 std::rethrow_exception(eptr);
             }
+            return const_cast<pointer>(first.location);
         }
 
         void push_back(const T &value) { insert(end(), value); }
@@ -670,20 +671,12 @@ namespace primer {
             }
         }
 
-        template<typename InputIt, typename U = T,
-                typename std::enable_if<std::is_nothrow_move_constructible<U>::value ||
-                                        !std::is_nothrow_copy_constructible<U>::value,
-                        bool>::type = true>
+        template<typename InputIt>
         void _move_to_vect(InputIt first, InputIt last, pointer where_to, allocator_type &alloc) {
-            _copy_to_vect(std::make_move_iterator(first), std::make_move_iterator(last), where_to, alloc);
-        }
-
-        template<typename InputIt, typename U = T,
-                typename std::enable_if<!(std::is_nothrow_move_constructible<U>::value ||
-                                          !std::is_nothrow_copy_constructible<U>::value),
-                        bool>::type = true>
-        void _move_to_vect(InputIt first, InputIt last, pointer where_to, allocator_type &alloc) {
-            _copy_to_vect(first, last, where_to, alloc);
+            using Iter = typename std::conditional<std::is_nothrow_move_constructible<T>::value ||
+                                                   !std::is_nothrow_copy_constructible<T>::value,
+                    std::move_iterator<InputIt>, InputIt>::type;
+            _copy_to_vect(Iter(first), Iter(last), where_to, alloc);
         }
 
         pointer _make_space_middle(pointer location, size_type count) {
@@ -696,6 +689,7 @@ namespace primer {
                     location = __first_location + start_distance;
                 }
                 auto moving = __first_free;
+                __first_free += count;
                 try {
                     while (moving-- != location) {
                         std::allocator_traits<allocator_type>::construct(__alloc, moving + count,
