@@ -1,9 +1,10 @@
-#ifndef C_PRIMER_5TH_VEC_H
-#define C_PRIMER_5TH_VEC_H
+#ifndef C_PRIMER_5TH_VECTOR_H
+#define C_PRIMER_5TH_VECTOR_H
 
 #include <memory>
 #include <iterator>
 #include <type_traits>
+#include <functional>
 #include <limits>
 #include <initializer_list>
 #include <stdexcept>
@@ -12,14 +13,12 @@
 
 namespace primer {
     // should follow C++11 specs other than the explicit specialisation for bool
-    // TODO
-    // 1) exception handling needs to be simplified. also, figure out what shouldn't throw (e.g. erase).
-    //    _exceptional_cleaner(allocator_type &alloc,
-    //      std::initializer_list<std::pair<pointer, pointer>> destroy,
-    //      std::initializer_list<std::pair<pointer, size_type>> deallocate = {});
-    // 2) allocator::value_type not matching T could be trouble
     template<typename T, typename Allocator = std::allocator<T>>
     class vector {
+        static_assert(!std::is_reference<T>::value && !std::is_array<T>::value
+                      && std::is_nothrow_destructible<T>::value, "T must satisfy [destructible]");
+        static_assert(std::is_same<typename std::allocator_traits<Allocator>::value_type, T>::value,
+                      "Allocator's value type must be T");
     public: // types
         using value_type = T;
         using allocator_type = Allocator;
@@ -33,42 +32,32 @@ namespace primer {
     private: // handle iterator and const_iterator as a single template
         template<bool mutability>
         class _iterator_templ {
-            // Iterator
-        public:
-            using value_type = vector::value_type;
+        public: // [iterator.traits] - required by [iterator.requirements.general] paragraph 11
             using difference_type = vector::difference_type;
+            using value_type = vector::value_type;
+            using iterator_category = std::random_access_iterator_tag;
             using reference = typename std::conditional<mutability, vector::reference, vector::const_reference>::type;
             using pointer = typename std::conditional<mutability, vector::pointer, vector::const_pointer>::type;
-            using iterator_category = std::random_access_iterator_tag;
-        public:
-            _iterator_templ(const _iterator_templ &other) : location(other.location) {}
-
-            _iterator_templ &operator=(const _iterator_templ &other) {
-                location = other.location;
-                return *this;
-            }
-
+        public: // [iterator.iterators]
             friend void swap(_iterator_templ &lhs, _iterator_templ &rhs) {
                 auto temp = lhs.location;
                 lhs.location = rhs.location;
                 rhs.location = temp;
             }
 
-            reference operator*() const { return *location; }
-
-            _iterator_templ &operator++() {
-                ++location;
-                return *this;
-            }
-
-            // InputIterator
+        public: // [input.iterators]
             friend bool operator==(const _iterator_templ &lhs, const _iterator_templ &rhs) {
-                return lhs.location == rhs.location;
+                return std::equal_to<pointer>()(lhs.location, rhs.location);
             }
 
             friend bool operator!=(const _iterator_templ &lhs, const _iterator_templ &rhs) { return !(lhs == rhs); }
 
-            pointer operator->() const { return &operator*(); }
+            pointer operator->() const { return std::addressof(*(*this)); }
+
+            _iterator_templ &operator++() { return *this += 1; }
+
+        public: // [forward.iterators]
+            _iterator_templ() = default;
 
             _iterator_templ operator++(int) &{
                 auto prev = *this;
@@ -76,14 +65,10 @@ namespace primer {
                 return prev;
             }
 
-            // ForwardIterator
-            _iterator_templ() = default;
+            reference operator*() const { return *location; }
 
-            // BidirectionalIterator
-            _iterator_templ &operator--() {
-                --location;
-                return *this;
-            }
+        public: // [bidirectional.iterators]
+            _iterator_templ &operator--() { return *this -= 1; }
 
             _iterator_templ operator--(int) &{
                 auto prev = *this;
@@ -91,9 +76,9 @@ namespace primer {
                 return prev;
             }
 
-            // RandomAccessIterator
+        public: // [random.access.iterators]
             _iterator_templ &operator+=(difference_type n) {
-                location += n;
+                std::advance(location, n);
                 return *this;
             }
 
@@ -101,7 +86,7 @@ namespace primer {
 
             friend _iterator_templ operator+(difference_type n, _iterator_templ a) { return a + n; }
 
-            _iterator_templ &operator-=(difference_type n) { return operator+=(-n); }
+            _iterator_templ &operator-=(difference_type n) { return *this += -n; }
 
             friend _iterator_templ operator-(_iterator_templ a, difference_type n) { return a -= n; }
 
@@ -109,10 +94,10 @@ namespace primer {
                 return std::distance(b.location, a.location);
             }
 
-            reference operator[](difference_type n) { return *(location + n); }
+            reference operator[](difference_type n) { return *(*this + n); }
 
             friend bool operator<(const _iterator_templ &a, const _iterator_templ &b) {
-                return a.location < b.location;
+                return std::less<pointer>()(a.location, b.location);
             }
 
             friend bool operator<=(const _iterator_templ &a, const _iterator_templ &b) { return !(a > b); }
@@ -121,7 +106,7 @@ namespace primer {
 
             friend bool operator>=(const _iterator_templ &a, const _iterator_templ &b) { return !(a < b); }
 
-        public: // conversion from iterator to const_iterator
+        public: // conversion from iterator to const_iterator - [containers.requirements.general]
             template<bool B, typename std::enable_if<B, bool>::type = true>
             _iterator_templ(const _iterator_templ<B> &other) : location(other.location) {}
 
@@ -176,23 +161,23 @@ namespace primer {
             other.__one_past_capacity = other.__first_free = other.__first_location = nullptr;
         }
 
-        vector(vector &&other, const Allocator &alloc) : __first_location(other.__first_location),
-                                                         __first_free(other.__first_free),
-                                                         __one_past_capacity(other.__one_past_capacity),
-                                                         __alloc(alloc) {
+        vector(vector &&other, const Allocator &alloc) : __alloc(alloc) {
             if (alloc == other.get_allocator()) {
+                __first_location = other.__first_location;
+                __first_free = other.__first_free;
+                __one_past_capacity = other.__one_past_capacity;
                 other.__one_past_capacity = other.__first_free = other.__first_location = nullptr;
             } else {
                 auto new_cap = other.size();
-                __first_location = std::allocator_traits<allocator_type>::allocate(__alloc, new_cap);
+                _reallocate(new_cap);
+                __first_free += new_cap;
                 try {
-                    _move_to_vect(other.begin(), other.end(), __first_location, __alloc);
+                    _move_to_vect(__alloc, other.begin(), other.end(), __first_location);
                 } catch (...) {
-                    auto eptr = std::current_exception();
-                    std::allocator_traits<allocator_type>::deallocate(__alloc, __first_location, new_cap);
-                    std::rethrow_exception(eptr);
+                    _cleaner(__alloc, {}, {{__first_location, new_cap}});
+                    __first_free = __first_location;
+                    std::rethrow_exception(std::current_exception());
                 }
-                __one_past_capacity = __first_free = __first_location + new_cap;
             }
         }
 
@@ -207,23 +192,18 @@ namespace primer {
                                                                  propagate_on_container_copy_assignment>::value,
                 bool>::type = true>
         vector &operator=(const vector &other) {
-            auto new_cap = other.size();
-            allocator_type new_allocator = __alloc;
-            if (__alloc != other.get_allocator()) {
-                new_allocator = other.get_allocator();
+            if (__alloc == other.get_allocator()) {
+                resize(other.size());
+                _copy_assign_to_vect(__alloc, other.begin(), other.end());
+            } else {
+                vector new_vector(other);
+                clear();
+                __first_location = new_vector.__first_location;
+                __first_free = new_vector.__first_free;
+                __one_past_capacity = new_vector.__one_past_capacity;
+                new_vector.__one_past_capacity = new_vector.__first_free = new_vector.__first_location = nullptr;
             }
-            pointer new_first_location = std::allocator_traits<allocator_type>::allocate(new_allocator, new_cap);
-            try {
-                _copy_to_vect(other.begin(), other.end(), new_first_location, new_allocator);
-            } catch (...) {
-                auto eptr = std::current_exception();
-                std::allocator_traits<allocator_type>::deallocate(new_allocator, new_first_location, new_cap);
-                std::rethrow_exception(eptr);
-            }
-            clear();
-            __alloc = std::move(new_allocator);
-            __first_location = new_first_location;
-            __one_past_capacity = __first_free = new_first_location + new_cap;
+            __alloc = other.get_allocator();
             return *this;
         }
 
@@ -233,18 +213,8 @@ namespace primer {
                                                                  propagate_on_container_copy_assignment>::value,
                 bool>::type = true>
         vector &operator=(const vector &other) {
-            auto new_cap = other.size();
-            pointer new_first_location = std::allocator_traits<allocator_type>::allocate(__alloc, new_cap);
-            try {
-                _copy_to_vect(other.begin(), other.end(), new_first_location, __alloc);
-            } catch (...) {
-                auto eptr = std::current_exception();
-                std::allocator_traits<allocator_type>::deallocate(__alloc, new_first_location, new_cap);
-                std::rethrow_exception(eptr);
-            }
-            clear();
-            __first_location = new_first_location;
-            __one_past_capacity = __first_free = new_first_location + new_cap;
+            resize(other.size());
+            _copy_assign_to_vect(__alloc, other.begin(), other.end());
             return *this;
         }
 
@@ -286,41 +256,31 @@ namespace primer {
                 __first_free = new_first_free;
                 __one_past_capacity = new_one_past_capacity;
             } else {
-                auto new_cap = other.size();
-                pointer new_first_location = std::allocator_traits<allocator_type>::allocate(__alloc, new_cap);
-                try {
-                    _move_to_vect(other.begin(), other.end(), new_first_location, __alloc);
-                } catch (...) {
-                    auto eptr = std::current_exception();
-                    std::allocator_traits<allocator_type>::deallocate(__alloc, new_first_location, new_cap);
-                    std::rethrow_exception(eptr);
-                }
-                clear();
-                __first_location = new_first_location;
-                __one_past_capacity = __first_free = new_first_location + new_cap;
+                resize(other.size());
+                _move_assign_to_vect(__alloc, other.begin(), other.end());
             }
             return *this;
         }
 
         vector &operator=(std::initializer_list<T> ilist) {
-            vector new_vector(ilist);
-            *this = std::move(new_vector);
+            resize(ilist.size());
+            _copy_assign_to_vect(__alloc, ilist.begin(), ilist.end());
             return *this;
         }
 
         void assign(size_type count, const T &value) {
-            vector new_vector(count, value);
-            *this = std::move(new_vector);
+            erase(begin(), end());
+            insert(end(), count, value);
         }
 
         template<class InputIt, typename std::enable_if<std::is_base_of<std::input_iterator_tag,
                 typename std::iterator_traits<InputIt>::iterator_category>::value, bool>::type = true>
         void assign(InputIt first, InputIt last) {
-            vector new_vector(first, last);
-            *this = std::move(new_vector);
+            erase(begin(), end());
+            insert(end(), first, last);
         }
 
-        void assign(std::initializer_list<T> ilist) { operator=(ilist); }
+        void assign(std::initializer_list<T> ilist) { assign(ilist.begin(), ilist.end()); }
 
         allocator_type get_allocator() const noexcept { return __alloc; }
 
@@ -383,34 +343,31 @@ namespace primer {
 
         size_type max_size() const noexcept { return std::numeric_limits<difference_type>::max(); }
 
-        void reserve(size_type new_cap) { if (new_cap > capacity()) { _reallocate(new_cap); }}
+        void reserve(size_type new_cap) {
+            if (new_cap > capacity()) { _reallocate(new_cap); }
+        }
 
         size_type capacity() const noexcept { return std::distance(__first_location, __one_past_capacity); }
 
-        void shrink_to_fit() { if (capacity() != size()) { _reallocate(size()); }}
+        void shrink_to_fit() {
+            if (capacity() != size()) { _reallocate(size()); }
+        }
 
     public: // modifiers
         void clear() noexcept {
             if (__first_location != nullptr) {
-                for (auto location = __first_free; location-- != __first_location;) {
-                    // T has to satisfy [destructible] which means this won't throw
-                    std::allocator_traits<allocator_type>::destroy(__alloc, location);
-                }
-                std::allocator_traits<allocator_type>::deallocate(__alloc, __first_location, capacity());
+                _cleaner(__alloc, {{__first_location, __first_free}}, {{__first_location, capacity()}});
                 __first_location = __first_free = __one_past_capacity = nullptr;
             }
         }
 
         iterator insert(const_iterator pos, const T &value) { return emplace(pos, value); }
 
-        iterator insert(const_iterator pos, T &&value) {
-            return emplace(pos, std::move_if_noexcept(value));
-        }
+        iterator insert(const_iterator pos, T &&value) { return emplace(pos, std::move_if_noexcept(value)); }
 
         iterator insert(const_iterator pos, size_type count, const T &value) {
-            if (count > max_size()) {
-                throw std::length_error("requested allocation of more than max_size() items.");
-            }
+            // prevent undefined behaviour from conversion to difference_type
+            if (count > max_size()) { throw std::length_error("requested allocation of more than max_size() items."); }
             auto start_distance = std::distance(cbegin(), pos);
             pointer location = _make_space_middle(const_cast<pointer>(pos.location),
                                                   static_cast<difference_type>(count));
@@ -419,14 +376,9 @@ namespace primer {
                     std::allocator_traits<allocator_type>::construct(__alloc, location, value);
                 }
             } catch (...) {
-                auto eptr = std::current_exception();
-                auto destroy_rest = location;
-                destroy_rest += count;
-                while (destroy_rest++ != __first_free) {
-                    std::allocator_traits<allocator_type>::destroy(__alloc, destroy_rest);
-                }
+                _cleaner(__alloc, {{location + 1, __first_free}});
                 __first_free = location;
-                std::rethrow_exception(eptr);
+                std::rethrow_exception(std::current_exception());
             }
             return begin() + start_distance;
         }
@@ -451,18 +403,11 @@ namespace primer {
             auto count = std::distance(first, last);
             pointer location = _make_space_middle(const_cast<pointer>(pos.location), count);
             try {
-                for (; count != 0; --count, ++location, ++first) {
-                    std::allocator_traits<allocator_type>::construct(__alloc, location, *first);
-                }
+                _copy_to_vect(__alloc, first, last, location);
             } catch (...) {
-                auto eptr = std::current_exception();
-                auto destroy_rest = location;
-                destroy_rest += count;
-                while (destroy_rest++ != __first_free) {
-                    std::allocator_traits<allocator_type>::destroy(__alloc, destroy_rest);
-                }
+                _cleaner(__alloc, {{location + 1, __first_free}});
                 __first_free = location;
-                std::rethrow_exception(eptr);
+                std::rethrow_exception(std::current_exception());
             }
             return begin() + start_distance;
         }
@@ -479,13 +424,9 @@ namespace primer {
             try {
                 std::allocator_traits<allocator_type>::construct(__alloc, location, std::forward<Args>(args)...);
             } catch (...) {
-                auto eptr = std::current_exception();
-                auto destroy_rest = location;
-                while (destroy_rest++ != __first_free) {
-                    std::allocator_traits<allocator_type>::destroy(__alloc, destroy_rest);
-                }
+                _cleaner(__alloc, {{location + 1, __first_free}});
                 __first_free = location;
-                std::rethrow_exception(eptr);
+                std::rethrow_exception(std::current_exception());
             }
             return begin() + start_distance;
         }
@@ -493,22 +434,23 @@ namespace primer {
         iterator erase(const_iterator pos) { erase(pos, pos + 1); }
 
         iterator erase(const_iterator first, const_iterator last) {
-            auto count = std::distance(first, last);
-            auto curr = const_cast<pointer>(first.location);
-            auto last_cache = const_cast<pointer>(last.location);
-            for (; curr != last_cache; ++curr) {
-                std::allocator_traits<allocator_type>::destroy(__alloc, curr);
+            _cleaner(__alloc, {{const_cast<pointer>(first.location), const_cast<pointer>(last.location)}});
+            try {
+                _move_to_vect(__alloc, const_cast<pointer>(last.location), __first_free,
+                              const_cast<pointer>(first.location));
+            } catch (...) {
+                _cleaner(__alloc, {{const_cast<pointer>(last.location), __first_free}});
+                __first_free = const_cast<pointer>(first.location);
+                std::rethrow_exception(std::current_exception());
             }
-            _move_to_vect(last_cache, __first_free, const_cast<pointer>(first.location), __alloc);
-            while (count-- != 0) {
-                std::allocator_traits<allocator_type>::destroy(__alloc, --__first_free);
-            }
+            _cleaner(__alloc, {{const_cast<pointer>(last.location), __first_free}});
+            __first_free -= std::distance(first, last);
             return const_cast<pointer>(first.location);
         }
 
         void push_back(const T &value) { insert(end(), value); }
 
-        void push_back(T &&value) { insert(end(), std::move(value)); }
+        void push_back(T &&value) { insert(end(), std::move_if_noexcept(value)); }
 
         template<class... Args>
         void emplace_back(Args &&... args) { emplace(end(), std::forward<Args>(args)...); }
@@ -520,8 +462,8 @@ namespace primer {
         void resize(size_type count, const value_type &value) {
             if (count < size()) {
                 erase(begin() + count, end());
-            } else {
-                insert(end(), size() - count, value_type());
+            } else if (count > size()) {
+                insert(end(), count - size(), value);
             }
         }
 
@@ -572,41 +514,62 @@ namespace primer {
 
     private: // internal usage
         template<typename InputIt>
-        void _copy_to_vect(InputIt first, InputIt last, pointer where_to, allocator_type &alloc) {
+        void _copy_to_vect(allocator_type &alloc, InputIt first, InputIt last, pointer where_to) {
             pointer where_to_backup = where_to;
             try {
                 for (; first != last; ++where_to, ++first) {
                     std::allocator_traits<allocator_type>::construct(alloc, where_to, *first);
                 }
             } catch (...) {
-                auto eptr = std::current_exception();
-                while (where_to_backup != where_to--) {
-                    std::allocator_traits<allocator_type>::destroy(alloc, where_to);
-                }
-                std::rethrow_exception(eptr);
+                _cleaner(alloc, {{where_to_backup, where_to}});
+                std::rethrow_exception(std::current_exception());
             }
         }
 
         template<typename InputIt>
-        void _move_to_vect(InputIt first, InputIt last, pointer where_to, allocator_type &alloc) {
+        void _move_to_vect(allocator_type &alloc, InputIt first, InputIt last, pointer where_to) {
             using Iter = typename std::conditional<std::is_nothrow_move_constructible<T>::value ||
                                                    !std::is_nothrow_copy_constructible<T>::value,
                     std::move_iterator<InputIt>, InputIt>::type;
-            _copy_to_vect(Iter(first), Iter(last), where_to, alloc);
+            _copy_to_vect(alloc, Iter(first), Iter(last), where_to);
+        }
+
+        template<typename InputIt>
+        void _copy_assign_to_vect(allocator_type &alloc, InputIt first, InputIt last) {
+            pointer curr = __first_location;
+            try {
+                for (; first != last; ++first, ++curr) { *curr = *first; }
+            } catch (...) {
+                _cleaner(alloc, {{__first_location, __first_free}});
+                __first_free = __first_location;
+                std::rethrow_exception(std::current_exception());
+            }
+        }
+
+        template<typename InputIt>
+        void _move_assign_to_vect(allocator_type &alloc, InputIt first, InputIt last) {
+            using Iter = typename std::conditional<std::is_nothrow_move_constructible<T>::value ||
+                                                   !std::is_nothrow_copy_constructible<T>::value,
+                    std::move_iterator<InputIt>, InputIt>::type;
+            _copy_assign_to_vect(alloc, Iter(first), Iter(last));
         }
 
         pointer _make_space_middle(pointer location, difference_type count) {
-            if (count != 0) {
-                auto new_cap = capacity();
-                if (new_cap < size() + count) {
-                    new_cap = std::max(capacity() * 2, static_cast<size_type>(1));
-                    while (new_cap < size() + count) { new_cap *= 2; }
-                }
-                if (new_cap > capacity() || location != __first_free) {
-                    auto position = std::distance(__first_location, location);
-                    _reallocate(new_cap, position, count);
-                    location = __first_location + position;
-                }
+            // prevent unsigned overflow and endless new_cap *= 2 loop
+            if (size() + count > max_size()) {
+                throw std::length_error("requested allocation of more than max_size() items.");
+            }
+            auto new_cap = capacity();
+            if (new_cap < size() + count) {
+                new_cap = std::max(capacity() * 2, static_cast<size_type>(1));
+                while (new_cap < size() + count) { new_cap *= 2; }
+            }
+            if (new_cap != capacity() || location != __first_free) {
+                auto position = std::distance(__first_location, location);
+                _reallocate(new_cap, position, count);
+                location = __first_location + position;
+            } else {
+                __first_free += count;
             }
             return location;
         }
@@ -616,39 +579,42 @@ namespace primer {
                 throw std::length_error("requested allocation of more than max_size() items.");
             }
             pointer new_first_location = std::allocator_traits<allocator_type>::allocate(__alloc, new_cap);
-            pointer new_first_free = new_first_location;
+            pointer new_first_free = new_first_location + size() + skip_count;
             try {
-                auto location = __first_location;
-                size_type curr_pos = 0;
-                while (curr_pos != size() + skip_count) {
-                    if (curr_pos == skip_pos) {
-                        new_first_free += skip_count;
-                        curr_pos += skip_count;
-                        continue;
-                    }
-                    std::allocator_traits<allocator_type>::construct(__alloc, new_first_free,
-                                                                     std::move_if_noexcept(*location));
-                    ++curr_pos;
-                    ++location;
-                    ++new_first_free;
-                }
+                _move_to_vect(__alloc, __first_location, __first_location + skip_pos, new_first_location);
+                _move_to_vect(__alloc, __first_location + skip_pos, __first_free,
+                              new_first_location + skip_pos + skip_count);
             } catch (...) {
-                auto eptr = std::current_exception();
-                while (new_first_location != new_first_free--) {
-                    if (std::distance(new_first_location, new_first_free) ==
-                        static_cast<difference_type>(skip_pos + skip_count - 1)) {
-                        new_first_free -= skip_count - 1;
-                        continue;
-                    }
-                    std::allocator_traits<allocator_type>::destroy(__alloc, new_first_free);
-                }
-                std::allocator_traits<allocator_type>::deallocate(__alloc, new_first_location, new_cap);
-                std::rethrow_exception(eptr);
+                _cleaner(__alloc, {}, {{new_first_location, new_cap}});
+                std::rethrow_exception(std::current_exception());
             }
             clear();
             __first_location = new_first_location;
             __first_free = new_first_free;
-            __one_past_capacity = __first_location + new_cap;
+            __one_past_capacity = new_first_location + new_cap;
+        }
+
+        template<typename U = T, typename std::enable_if<
+                std::is_same<T, U>::value && std::is_trivially_destructible<T>::value, bool>::type = true>
+        void _cleaner(allocator_type &alloc, std::initializer_list<std::pair<pointer, pointer>> destroy,
+                      std::initializer_list<std::pair<pointer, size_type>> deallocate = {}) {
+            for (auto p = destroy.end(); p-- != destroy.begin();) {
+                for (auto iter = p->second; iter-- != p->first;) {
+                    std::allocator_traits<allocator_type>::destroy(alloc, iter);
+                }
+            }
+            for (const auto &p : deallocate) {
+                std::allocator_traits<allocator_type>::deallocate(alloc, p.first, p.second);
+            }
+        }
+
+        template<typename U = T, typename std::enable_if<
+                std::is_same<T, U>::value && !std::is_trivially_destructible<T>::value, bool>::type = true>
+        void _cleaner(allocator_type &alloc, std::initializer_list<std::pair<pointer, pointer>> destroy,
+                      std::initializer_list<std::pair<pointer, size_type>> deallocate = {}) {
+            for (const auto &p : deallocate) {
+                std::allocator_traits<allocator_type>::deallocate(alloc, p.first, p.second);
+            }
         }
 
     private: // data members
@@ -659,4 +625,4 @@ namespace primer {
     };
 }
 
-#endif //C_PRIMER_5TH_VEC_H
+#endif //C_PRIMER_5TH_VECTOR_H
