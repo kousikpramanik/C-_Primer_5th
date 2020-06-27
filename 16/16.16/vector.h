@@ -17,7 +17,9 @@ namespace primer {
     /* exception safety if any of the insert() and emplace() like functions throw
      *
      * constructor throwing while constructing new element -
-     * the vector is resized so that the argument for the const_iterator pos parameter equals cend() afterwards.
+     * the vector is resized so that either the argument corresponding to the const_iterator pos parameter
+     * equals cend() afterwards, or one past the last successfully constructed object equals cend() afterwards.
+     * In any case, all elements in the new (begin(), end()] range are valid.
      *
      * a throw during reallocation -
      * read the comments in _reallocate().
@@ -184,7 +186,6 @@ namespace primer {
                     _move_to_vect(__alloc, other.begin(), other.end(), __first_location);
                 } catch (...) {
                     _cleaner(__alloc, {}, {{__first_location, new_cap}});
-                    __first_free = __first_location;
                     std::rethrow_exception(std::current_exception());
                 }
             }
@@ -414,7 +415,7 @@ namespace primer {
             try {
                 _copy_to_vect(__alloc, first, last, location);
             } catch (...) {
-                _cleaner(__alloc, {{location + 1, __first_free}});
+                _cleaner(__alloc, {{location + count, __first_free}});
                 __first_free = location;
                 std::rethrow_exception(std::current_exception());
             }
@@ -651,8 +652,9 @@ namespace primer {
          * can throw length_error if absurd sizes are requested. no changes to the vector.
          * allocation of new memory can throw. no changes to the vector.
          *
-         * exceptions can be thrown while the new memory is filled
-         * if T is move-only, the vector is cleared. no changes to the vector otherwise.
+         * exceptions can be thrown while the new memory is filled -
+         * if T is move-only, all elements in the vector are destructed and size() becomes 0.
+         * no changes to the vector otherwise.
          */
         void _reallocate(size_type new_cap, size_type skip_pos = 0, difference_type skip_count = 0) {
             if (new_cap > max_size()) {
@@ -662,11 +664,18 @@ namespace primer {
             pointer new_first_free = new_first_location + size() + skip_count;
             try {
                 _move_to_vect(__alloc, __first_location, __first_location + skip_pos, new_first_location);
+            } catch (...) {
+                _cleaner(__alloc, {}, {{new_first_location, new_cap}});
+                if (!std::is_copy_constructible<T>::value) { erase(begin(), end()); }
+                std::rethrow_exception(std::current_exception());
+            }
+            try {
                 _move_to_vect(__alloc, __first_location + skip_pos, __first_free,
                               new_first_location + skip_pos + skip_count);
             } catch (...) {
-                _cleaner(__alloc, {}, {{new_first_location, new_cap}});
-                if (!std::is_copy_constructible<T>::value) { clear(); }
+                _cleaner(__alloc, {{new_first_location, new_first_location + skip_pos}},
+                         {{new_first_location, new_cap}});
+                if (!std::is_copy_constructible<T>::value) { erase(begin(), end()); }
                 std::rethrow_exception(std::current_exception());
             }
             clear();
