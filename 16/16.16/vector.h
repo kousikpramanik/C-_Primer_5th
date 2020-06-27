@@ -648,11 +648,11 @@ namespace primer {
          * anywhere else in this file is an error.
          *
          * exceptions -
-         * can throw length_error if absurd sizes are requested. no changes to the vector
-         * allocation of new memory can throw. no changes to the vector
+         * can throw length_error if absurd sizes are requested. no changes to the vector.
+         * allocation of new memory can throw. no changes to the vector.
          *
          * exceptions can be thrown while the new memory is filled
-         * if the class is NOT move-only, then you are fine. call clear() otherwise.
+         * if T is move-only, the vector is cleared. no changes to the vector otherwise.
          */
         void _reallocate(size_type new_cap, size_type skip_pos = 0, difference_type skip_count = 0) {
             if (new_cap > max_size()) {
@@ -666,6 +666,7 @@ namespace primer {
                               new_first_location + skip_pos + skip_count);
             } catch (...) {
                 _cleaner(__alloc, {}, {{new_first_location, new_cap}});
+                if (!std::is_copy_constructible<T>::value) { clear(); }
                 std::rethrow_exception(std::current_exception());
             }
             clear();
