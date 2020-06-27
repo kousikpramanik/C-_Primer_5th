@@ -13,6 +13,15 @@
 
 namespace primer {
     // should follow C++11 specs other than the explicit specialisation for bool
+
+    /* exception safety if any of the insert() and emplace() like functions throw
+     *
+     * constructor throwing while constructing new element -
+     * the vector is resized so that the argument for the const_iterator pos parameter equals cend() afterwards.
+     *
+     * a throw during reallocation -
+     * read the comments in _reallocate().
+     */
     template<typename T, typename Allocator = std::allocator<T>>
     class vector {
         static_assert(!std::is_reference<T>::value && !std::is_array<T>::value
@@ -513,6 +522,16 @@ namespace primer {
         friend void swap(vector &lhs, vector &rhs) { lhs.swap(rhs); }
 
     private: // internal usage
+        /* copy constructs the elements in (first, last] to where_to (uses the given allocator to do so)
+         *
+         * parameters -
+         * [where_to, where_to + std::distance(first, last)) must exist. the function doesn't allocate memory
+         * the storage must be uninitialised or T must be trivially destructible
+         *
+         * exceptions -
+         * this function only throws if the copy constructor of T throws
+         * on throw, any objects it constructed are destructed
+         */
         template<typename InputIt>
         void _copy_to_vect(allocator_type &alloc, InputIt first, InputIt last, pointer where_to) {
             pointer where_to_backup = where_to;
@@ -526,14 +545,37 @@ namespace primer {
             }
         }
 
+        /* move constructs the elements in (first, last] to where_to (uses the given allocator to do so)
+         *
+         * parameters -
+         * [where_to, where_to + std::distance(first, last)) must exist. the function doesn't allocate memory
+         * the storage must be uninitialised or T must be trivially destructible
+         *
+         * exceptions -
+         * this function only throws if the selected constructor of T throws
+         * on throw, any objects it constructed are destructed
+         *
+         * note - copy constructor is used if it exists and move constructor is throwing
+         */
         template<typename InputIt>
         void _move_to_vect(allocator_type &alloc, InputIt first, InputIt last, pointer where_to) {
-            using Iter = typename std::conditional<std::is_nothrow_move_constructible<T>::value ||
-                                                   !std::is_nothrow_copy_constructible<T>::value,
-                    std::move_iterator<InputIt>, InputIt>::type;
+            using Iter = typename std::conditional<!std::is_nothrow_move_constructible<T>::value &&
+                                                   std::is_copy_constructible<T>::value,
+                    InputIt, std::move_iterator<InputIt>>::type;
             _copy_to_vect(alloc, Iter(first), Iter(last), where_to);
         }
 
+
+        /* copy assigns the elements in (first, last] to the elements in this vector
+         *
+         * parameters -
+         * size() must be at least std::distance(first, last)
+         * alloc is used for exception handling only
+         *
+         * exceptions -
+         * this function only throws if the copy assignment operator of T throws
+         * on throw, all elements in the vector are destructed and size() turns 0
+         */
         template<typename InputIt>
         void _copy_assign_to_vect(allocator_type &alloc, InputIt first, InputIt last) {
             pointer curr = __first_location;
@@ -546,14 +588,37 @@ namespace primer {
             }
         }
 
+        /* move assigns the elements in (first, last] to the elements in this vector
+         *
+         * parameters - size() must be at least std::distance(first, last)
+         * alloc is used for exception handling only
+         *
+         * exceptions -
+         * this function only throws if the selected assignment operator of T throws
+         * on throw, all elements in the vector are destructed and size() turns 0
+         *
+         * note - copy assignment is used if it exists and move assignment is throwing
+         */
         template<typename InputIt>
         void _move_assign_to_vect(allocator_type &alloc, InputIt first, InputIt last) {
-            using Iter = typename std::conditional<std::is_nothrow_move_constructible<T>::value ||
-                                                   !std::is_nothrow_copy_constructible<T>::value,
-                    std::move_iterator<InputIt>, InputIt>::type;
+            using Iter = typename std::conditional<!std::is_nothrow_move_assignable<T>::value &&
+                                                   std::is_copy_constructible<T>::value,
+                    InputIt, std::move_iterator<InputIt>>::type;
             _copy_assign_to_vect(alloc, Iter(first), Iter(last));
         }
 
+        /* makes uninitialised holes in the vector by moving around elements
+         *
+         * parameters - location must be reachable from begin().location
+         *
+         * returns -
+         * a pointer corresponding to the pointer sent as argument. this is returned as reallocation in this
+         * function can invalidate the previous pointer.
+         *
+         * exceptions -
+         * other than length error for requesting allocation of absurd sizes, this function only throws from
+         * a call to _reallocate(). check the comments there for more details.
+         */
         pointer _make_space_middle(pointer location, difference_type count) {
             // prevent unsigned overflow and endless new_cap *= 2 loop
             if (size() + count > max_size()) {
@@ -574,6 +639,21 @@ namespace primer {
             return location;
         }
 
+        /* reallocates memory.
+         * capacity() is new_cap post reallocation.
+         * all iterators, pointers, references are invalidated
+         *
+         * parameters -
+         * skip_pos and skip_count are only used by _make_space_middle, second and third argument to _reallocate
+         * anywhere else in this file is an error.
+         *
+         * exceptions -
+         * can throw length_error if absurd sizes are requested. no changes to the vector
+         * allocation of new memory can throw. no changes to the vector
+         *
+         * exceptions can be thrown while the new memory is filled
+         * if the class is NOT move-only, then you are fine. call clear() otherwise.
+         */
         void _reallocate(size_type new_cap, size_type skip_pos = 0, difference_type skip_count = 0) {
             if (new_cap > max_size()) {
                 throw std::length_error("requested allocation of more than max_size() items.");
@@ -594,6 +674,13 @@ namespace primer {
             __one_past_capacity = new_first_location + new_cap;
         }
 
+        /* uses alloc to destroy each element in each (first, second] pair in the list destroy
+         * uses alloc to deallocate first in each pair in the list deallocate
+         *
+         * Note: destroy (but not deallocate) happens in reverse. the initializer_list is read from
+         * last to first and each element in the iterator range (first, second] is destroyed from
+         * last to first.
+         */
         template<typename U = T, typename std::enable_if<
                 std::is_same<T, U>::value && std::is_trivially_destructible<T>::value, bool>::type = true>
         void _cleaner(allocator_type &alloc, std::initializer_list<std::pair<pointer, pointer>> destroy,
@@ -608,6 +695,7 @@ namespace primer {
             }
         }
 
+        // SFINAE, skips destroy list if T is trivially destructible
         template<typename U = T, typename std::enable_if<
                 std::is_same<T, U>::value && !std::is_trivially_destructible<T>::value, bool>::type = true>
         void _cleaner(allocator_type &alloc, std::initializer_list<std::pair<pointer, pointer>> destroy,
