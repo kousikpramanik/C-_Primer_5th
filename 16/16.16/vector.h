@@ -441,7 +441,7 @@ namespace primer {
             return begin() + start_distance;
         }
 
-        iterator erase(const_iterator pos) { erase(pos, pos + 1); }
+        iterator erase(const_iterator pos) { return erase(pos, pos + 1); }
 
         iterator erase(const_iterator first, const_iterator last) {
             _cleaner(__alloc, {{const_cast<pointer>(first.location), const_cast<pointer>(last.location)}});
@@ -708,7 +708,7 @@ namespace primer {
         // SFINAE, skips destroy list if T is trivially destructible
         template<typename U = T, typename std::enable_if<
                 std::is_same<T, U>::value && !std::is_trivially_destructible<T>::value, bool>::type = true>
-        void _cleaner(allocator_type &alloc, std::initializer_list<std::pair<pointer, pointer>> destroy,
+        void _cleaner(allocator_type &alloc, std::initializer_list<std::pair<pointer, pointer>>,
                       std::initializer_list<std::pair<pointer, size_type>> deallocate = {}) {
             for (const auto &p : deallocate) {
                 std::allocator_traits<allocator_type>::deallocate(alloc, p.first, p.second);
@@ -716,10 +716,10 @@ namespace primer {
         }
 
     private: // data members
-        allocator_type __alloc; // = allocator_type();
         pointer __first_location = nullptr;
         pointer __first_free = nullptr;
         pointer __one_past_capacity = nullptr;
+        allocator_type __alloc; // = allocator_type();
     };
 }
 
