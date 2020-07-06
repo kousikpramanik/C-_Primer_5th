@@ -145,9 +145,9 @@ namespace primer {
     public: // member functions
         vector() = default;
 
-        explicit vector(const Allocator &alloc) : __alloc(alloc) {}
+        explicit vector(const Allocator &alloc) : _alloc(alloc) {}
 
-        vector(size_type count, const T &value, const Allocator &alloc = Allocator()) : __alloc(alloc) {
+        vector(size_type count, const T &value, const Allocator &alloc = Allocator()) : _alloc(alloc) {
             insert(end(), count, value);
         }
 
@@ -155,7 +155,7 @@ namespace primer {
 
         template<typename Iter, typename std::enable_if<std::is_base_of<std::input_iterator_tag,
                 typename std::iterator_traits<Iter>::iterator_category>::value, bool>::type = true>
-        vector(Iter first, Iter last, const Allocator &alloc = Allocator()) : __alloc(alloc) {
+        vector(Iter first, Iter last, const Allocator &alloc = Allocator()) : _alloc(alloc) {
             insert(end(), first, last);
         }
 
@@ -165,27 +165,27 @@ namespace primer {
 
         vector(const vector &other, const Allocator &alloc) : vector(other.begin(), other.end(), alloc) {}
 
-        vector(vector &&other) : __first_location(other.__first_location),
-                                 __first_free(other.__first_free),
-                                 __one_past_capacity(other.__one_past_capacity),
-                                 __alloc(std::move(other.__alloc)) {
-            other.__one_past_capacity = other.__first_free = other.__first_location = nullptr;
+        vector(vector &&other) : _first_location(other._first_location),
+                                 _first_free(other._first_free),
+                                 _one_past_capacity(other._one_past_capacity),
+                                 _alloc(std::move(other._alloc)) {
+            other._one_past_capacity = other._first_free = other._first_location = nullptr;
         }
 
-        vector(vector &&other, const Allocator &alloc) : __alloc(alloc) {
+        vector(vector &&other, const Allocator &alloc) : _alloc(alloc) {
             if (alloc == other.get_allocator()) {
-                __first_location = other.__first_location;
-                __first_free = other.__first_free;
-                __one_past_capacity = other.__one_past_capacity;
-                other.__one_past_capacity = other.__first_free = other.__first_location = nullptr;
+                _first_location = other._first_location;
+                _first_free = other._first_free;
+                _one_past_capacity = other._one_past_capacity;
+                other._one_past_capacity = other._first_free = other._first_location = nullptr;
             } else {
                 auto new_cap = other.size();
                 _reallocate(new_cap);
-                __first_free += new_cap;
+                _first_free += new_cap;
                 try {
-                    _move_to_vect(__alloc, other.begin(), other.end(), __first_location);
+                    _move_to_vect(_alloc, other.begin(), other.end(), _first_location);
                 } catch (...) {
-                    _cleaner(__alloc, {}, {{__first_location, new_cap}});
+                    _cleaner(_alloc, {}, {{_first_location, new_cap}});
                     std::rethrow_exception(std::current_exception());
                 }
             }
@@ -202,18 +202,18 @@ namespace primer {
                                                                  propagate_on_container_copy_assignment>::value,
                 bool>::type = true>
         vector &operator=(const vector &other) {
-            if (__alloc == other.get_allocator()) {
+            if (_alloc == other.get_allocator()) {
                 resize(other.size());
-                _copy_assign_to_vect(__alloc, other.begin(), other.end());
+                _copy_assign_to_vect(_alloc, other.begin(), other.end());
             } else {
                 vector new_vector(other);
                 clear();
-                __first_location = new_vector.__first_location;
-                __first_free = new_vector.__first_free;
-                __one_past_capacity = new_vector.__one_past_capacity;
-                new_vector.__one_past_capacity = new_vector.__first_free = new_vector.__first_location = nullptr;
+                _first_location = new_vector._first_location;
+                _first_free = new_vector._first_free;
+                _one_past_capacity = new_vector._one_past_capacity;
+                new_vector._one_past_capacity = new_vector._first_free = new_vector._first_location = nullptr;
             }
-            __alloc = other.get_allocator();
+            _alloc = other.get_allocator();
             return *this;
         }
 
@@ -224,7 +224,7 @@ namespace primer {
                 bool>::type = true>
         vector &operator=(const vector &other) {
             resize(other.size());
-            _copy_assign_to_vect(__alloc, other.begin(), other.end());
+            _copy_assign_to_vect(_alloc, other.begin(), other.end());
             return *this;
         }
 
@@ -234,17 +234,17 @@ namespace primer {
                                                                  propagate_on_container_move_assignment>::value,
                 bool>::type = true>
         vector &operator=(vector &&other) {
-            pointer new_first_location = other.__first_location;
-            pointer new_first_free = other.__first_free;
-            pointer new_one_past_capacity = other.__one_past_capacity;
-            other.__first_location = nullptr;
-            other.__first_free = nullptr;
-            other.__one_past_capacity = nullptr;
+            pointer new_first_location = other._first_location;
+            pointer new_first_free = other._first_free;
+            pointer new_one_past_capacity = other._one_past_capacity;
+            other._first_location = nullptr;
+            other._first_free = nullptr;
+            other._one_past_capacity = nullptr;
             clear();
-            __alloc = other.get_allocator();
-            __first_location = new_first_location;
-            __first_free = new_first_free;
-            __one_past_capacity = new_one_past_capacity;
+            _alloc = other.get_allocator();
+            _first_location = new_first_location;
+            _first_free = new_first_free;
+            _one_past_capacity = new_one_past_capacity;
             return *this;
         }
 
@@ -254,27 +254,27 @@ namespace primer {
                                                                  propagate_on_container_move_assignment>::value,
                 bool>::type = true>
         vector &operator=(vector &&other) {
-            if (__alloc == other.get_allocator()) {
-                pointer new_first_location = other.__first_location;
-                pointer new_first_free = other.__first_free;
-                pointer new_one_past_capacity = other.__one_past_capacity;
-                other.__first_location = nullptr;
-                other.__first_free = nullptr;
-                other.__one_past_capacity = nullptr;
+            if (_alloc == other.get_allocator()) {
+                pointer new_first_location = other._first_location;
+                pointer new_first_free = other._first_free;
+                pointer new_one_past_capacity = other._one_past_capacity;
+                other._first_location = nullptr;
+                other._first_free = nullptr;
+                other._one_past_capacity = nullptr;
                 clear();
-                __first_location = new_first_location;
-                __first_free = new_first_free;
-                __one_past_capacity = new_one_past_capacity;
+                _first_location = new_first_location;
+                _first_free = new_first_free;
+                _one_past_capacity = new_one_past_capacity;
             } else {
                 resize(other.size());
-                _move_assign_to_vect(__alloc, other.begin(), other.end());
+                _move_assign_to_vect(_alloc, other.begin(), other.end());
             }
             return *this;
         }
 
         vector &operator=(std::initializer_list<T> ilist) {
             resize(ilist.size());
-            _copy_assign_to_vect(__alloc, ilist.begin(), ilist.end());
+            _copy_assign_to_vect(_alloc, ilist.begin(), ilist.end());
             return *this;
         }
 
@@ -292,47 +292,47 @@ namespace primer {
 
         void assign(std::initializer_list<T> ilist) { assign(ilist.begin(), ilist.end()); }
 
-        allocator_type get_allocator() const noexcept { return __alloc; }
+        allocator_type get_allocator() const noexcept { return _alloc; }
 
     public: // element access
         reference at(size_type pos) {
             if (pos >= size()) { throw std::out_of_range("requested access beyond vector bounds"); }
-            return __first_location[pos];
+            return _first_location[pos];
         }
 
         const_reference at(size_type pos) const {
             if (pos >= size()) { throw std::out_of_range("requested access beyond vector bounds"); }
-            return __first_location[pos];
+            return _first_location[pos];
         }
 
-        reference operator[](size_type pos) { return __first_location[pos]; }
+        reference operator[](size_type pos) { return _first_location[pos]; }
 
-        const_reference operator[](size_type pos) const { return __first_location[pos]; }
+        const_reference operator[](size_type pos) const { return _first_location[pos]; }
 
-        reference front() { return __first_location[0]; }
+        reference front() { return _first_location[0]; }
 
-        const_reference front() const { return __first_location[0]; }
+        const_reference front() const { return _first_location[0]; }
 
-        reference back() { return __first_free[-1]; }
+        reference back() { return _first_free[-1]; }
 
-        const_reference back() const { return __first_free[-1]; }
+        const_reference back() const { return _first_free[-1]; }
 
-        T *data() noexcept { return __first_location; }
+        T *data() noexcept { return _first_location; }
 
-        const T *data() const noexcept { return __first_location; }
+        const T *data() const noexcept { return _first_location; }
 
     public: // iterators
-        iterator begin() noexcept { return __first_location; }
+        iterator begin() noexcept { return _first_location; }
 
-        const_iterator begin() const noexcept { return __first_location; }
+        const_iterator begin() const noexcept { return _first_location; }
 
-        const_iterator cbegin() const noexcept { return __first_location; }
+        const_iterator cbegin() const noexcept { return _first_location; }
 
-        iterator end() noexcept { return __first_free; }
+        iterator end() noexcept { return _first_free; }
 
-        const_iterator end() const noexcept { return __first_free; }
+        const_iterator end() const noexcept { return _first_free; }
 
-        const_iterator cend() const noexcept { return __first_free; }
+        const_iterator cend() const noexcept { return _first_free; }
 
         reverse_iterator rbegin() noexcept { return reverse_iterator(end()); }
 
@@ -349,7 +349,7 @@ namespace primer {
     public: // capacity
         bool empty() const noexcept { return size(); }
 
-        size_type size() const noexcept { return std::distance(__first_location, __first_free); }
+        size_type size() const noexcept { return std::distance(_first_location, _first_free); }
 
         size_type max_size() const noexcept { return std::numeric_limits<difference_type>::max(); }
 
@@ -357,7 +357,7 @@ namespace primer {
             if (new_cap > capacity()) { _reallocate(new_cap); }
         }
 
-        size_type capacity() const noexcept { return std::distance(__first_location, __one_past_capacity); }
+        size_type capacity() const noexcept { return std::distance(_first_location, _one_past_capacity); }
 
         void shrink_to_fit() {
             if (capacity() != size()) { _reallocate(size()); }
@@ -365,9 +365,9 @@ namespace primer {
 
     public: // modifiers
         void clear() noexcept {
-            if (__first_location != nullptr) {
-                _cleaner(__alloc, {{__first_location, __first_free}}, {{__first_location, capacity()}});
-                __first_location = __first_free = __one_past_capacity = nullptr;
+            if (_first_location != nullptr) {
+                _cleaner(_alloc, {{_first_location, _first_free}}, {{_first_location, capacity()}});
+                _first_location = _first_free = _one_past_capacity = nullptr;
             }
         }
 
@@ -383,11 +383,11 @@ namespace primer {
                                                   static_cast<difference_type>(count));
             try {
                 for (; count != 0; --count, ++location) {
-                    std::allocator_traits<allocator_type>::construct(__alloc, location, value);
+                    std::allocator_traits<allocator_type>::construct(_alloc, location, value);
                 }
             } catch (...) {
-                _cleaner(__alloc, {{location + 1, __first_free}});
-                __first_free = location;
+                _cleaner(_alloc, {{location + 1, _first_free}});
+                _first_free = location;
                 std::rethrow_exception(std::current_exception());
             }
             return begin() + start_distance;
@@ -413,10 +413,10 @@ namespace primer {
             auto count = std::distance(first, last);
             pointer location = _make_space_middle(const_cast<pointer>(pos.location), count);
             try {
-                _copy_to_vect(__alloc, first, last, location);
+                _copy_to_vect(_alloc, first, last, location);
             } catch (...) {
-                _cleaner(__alloc, {{location + count, __first_free}});
-                __first_free = location;
+                _cleaner(_alloc, {{location + count, _first_free}});
+                _first_free = location;
                 std::rethrow_exception(std::current_exception());
             }
             return begin() + start_distance;
@@ -432,10 +432,10 @@ namespace primer {
             auto start_distance = std::distance(cbegin(), pos);
             pointer location = _make_space_middle(const_cast<pointer>(pos.location), 1);
             try {
-                std::allocator_traits<allocator_type>::construct(__alloc, location, std::forward<Args>(args)...);
+                std::allocator_traits<allocator_type>::construct(_alloc, location, std::forward<Args>(args)...);
             } catch (...) {
-                _cleaner(__alloc, {{location + 1, __first_free}});
-                __first_free = location;
+                _cleaner(_alloc, {{location + 1, _first_free}});
+                _first_free = location;
                 std::rethrow_exception(std::current_exception());
             }
             return begin() + start_distance;
@@ -444,17 +444,17 @@ namespace primer {
         iterator erase(const_iterator pos) { return erase(pos, pos + 1); }
 
         iterator erase(const_iterator first, const_iterator last) {
-            _cleaner(__alloc, {{const_cast<pointer>(first.location), const_cast<pointer>(last.location)}});
+            _cleaner(_alloc, {{const_cast<pointer>(first.location), const_cast<pointer>(last.location)}});
             try {
-                _move_to_vect(__alloc, const_cast<pointer>(last.location), __first_free,
+                _move_to_vect(_alloc, const_cast<pointer>(last.location), _first_free,
                               const_cast<pointer>(first.location));
             } catch (...) {
-                _cleaner(__alloc, {{const_cast<pointer>(last.location), __first_free}});
-                __first_free = const_cast<pointer>(first.location);
+                _cleaner(_alloc, {{const_cast<pointer>(last.location), _first_free}});
+                _first_free = const_cast<pointer>(first.location);
                 std::rethrow_exception(std::current_exception());
             }
-            _cleaner(__alloc, {{const_cast<pointer>(last.location), __first_free}});
-            __first_free -= std::distance(first, last);
+            _cleaner(_alloc, {{const_cast<pointer>(last.location), _first_free}});
+            _first_free -= std::distance(first, last);
             return const_cast<pointer>(first.location);
         }
 
@@ -484,10 +484,10 @@ namespace primer {
                 bool>::type = true>
         void swap(vector &other) {
             using std::swap;
-            swap(__alloc, other.__alloc);
-            swap(__first_location, other.__first_location);
-            swap(__first_free, other.__first_free);
-            swap(__one_past_capacity, other.__one_past_capacity);
+            swap(_alloc, other._alloc);
+            swap(_first_location, other._first_location);
+            swap(_first_free, other._first_free);
+            swap(_one_past_capacity, other._one_past_capacity);
         }
 
         template<typename U = T, typename std::enable_if<std::is_same<T, U>::value &&
@@ -497,9 +497,9 @@ namespace primer {
                 bool>::type = true>
         void swap(vector &other) {
             using std::swap;
-            swap(__first_location, other.__first_location);
-            swap(__first_free, other.__first_free);
-            swap(__one_past_capacity, other.__one_past_capacity);
+            swap(_first_location, other._first_location);
+            swap(_first_free, other._first_free);
+            swap(_one_past_capacity, other._one_past_capacity);
         }
 
     public: // non-member functions
@@ -579,12 +579,12 @@ namespace primer {
          */
         template<typename InputIt>
         void _copy_assign_to_vect(allocator_type &alloc, InputIt first, InputIt last) {
-            pointer curr = __first_location;
+            pointer curr = _first_location;
             try {
                 for (; first != last; ++first, ++curr) { *curr = *first; }
             } catch (...) {
-                _cleaner(alloc, {{__first_location, __first_free}});
-                __first_free = __first_location;
+                _cleaner(alloc, {{_first_location, _first_free}});
+                _first_free = _first_location;
                 std::rethrow_exception(std::current_exception());
             }
         }
@@ -630,12 +630,12 @@ namespace primer {
                 new_cap = std::max(capacity() * 2, static_cast<size_type>(1));
                 while (new_cap < size() + count) { new_cap *= 2; }
             }
-            if (new_cap != capacity() || location != __first_free) {
-                auto position = std::distance(__first_location, location);
+            if (new_cap != capacity() || location != _first_free) {
+                auto position = std::distance(_first_location, location);
                 _reallocate(new_cap, position, count);
-                location = __first_location + position;
+                location = _first_location + position;
             } else {
-                __first_free += count;
+                _first_free += count;
             }
             return location;
         }
@@ -660,28 +660,28 @@ namespace primer {
             if (new_cap > max_size()) {
                 throw std::length_error("requested allocation of more than max_size() items.");
             }
-            pointer new_first_location = std::allocator_traits<allocator_type>::allocate(__alloc, new_cap);
+            pointer new_first_location = std::allocator_traits<allocator_type>::allocate(_alloc, new_cap);
             pointer new_first_free = new_first_location + size() + skip_count;
             try {
-                _move_to_vect(__alloc, __first_location, __first_location + skip_pos, new_first_location);
+                _move_to_vect(_alloc, _first_location, _first_location + skip_pos, new_first_location);
             } catch (...) {
-                _cleaner(__alloc, {}, {{new_first_location, new_cap}});
+                _cleaner(_alloc, {}, {{new_first_location, new_cap}});
                 if (!std::is_copy_constructible<T>::value) { erase(begin(), end()); }
                 std::rethrow_exception(std::current_exception());
             }
             try {
-                _move_to_vect(__alloc, __first_location + skip_pos, __first_free,
+                _move_to_vect(_alloc, _first_location + skip_pos, _first_free,
                               new_first_location + skip_pos + skip_count);
             } catch (...) {
-                _cleaner(__alloc, {{new_first_location, new_first_location + skip_pos}},
+                _cleaner(_alloc, {{new_first_location, new_first_location + skip_pos}},
                          {{new_first_location, new_cap}});
                 if (!std::is_copy_constructible<T>::value) { erase(begin(), end()); }
                 std::rethrow_exception(std::current_exception());
             }
             clear();
-            __first_location = new_first_location;
-            __first_free = new_first_free;
-            __one_past_capacity = new_first_location + new_cap;
+            _first_location = new_first_location;
+            _first_free = new_first_free;
+            _one_past_capacity = new_first_location + new_cap;
         }
 
         /* uses alloc to destroy each element in each (first, second] pair in the list destroy
@@ -716,10 +716,10 @@ namespace primer {
         }
 
     private: // data members
-        pointer __first_location = nullptr;
-        pointer __first_free = nullptr;
-        pointer __one_past_capacity = nullptr;
-        allocator_type __alloc; // = allocator_type();
+        pointer _first_location = nullptr;
+        pointer _first_free = nullptr;
+        pointer _one_past_capacity = nullptr;
+        allocator_type _alloc; // = allocator_type();
     };
 }
 
