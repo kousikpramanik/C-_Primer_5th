@@ -32,3 +32,13 @@ target_include_directories(16.19 INTERFACE 16.19)
 
 add_library(16.20 INTERFACE)
 target_include_directories(16.20 INTERFACE 16.20)
+
+add_library(DebugDelete INTERFACE)
+target_include_directories(DebugDelete INTERFACE 16.21)
+
+add_library(TextQuery_7 STATIC 16.22/TextQuery.cpp 16.22/TextQuery.h)
+target_link_libraries(TextQuery_7 PRIVATE DebugDelete)
+target_include_directories(TextQuery_7 PUBLIC 16.22)
+
+add_executable(16.23 16.23.cpp)
+target_link_libraries(16.23 PUBLIC TextQuery_7)
