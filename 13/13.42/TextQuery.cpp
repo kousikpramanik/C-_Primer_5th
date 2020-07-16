@@ -1,7 +1,6 @@
 #include "TextQuery.h"
 
 #include <fstream>
-#include "StrVec.h"
 #include <string>
 #include <memory>
 #include <sstream>

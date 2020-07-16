@@ -1,45 +1,42 @@
 #ifndef C_PRIMER_5TH_TEXTQUERY_H
 #define C_PRIMER_5TH_TEXTQUERY_H
 
-#include <iostream>
-#include <string>
-#include <memory>
-#include <vector>
-#include <map>
-#include <set>
 #include "StrBlob.h"
+#include <fstream>
+#include <string>
+#include <map>
+#include <memory>
+#include <set>
+#include <iostream>
 
 class QueryResult;
 
 class TextQuery {
-public: // constructors
-    explicit TextQuery(std::istream &is); // fstream inherits from iostream
+public:
+    using line_no = StrBlob::size_type;
 
-public: // functions
-    QueryResult query(const std::string &s) const;
+    TextQuery(std::ifstream &is);
 
-private: // data members
-    StrBlob textptr;
-    std::map<std::string, std::shared_ptr<std::multiset<StrBlob::size_type>>> wordmap;
+    QueryResult query(const std::string &sought) const;
+
+private:
+    StrBlob file;
+    std::map<std::string, std::shared_ptr<std::set<line_no>>> wm;
 };
 
 class QueryResult {
-    friend class TextQuery;
-
     friend std::ostream &print(std::ostream &os, const QueryResult &qr);
 
-private: // constructor
-    explicit QueryResult(const std::string &s,
-                         const StrBlob &t,
-                         std::shared_ptr<std::multiset<StrBlob::size_type>> w = nullptr) :
-            query(s),
-            textptr(t),
-            wordset(w) {}
+public:
+    QueryResult(std::string s,
+                std::shared_ptr<std::set<TextQuery::line_no>> p,
+                StrBlob f) :
+            sought(s), lines(p), file(f) {}
 
-private: // data members
-    std::string query;
-    StrBlob textptr;
-    std::shared_ptr<std::multiset<StrBlob::size_type>> wordset;
+private:
+    std::string sought;
+    std::shared_ptr<std::set<TextQuery::line_no>> lines;
+    StrBlob file;
 };
 
 std::ostream &print(std::ostream &os, const QueryResult &qr);

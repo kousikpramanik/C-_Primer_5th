@@ -17,7 +17,7 @@ public:
 
     TextQuery(std::ifstream &is);
 
-    QueryResult query(const std::string &) const;
+    QueryResult query(const std::string &sought) const;
 
 private:
     std::shared_ptr<std::vector<std::string>> file;
@@ -25,7 +25,7 @@ private:
 };
 
 class QueryResult {
-    friend std::ostream &print(std::ostream &, const QueryResult &);
+    friend std::ostream &print(std::ostream &os, const QueryResult &qr);
 
 public:
     QueryResult(std::string s,
@@ -44,5 +44,7 @@ private:
     std::shared_ptr<std::set<TextQuery::line_no>> lines;
     std::shared_ptr<std::vector<std::string>> file;
 };
+
+std::ostream &print(std::ostream &os, const QueryResult &qr);
 
 #endif //C_PRIMER_5TH_TEXTQUERY_H

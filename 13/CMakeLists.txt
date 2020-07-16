@@ -6,8 +6,8 @@ add_executable(13.17_13.16 13.17/13.16.cpp)
 add_library(Employee STATIC 13.18/Employee.cpp 13.18/Employee.h)
 target_include_directories(Employee PUBLIC 13.18)
 
-add_library(TextQuery_4 STATIC 13.21/TextQuery.cpp 13.21/TextQuery.h)
-target_include_directories(TextQuery_4 PUBLIC 13.21)
+add_library(TextQuery_5 STATIC 13.21/TextQuery.cpp 13.21/TextQuery.h)
+target_include_directories(TextQuery_5 PUBLIC 13.21)
 
 add_library(HasPtr INTERFACE)
 target_include_directories(HasPtr INTERFACE 13.22)
@@ -36,9 +36,9 @@ target_include_directories(Message_Folder PUBLIC 13.36)
 add_library(StrVec STATIC 13.40/StrVec.cpp 13.40/StrVec.h)
 target_include_directories(StrVec PUBLIC 13.40)
 
-add_library(TextQuery_5 STATIC 13.42/TextQuery.cpp 13.42/TextQuery.h)
-target_link_libraries(TextQuery_5 PUBLIC StrVec)
-target_include_directories(TextQuery_5 PUBLIC 13.42)
+add_library(TextQuery_6 STATIC 13.42/TextQuery.cpp 13.42/TextQuery.h)
+target_link_libraries(TextQuery_6 PUBLIC StrVec)
+target_include_directories(TextQuery_6 PUBLIC 13.42)
 
 add_library(StrVec_2 STATIC 13.43/StrVec.cpp 13.43/StrVec.h)
 target_include_directories(StrVec_2 PUBLIC 13.43)

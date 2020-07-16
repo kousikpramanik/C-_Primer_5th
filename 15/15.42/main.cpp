@@ -28,7 +28,7 @@ Type your query: )";
     while (std::getline(std::cin, current_string) && !current_string.empty()) {
         try {
             auto current_query = strToQuery(current_string, history);
-            std::cout << current_query.eval(tq);
+            print(std::cout, current_query.eval(tq));
             history.push_back(std::move(current_query));
         } catch (const std::invalid_argument &err) {
             std::cout << err.what() << '\n';

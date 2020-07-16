@@ -92,33 +92,30 @@ target_include_directories(Basket INTERFACE 15.30/Basket)
 add_executable(15.30 15.30/main.cpp)
 target_link_libraries(15.30 PUBLIC Basket PUBLIC Bulk_quote_6 PUBLIC Limit_quote_4)
 
-add_library(TextQuery_6 STATIC 15.35/TextQuery/TextQuery.cpp 15.35/TextQuery/TextQuery.h)
-target_include_directories(TextQuery_6 PUBLIC 15.35/TextQuery)
-
 add_library(Query INTERFACE)
-target_link_libraries(Query INTERFACE TextQuery_6)
-target_include_directories(Query INTERFACE 15.35/Query)
+target_link_libraries(Query INTERFACE TextQuery_4)
+target_include_directories(Query INTERFACE 15.35)
 
 add_library(Query_2 INTERFACE)
-target_link_libraries(Query_2 INTERFACE TextQuery_6)
+target_link_libraries(Query_2 INTERFACE TextQuery_4)
 target_include_directories(Query_2 INTERFACE 15.36/Query)
 
 add_executable(15.36 15.36/main.cpp)
 target_link_libraries(15.36 PUBLIC Query_2)
 
 add_library(Query_3 INTERFACE)
-target_link_libraries(Query_3 INTERFACE TextQuery_6)
+target_link_libraries(Query_3 INTERFACE TextQuery_4)
 target_include_directories(Query_3 INTERFACE 15.37)
 
 add_library(Query_4 STATIC 15.39/Query/Query.cpp 15.39/Query/Query.h)
-target_link_libraries(Query_4 PUBLIC TextQuery_6)
+target_link_libraries(Query_4 PUBLIC TextQuery_4)
 target_include_directories(Query_4 PUBLIC 15.39/Query)
 
 add_executable(15.39 15.39/main.cpp)
 target_link_libraries(15.39 PUBLIC Query_4)
 
 add_library(Query_5 STATIC 15.41/Query.cpp 15.41/Query.h)
-target_link_libraries(Query_5 PUBLIC TextQuery_6)
+target_link_libraries(Query_5 PUBLIC TextQuery_4)
 target_include_directories(Query_5 PUBLIC 15.41)
 
 add_library(Query_parser STATIC 15.42/Query_parser/Query_parser.cpp 15.42/Query_parser/Query_parser.h)
