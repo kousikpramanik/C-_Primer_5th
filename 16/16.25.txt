@@ -1,0 +1,4 @@
+extern template class vector<string>;
+// uses of vector<string> does not cause template instantiation in this compilation unit.
+template class vector<Sales_data>;
+// instantiates the Sales_data specialisation of vector and all its members

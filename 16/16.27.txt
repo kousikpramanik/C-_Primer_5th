@@ -1,0 +1,6 @@
+a) function declaration does not require complete object type. Stack<char> specialisation obtained, no instantiation
+b) reference doesn't require complete object type. Stack<double> specialisation obtained, no instantiation
+c) lvalue constructed, Stack<int> specialisation instantiated
+d) pointer doesn't require complete object type. Stack<char> specialisation, no instantiation
+e) requires lvalue from pointer, Stack<char> specialisation instantiated
+f) sizeof cannot be used with incomplete types. Stack<string> specialisation instantiated

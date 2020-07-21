@@ -42,3 +42,6 @@ target_include_directories(TextQuery_7 PUBLIC 16.22)
 
 add_executable(16.23 16.23.cpp)
 target_link_libraries(16.23 PUBLIC TextQuery_7)
+
+add_library(Blob_2 INTERFACE)
+target_include_directories(Blob_2 INTERFACE 16.24)

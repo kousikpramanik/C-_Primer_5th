@@ -1,0 +1,1 @@
+No. Explicit instantiation instantiates all members. This is impossible for NoDefault. For example, vector has a constructor that only takes a size and constructs a vector with that many default constructed elements. Instantiation of that function will fail.
