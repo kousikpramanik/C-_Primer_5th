@@ -72,7 +72,7 @@ target_link_libraries(7.29 PUBLIC Screen_4)
 add_library(X_Y INTERFACE)
 target_include_directories(X_Y INTERFACE 7.30)
 
-add_library(Window_mgr STATIC 7.32/Window_mgr.cpp 7.32/Window_mgr.h 7.32/Screen.h)
+add_library(Window_mgr STATIC 7.32/Window_mgr.cpp 7.32/Window_mgr.h)
 target_include_directories(Window_mgr PUBLIC 7.32)
 
 add_library(Book INTERFACE)
